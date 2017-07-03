@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-config.dtd">  
+<configuration>  
+    <!-- <typeAliases>
+  	   <package name="cn.creditharmoney.entity"/>
+  	   <package name="cn.xhcf.loan.entity"/>
+  	   <package name="cn.xhcf.trade.entity"/>
+ 	</typeAliases> -->
+
+	<!-- 分页插件 
+	<plugins>
+		<plugin interceptor="cn.xhcf.common.interceptor.DiclectStatementHandlerInterceptor">
+			<property name="dialect_type" value="oracle"/> 
+		</plugin>
+		<plugin interceptor="cn.xhcf.common.interceptor.DiclectResultSetHandlerInterceptor"/>
+	</plugins>-->
+</configuration> 
