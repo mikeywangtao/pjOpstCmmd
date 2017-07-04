@@ -27,7 +27,6 @@ public class TstDao {
 			System.out.println(strCname + strFname + ex);
 		}
 
-		
 		return strRe;
 	}
 }
