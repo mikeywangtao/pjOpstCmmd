@@ -13,7 +13,7 @@
       http://www.springframework.org/schema/aop
 	  http://www.springframework.org/schema/aop/spring-aop-4.3.xsd" >
 	  <!-- 扫描包下的spring注解  -->
-	<context:component-scan base-package="orgs.cm.*.service, orgs.cm.*.dao" /> 
+	<context:component-scan base-package="orgs.cm.*.service, orgs.cm.*.dao, orgs.cm.*.model" /> 
 
 	<!-- Spring中引入其他配置文件 -->
 	<import resource="classpath*:/spring-jdbc.xml" />

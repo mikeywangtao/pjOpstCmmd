@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import orgs.cm.tst.dao.TstDao;
+import orgs.cm.tst.model.RunCmmd000;
 
 @Service("tstServ")
 public class TstServ {
@@ -14,6 +15,8 @@ public class TstServ {
 	
 	@Autowired
 	private TstDao tstDao;
+	@Autowired
+	private RunCmmd000 runCmmd000;
 	
 	public String disTstServ_Pro(LinkedHashMap<String, Object> lhpParp){
 		String strFname = " disTstServ_Pro : ";
@@ -22,6 +25,8 @@ public class TstServ {
 		System.out.println(strCname + strFname);
 		tstDao.disTstDao_Pro(lhpParp);
 		
+		//
+		runCmmd000.disPro000();
 		return strRe;
 	}
 }
