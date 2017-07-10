@@ -3,14 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>orgs.cm</groupId>
-	<artifactId>pjOpStAuth</artifactId>
+	<artifactId>pjOpStCmmd</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>pjOpStAuth</name>
+	<name>pjOpStCmmd</name>
 	<url>http://maven.apache.org</url>
 	<build>
-		<finalName>pjOpStAuth</finalName>
+		<finalName>pjOpStCmmd</finalName>
 	</build>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

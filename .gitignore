@@ -7,7 +7,6 @@
 *.iml
 *.pydevproject 
 *.pyc 
-.settings/*
 .externalToolBuilders/*
 /target/*
 /src/main/webapp/WEB-INF/classes/*
