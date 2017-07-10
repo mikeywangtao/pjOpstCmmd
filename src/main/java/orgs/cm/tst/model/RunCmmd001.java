@@ -1,21 +1,20 @@
 package orgs.cm.tst.model;
 
-import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-@Service("runCmmd000")
-public class RunCmmd000 {
+@Service("runCmmd001")
+public class RunCmmd001 {
 
-	private final String strCname = RunCmmd000.class.getName();
+	private final String strCname = RunCmmd001.class.getName();
 	private final Logger infoLogger = LogManager.getLogger(strCname);
 
 	public void disPro000() {
 		String strFname = " disPro000 : ";
-		
 		InputStreamReader stdISR = null;
 		InputStreamReader errISR = null;
 		Process process = null;
@@ -23,26 +22,23 @@ public class RunCmmd000 {
 		String command = "/home/heaven/shtst000.sh";
 		try {
 			process = Runtime.getRuntime().exec(command);
-			int exitValue = process.waitFor();
 
-			String line = null;
-			if(exitValue==0){
-				stdISR = new InputStreamReader(process.getInputStream());
-				BufferedReader stdBR = new BufferedReader(stdISR);
-				while ((line = stdBR.readLine()) != null) {
-					System.out.println("STD line:" + line);
-				}
+			CommandStreamGobbler00 errorGobbler = new CommandStreamGobbler00(process.getErrorStream(), command, "ERR");
+			CommandStreamGobbler00 outputGobbler = new CommandStreamGobbler00(process.getInputStream(), command, "STD");
 
-				errISR = new InputStreamReader(process.getErrorStream());
-				BufferedReader errBR = new BufferedReader(errISR);
-				while ((line = errBR.readLine()) != null) {
-					System.out.println("ERR line:" + line);
-				}
-			} else {
-				throw new Exception("Run Command Error!!");
+			// 必须先等待错误输出ready再建立标准输出
+			while (!errorGobbler.isReady()) {
+				Thread.sleep(10);
 			}
+			outputGobbler.start();
+			while (!outputGobbler.isReady()) {
+				Thread.sleep(10);
+			}
+			
+			int exitValue = process.waitFor();
 		} catch (Exception ex) {
 			infoLogger.error(strCname + strFname + ex);
+//			e.printStackTrace();
 		} finally {
 			try {
 				if (stdISR != null) {
@@ -57,9 +53,9 @@ public class RunCmmd000 {
 					process.destroy();
 					process = null;
 				}
-			} catch (Exception exx) {
-				// System.out.println("正式执行命令：" + command + "有IO异常");
+			} catch (IOException exx) {
 				infoLogger.error(strCname + strFname + exx);
+//				System.out.println("正式执行命令：" + command + "有IO异常");
 			}
 		}
 	}
