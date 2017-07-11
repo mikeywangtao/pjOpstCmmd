@@ -17,6 +17,14 @@
     		classpath*:/spring-context.xml
     	</param-value>
   </context-param>
+  
+  <listener>
+    <listener-class>orgs.cm.pMqp.pLis.Prolst</listener-class>
+  </listener>
+  <listener>
+    <listener-class>orgs.cm.pMqp.pLis.MqLis</listener-class>
+  </listener>
+  
   <servlet>
     <servlet-name>dispatcherServlet</servlet-name>
     <servlet-class>
