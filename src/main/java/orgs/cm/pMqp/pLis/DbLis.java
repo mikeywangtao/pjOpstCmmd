@@ -7,14 +7,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import orgs.cm.pMqp.pComms.Propertiesmap;
+import orgs.cm.pMqp.pDblst.DbContProcess;
 
-/**
- * MQ启动监听
- * */
-public class MqLis implements ServletContextListener {
+public class DbLis implements ServletContextListener {
 
-	private final String strCname = MqLis.class.getName();
+	private final String strCname = DbLis.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
+	
+	/** DbLis是否在Init。true:yes false:no */
+	public static boolean booFlg = true;
 	
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
@@ -57,20 +58,17 @@ public class MqLis implements ServletContextListener {
 		String strFname = " contextInitialized : ";
 		try{
 			logger.info(strCname + strFname + " Start!");
-			while(ProLis.booFlg){
-				Thread.sleep(1000);
-			}
 			String strPath = this.getClass().getResource("").getPath();
 			if(strPath!=null && strPath.trim().length()>0
 					&& strPath.indexOf("WEB-INF")>0){
 				int intOdx = strPath.indexOf("WEB-INF");
-				strPath = strPath.substring(0, intOdx) + "WEB-INF/classes/sysTarget.properties";
-				Propertiesmap.setPpt(strPath);
-				strPath = strPath.substring(0, intOdx) + "WEB-INF/classes/activeMq.properties";
+				strPath = strPath.substring(0, intOdx) + "WEB-INF/classes/jdbc.properties";
 				Propertiesmap.setPpt(strPath);
 				
-				ReceiveMsgProces objReceiveMsgProces = new ReceiveMsgProces();
-				objReceiveMsgProces.disInitReceive();
+				DbContProcess objDbContProcess = new DbContProcess();
+				objDbContProcess.disInitDbCont();
+//				ReceiveMsgProces objReceiveMsgProces = new ReceiveMsgProces();
+//				objReceiveMsgProces.disInitReceive();
 			}
 				
 		} catch(Exception ex) {
@@ -84,6 +82,8 @@ public class MqLis implements ServletContextListener {
 						+ ":" + subSte[i].getLineNumber() 
 						+ "||" + lonFlg );
 			}
+		} finally{
+			booFlg = false;
 		}
 	}
 }

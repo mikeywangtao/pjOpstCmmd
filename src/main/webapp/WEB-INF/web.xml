@@ -17,9 +17,12 @@
     		classpath*:/spring-context.xml
     	</param-value>
   </context-param>
-  
+
   <listener>
-    <listener-class>orgs.cm.pMqp.pLis.Prolst</listener-class>
+    <listener-class>orgs.cm.pMqp.pLis.DbLis</listener-class>
+  </listener>
+  <listener>
+    <listener-class>orgs.cm.pMqp.pLis.ProLis</listener-class>
   </listener>
   <listener>
     <listener-class>orgs.cm.pMqp.pLis.MqLis</listener-class>

@@ -9,9 +9,9 @@ import org.apache.logging.log4j.Logger;
 /**
  * RunCmd的队列
  * */
-public class Prolst implements ServletContextListener {
+public class ProLis implements ServletContextListener {
 
-	private final String strCname = MqLis.class.getName();
+	private final String strCname = ProLis.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	/** Prolst是否在Init。true:yes false:no */
 	public static boolean booFlg = true;
@@ -57,6 +57,9 @@ public class Prolst implements ServletContextListener {
 		String strFname = " contextInitialized : ";
 		try{
 			logger.info(strCname + strFname + " Start!");
+			while(DbLis.booFlg){
+				Thread.sleep(1000);
+			}
 			RuncmdProces objRuncmdProces = new RuncmdProces();
 			objRuncmdProces.disInitRuncmd();
 //			String strPath = this.getClass().getResource("").getPath();
