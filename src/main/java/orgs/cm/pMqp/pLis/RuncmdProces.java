@@ -22,8 +22,9 @@ public class RuncmdProces {
 			
 			ThrdRunManage.chmthdrMang_RuncmdPro.put("CREATE", new ThrdRunOne(20));
 			ThrdRunManage.chmthdrMang_RuncmdPro.put("EDIT", new ThrdRunOne(20));
-			ThrdRunManage.chmthdrMang_RuncmdPro.put("SSRD", new ThrdRunOne(4));//START STOP RESTART DESTROY
-			ThrdRunManage.chmthdrMang_RuncmdPro.put("IFN", new ThrdRunOne(3));//IMAGE FLV NETWORK
+			ThrdRunManage.chmthdrMang_RuncmdPro.put("SSRD", new ThrdRunOne(5));//START STOP RESTART DESTROY
+			ThrdRunManage.chmthdrMang_RuncmdPro.put("IFN", new ThrdRunOne(4));//IMAGE FLV NETWORK
+			ThrdRunManage.chmthdrMang_RuncmdPro.put("OPRO", new ThrdRunOne(3));//OTHER PROCESS
 		} catch(Exception ex){
 			long lonFlg = System.currentTimeMillis();
 			logger.error(strCname + strFname + ex + "||" + lonFlg);

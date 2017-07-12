@@ -38,9 +38,10 @@ public class ReceiveMsgProces {
 				if(subStrSysFlg!=null && subStrSysFlg.length>0){
 					for(String flg : subStrSysFlg){
 						if(flg!=null && flg.trim().length()>0){
-							ThreadReceiveMsgManage.chmReceive.put(flg+","+strServerTarget, new ThrdReceiveMsg());
-							ThreadReceiveMsgManage.chmReceive.get(flg+","+strServerTarget).setFlg(flg);
-							ThreadReceiveMsgManage.chmReceive.get(flg+","+strServerTarget).start();
+							ThreadReceiveMsgManage.chmReceive.put(flg+"_"+strServerTarget, new ThrdReceiveMsg());
+							ThreadReceiveMsgManage.chmReceive.get(flg+"_"+strServerTarget).setFlg(flg);
+							ThreadReceiveMsgManage.chmReceive.get(flg+"_"+strServerTarget).setStrServerTarget(strServerTarget);
+							ThreadReceiveMsgManage.chmReceive.get(flg+"_"+strServerTarget).start();
 						}
 					}
 				}
