@@ -30,7 +30,10 @@ public class ThrdRuncmdPro extends AbsThrdRuncmdPro {
 				strProflg = objProflg==null? null:objProflg.toString();
 				Object objSubProflg = mapMsg.get("subProflg");
 				strSubProflg = objSubProflg==null? null:objSubProflg.toString();
-				
+//				logger.info(strCname + strFname + " MsgInfo ----!"
+//						+ "/strProflg="+strProflg
+//						+ "/strSubProflg="+strSubProflg);
+				logger.info(strCname + strFname + " MsgInfo ----!" + mapMsg);
 				
 			}
 		} catch(Exception ex) {
