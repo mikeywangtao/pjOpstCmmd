@@ -411,12 +411,12 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.3.2</version>
+			<version>4.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>
-			<version>4.3.2</version>
+			<version>4.4</version>
 		</dependency>
 		<!-- apache http client -->
 
@@ -525,7 +525,7 @@
 		    <version>1.6.0</version>
 		</dependency>
 		<!-- jobs -->
-
+		
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-asl</artifactId>

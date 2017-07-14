@@ -5,6 +5,9 @@ import java.util.HashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
+import orgs.cm.pMqp.pRuncmd.comm.RuncmdproFactory;
+
 /**
  * 获取cmd处理逻辑，并使runcmd排队。
  * */
@@ -30,9 +33,13 @@ public class ThrdRuncmdPro extends AbsThrdRuncmdPro {
 				strProflg = objProflg==null? null:objProflg.toString();
 				Object objSubProflg = mapMsg.get("subProflg");
 				strSubProflg = objSubProflg==null? null:objSubProflg.toString();
-//				logger.info(strCname + strFname + " MsgInfo ----!"
-//						+ "/strProflg="+strProflg
-//						+ "/strSubProflg="+strSubProflg);
+				
+				//create bus:subbbus
+				//get filepath from db 
+				AbsRuncmdPro objRuncmdPro = RuncmdproFactory.disGetObj(null);
+				objRuncmdPro.disRuncmdPro();
+
+				
 				logger.info(strCname + strFname + " MsgInfo ----!" + mapMsg);
 				
 			}
@@ -46,4 +53,6 @@ public class ThrdRuncmdPro extends AbsThrdRuncmdPro {
 			}
 		}
 	}
+	
+
 }
