@@ -9,6 +9,7 @@ import orgs.cm.pMqp.pRuncmd.comm.AbsRunAfter;
 public class RunAfter_Create00 extends AbsRunAfter {
 
 	private AbsDbpro objDbpro = null;
+	private HashMap<String, Object> hmpAll;
 	
 	@Override
 	public HashMap<String, Object> disRunAfter() {
@@ -16,7 +17,7 @@ public class RunAfter_Create00 extends AbsRunAfter {
 		
 		objDbpro = new BaseDbpro();
 		
-		return null;
+		return hmpAll;
 	}
 
 }

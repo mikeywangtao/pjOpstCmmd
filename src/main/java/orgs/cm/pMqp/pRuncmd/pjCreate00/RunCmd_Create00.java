@@ -6,10 +6,12 @@ import orgs.cm.pMqp.pRuncmd.comm.AbsRunCmd;
 
 public class RunCmd_Create00 extends AbsRunCmd {
 
+	private HashMap<String, Object> hmpAll;
+	
 	@Override
 	public HashMap<String, Object> disRunCmd() {
 		// TODO Auto-generated method stub
-		return null;
+		return hmpAll;
 	}
 
 }
