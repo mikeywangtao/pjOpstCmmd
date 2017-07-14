@@ -10,13 +10,14 @@ public abstract class AbsRuncmdPro implements IRuncmdPro{
 	private final String strCname = AbsRuncmdPro.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
-	public abstract void disRuncmdPro();
+	
 
 	protected void disRunPrepare(AbsRunPrepare objRunPreparep) {
 		String strFname = " disRunPrePare : ";
 		try {
 			logger.info(strCname + strFname + " Start!");
 			AbsRunPrepare objRunPrepare = objRunPreparep;
+			objRunPrepare.disRunPrepare();
 		} catch(Exception ex) {
 			long lonFlg = System.currentTimeMillis();
 			logger.error(strCname + strFname + ex + "||" + lonFlg);
@@ -32,6 +33,7 @@ public abstract class AbsRuncmdPro implements IRuncmdPro{
 		try {
 			logger.info(strCname + strFname + " Start!");
 			AbsRunBefore objRunBefore = objRunBeforep;
+			objRunBefore.disRunBefore();
 		} catch(Exception ex) {
 			long lonFlg = System.currentTimeMillis();
 			logger.error(strCname + strFname + ex + "||" + lonFlg);
@@ -47,6 +49,7 @@ public abstract class AbsRuncmdPro implements IRuncmdPro{
 		try {
 			logger.info(strCname + strFname + " Start!");
 			AbsRunCmd objRunCmd = objRunCmdp;
+			objRunCmd.disRunCmd();
 		} catch(Exception ex) {
 			long lonFlg = System.currentTimeMillis();
 			logger.error(strCname + strFname + ex + "||" + lonFlg);
@@ -62,6 +65,7 @@ public abstract class AbsRuncmdPro implements IRuncmdPro{
 		try {
 			logger.info(strCname + strFname + " Start!");
 			AbsRunAfter objRunAfter = objRunAfterp;
+			objRunAfter.disRunAfter();
 		} catch(Exception ex) {
 			long lonFlg = System.currentTimeMillis();
 			logger.error(strCname + strFname + ex + "||" + lonFlg);

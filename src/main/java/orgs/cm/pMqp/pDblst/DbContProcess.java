@@ -18,11 +18,13 @@ public class DbContProcess {
 			int intNum = 150;
 			
 			ObjRepePool01<DbCont> objObjRepePool01 = new ObjRepePool01<DbCont>(intNum+"", new DbCont());
-			DbContManage.chmDb.put("asd", objObjRepePool01);
+//			DbContManage.chmDb.put("asd", objObjRepePool01);
+			DbContManage.disPut("asd", objObjRepePool01);
 			
 			for(int i=0; i<intNum; i++){
 				DbCont obj = new DbCont();
-				DbContManage.chmDb.get("asd").setObject(obj);
+//				DbContManage.chmDb.get("asd").setObject(obj);
+				DbContManage.disSet4Getpool("asd", obj);
 			}
 		} catch(Exception ex) {
 			long lonFlg = System.currentTimeMillis();

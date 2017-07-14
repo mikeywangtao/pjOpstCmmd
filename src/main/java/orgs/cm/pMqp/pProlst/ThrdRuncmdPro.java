@@ -38,7 +38,6 @@ public class ThrdRuncmdPro extends AbsThrdRuncmdPro {
 				//get filepath from db 
 				AbsRuncmdPro objRuncmdPro = RuncmdproFactory.disGetObj(null);
 				objRuncmdPro.disRuncmdPro();
-
 				
 				logger.info(strCname + strFname + " MsgInfo ----!" + mapMsg);
 				

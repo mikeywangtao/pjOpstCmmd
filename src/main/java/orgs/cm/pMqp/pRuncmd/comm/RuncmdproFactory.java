@@ -15,7 +15,7 @@ public class RuncmdproFactory {
 		AbsRuncmdPro objRe = null;
 		try {
 			if(strClspathp!=null && strClspathp.trim().length()>0){
-				
+				objRe = (AbsRuncmdPro)Class.forName(strClspathp).newInstance();  
 			} else {
 				throw new Exception("strClspathp error!");
 			}
