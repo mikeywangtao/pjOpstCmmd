@@ -1,4 +1,4 @@
-package orgs.cm.pMqp.pRuncmd.pCreate00;
+package orgs.cm.pMqp.pRuncmd.pjCreate00;
 
 import java.util.HashMap;
 

@@ -3,7 +3,7 @@ package orgs.cm.pMqp.pRuncmd.comm;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import orgs.cm.pMqp.pRuncmd.pCreate00.Runcmdpro_Create00;
+import orgs.cm.pMqp.pRuncmd.pjCreate00.Runcmdpro_Create00;
 
 public abstract class AbsRuncmdPro implements IRuncmdPro{
 
