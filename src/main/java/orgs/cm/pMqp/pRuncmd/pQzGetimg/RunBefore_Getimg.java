@@ -1,4 +1,4 @@
-package orgs.cm.pMqp.pRuncmd.pGetimg;
+package orgs.cm.pMqp.pRuncmd.pQzGetimg;
 
 import java.util.HashMap;
 

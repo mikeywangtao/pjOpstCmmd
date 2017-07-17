@@ -5,4 +5,4 @@
  * @author heaven
  *
  */
-package orgs.cm.pMqp.pRuncmd.pGetimg;
+package orgs.cm.pMqp.pRuncmd.pQzGetimg;

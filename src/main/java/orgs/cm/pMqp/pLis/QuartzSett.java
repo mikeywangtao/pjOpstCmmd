@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import orgs.cm.pMqp.pComms.Propertiesmap;
 import orgs.cm.pMqp.pQz.QuartzBaseJob;
 import orgs.cm.pMqp.pQz.QuartzManager;
-import orgs.cm.pMqp.pRuncmd.pGetimg.QuartzJob_Getimg;
+import orgs.cm.pMqp.pRuncmd.pQzGetimg.QuartzJob_Getimg;
 /**
  * Qz定时任务设置
  * */
