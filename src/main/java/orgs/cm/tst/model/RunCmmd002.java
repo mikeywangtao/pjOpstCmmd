@@ -21,8 +21,8 @@ public class RunCmmd002 {
 //		String command = "/home/heaven/shtst000.sh";
 		
 		/* ------------------------------------------------------------------------------- */
-//		String command = "ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u root "; //查看镜像
-		/* 11:17:09.345 [http-bio-8080-exec-10] INFO  orgs.cm.tst.model.RunCmmd002 - Run Cmmd ----> ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u rootSTD line: 10.167.212.1 | SUCCESS => {
+		String command = "ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u root "; //查看镜像
+/* 11:17:09.345 [http-bio-8080-exec-10] INFO  orgs.cm.tst.model.RunCmmd002 - Run Cmmd ----> ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u rootSTD line: 10.167.212.1 | SUCCESS => {
 STD line:     "changed": true, 
 STD line:     "rc": 0, 
 STD line:     "stderr": "", 
@@ -42,7 +42,7 @@ STD line: } */
 		
 		/* ------------------------------------------------------------------------------- */
 //		String command = "ansible openstack -m script -a  '/home/heaven/shtst002.sh' -u root "; //查看网络
-		/* 11:19:37.970 [http-bio-8080-exec-3] INFO  orgs.cm.tst.model.RunCmmd002 - Run Cmmd ----> ansible openstack -m script -a  '/home/heaven/shtst002.sh' -u root 
+/* 11:19:37.970 [http-bio-8080-exec-3] INFO  orgs.cm.tst.model.RunCmmd002 - Run Cmmd ----> ansible openstack -m script -a  '/home/heaven/shtst002.sh' -u root 
 STD line: 10.167.212.1 | SUCCESS => {
 STD line:     "changed": true, 
 STD line:     "rc": 0, 
@@ -59,8 +59,8 @@ STD line:     ]
 STD line: } */
 		
 		/* ------------------------------------------------------------------------------- */
-		String command = "ansible openstack -m script -a  '/home/heaven/shtst003.sh' -u root "; //查看模板
-		/* 11:21:10.875 [http-bio-8080-exec-4] INFO  orgs.cm.tst.model.RunCmmd002 - Run Cmmd ----> ansible openstack -m script -a  '/home/heaven/shtst003.sh' -u root 
+//		String command = "ansible openstack -m script -a  '/home/heaven/shtst003.sh' -u root "; //查看模板
+/* 11:21:10.875 [http-bio-8080-exec-4] INFO  orgs.cm.tst.model.RunCmmd002 - Run Cmmd ----> ansible openstack -m script -a  '/home/heaven/shtst003.sh' -u root 
 STD line: 10.167.212.1 | SUCCESS => {
 STD line:     "changed": true, 
 STD line:     "rc": 0, 
@@ -78,7 +78,7 @@ STD line:         "| 2                                  | default.flavor02      
 STD line:         "+------------------------------------+-----------------------------------+-------+------+-----------+-------+-----------+"
 STD line:     ]
 STD line: }*/
-		
+		System.out.println((new Date()).getTime());
 		long timeout = 10 * 1000;
 		try {
 			process = Runtime.getRuntime().exec(command);

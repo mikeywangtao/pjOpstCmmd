@@ -19,6 +19,10 @@
   </context-param>
 
   <listener>
+    <listener-class>orgs.cm.pMqp.pLis.WebLis</listener-class>
+  </listener>
+  
+<!--   <listener>
     <listener-class>orgs.cm.pMqp.pLis.DbLis</listener-class>
   </listener>
   <listener>
@@ -26,7 +30,7 @@
   </listener>
   <listener>
     <listener-class>orgs.cm.pMqp.pLis.MqLis</listener-class>
-  </listener>
+  </listener> -->
   
   <servlet>
     <servlet-name>dispatcherServlet</servlet-name>

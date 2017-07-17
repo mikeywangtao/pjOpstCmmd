@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class CommandStreamGobbler01 extends Thread {
 			br = new BufferedReader(isr);
 			String line = null;
 			ready = true;
+			System.out.println(prefix + " ---->" + (new Date()).getTime());
 			while (commandResult != 1) {
 				if (br.ready()) {
 					if ((line = br.readLine()) != null) {
@@ -60,6 +62,7 @@ public class CommandStreamGobbler01 extends Thread {
 				if (isr != null) {
 					isr.close();
 				}
+				
 			} catch (IOException ioe) {
 				System.out.println("正式执行命令：" + command + "有IO异常");
 			}
