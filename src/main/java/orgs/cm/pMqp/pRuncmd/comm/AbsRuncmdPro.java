@@ -4,13 +4,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import orgs.cm.pMqp.pRuncmd.pjCreate00.Runcmdpro_Create00;
-
+/**
+ * 总领cmd处理
+ * */
 public abstract class AbsRuncmdPro implements IRuncmdPro{
 
 	private final String strCname = AbsRuncmdPro.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
-	
-	
 
 	protected void disRunPrepare(AbsRunPrepare objRunPreparep) {
 		String strFname = " disRunPrePare : ";
