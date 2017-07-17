@@ -21,6 +21,8 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 	private final String strCname = Runcmdpro_Create00.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
+	private static final String strInfoflg = "imgJob";
+	
 	private HashMap<String, Object> hmpPar;
 	
 	public void disRuncmdPro(){

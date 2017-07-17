@@ -42,7 +42,7 @@ public class QuartzManager {
 		SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
 		String strSchedulername = "job" + objSdf.format(new Date());
 
-		job.setSchedulername(strSchedulername);
+//		job.setSchedulername(strSchedulername);
 		Properties props = new Properties();
 		props.put("org.quartz.scheduler.instanceName", strSchedulername);//
 		props.put("org.quartz.scheduler.instanceId", "AUTO");//

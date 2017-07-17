@@ -6,6 +6,6 @@ import org.quartz.JobExecutionException;
 
 public abstract class QuartzBaseJob implements Job {
 	public abstract void execute(JobExecutionContext arg0) throws JobExecutionException ;
-	public abstract void setSchedulername(String strSchedulername);
+//	public abstract void setSchedulername(String strSchedulername);
 
 }
