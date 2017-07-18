@@ -1,4 +1,4 @@
-package orgs.cm.pMqp.pRuncmd.pQzGetimg;
+package orgs.cm.pMqp.pRuncmd.pQzGetnetw;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,10 +11,10 @@ import orgs.cm.pMqp.pComms.CmdStreamGobbler;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunCmd;
 import orgs.cm.tst.model.CommandWaitForThread01;
 
-public class RunCmd_Getimg extends AbsRunCmd {
+public class RunCmd_Getnetw extends AbsRunCmd {
 	private HashMap<String, Object> hmpAll;
 	
-	private final String strCname = RunCmd_Getimg.class.getName();
+	private final String strCname = RunCmd_Getnetw.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
 	@Override
@@ -31,7 +31,7 @@ public class RunCmd_Getimg extends AbsRunCmd {
 		try {
 			logger.info(strCname + strFname + "  Start!");
 			/* ------------------------------------------------------------------------------- */
-			String command = "ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u root "; //查看镜像
+			String command = "ansible openstack -m script -a  '/home/heaven/shtst002.sh' -u root "; //查看网络
 /* 11:17:09.345 [http-bio-8080-exec-10] INFO  orgs.cm.tst.model.RunCmmd002 - Run Cmmd ----> ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u rootSTD line: 10.167.212.1 | SUCCESS => {
 STD line:     "changed": true, 
 STD line:     "rc": 0, 
@@ -51,13 +51,13 @@ STD line:     ]
 STD line: } */
 			
 			SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
-			logger.info(strCname + strFname + " 查看镜像----" + objSdf.format(new Date()));
-			logger.info("Run Cmmd 查看镜像----> " + command);
+			logger.info(strCname + strFname + " 查看网络----" + objSdf.format(new Date()));
+			logger.info("Run Cmmd 查看网络----> " + command);
 			
 			process = Runtime.getRuntime().exec(command);
 
-			CmdStreamGobbler errorGobbler = new CmdStreamGobbler(process.getErrorStream(), command, "查看镜像 ERR");
-			CmdStreamGobbler outputGobbler = new CmdStreamGobbler(process.getInputStream(), command, "查看镜像 STD");
+			CmdStreamGobbler errorGobbler = new CmdStreamGobbler(process.getErrorStream(), command, "查看网络 ERR");
+			CmdStreamGobbler outputGobbler = new CmdStreamGobbler(process.getInputStream(), command, "查看网络 STD");
 			errorGobbler.start();
 			// 必须先等待错误输出ready再建立标准输出
 			while (!errorGobbler.isReady()) {

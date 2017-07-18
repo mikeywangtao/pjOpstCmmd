@@ -51,7 +51,7 @@ STD line:     ]
 STD line: } */
 			
 			SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
-			logger.info(strCname + strFname + " ----" + objSdf.format(new Date()));
+			logger.info(strCname + strFname + " 查看模板----" + objSdf.format(new Date()));
 			logger.info("Run Cmmd 查看模板----> " + command);
 			
 			process = Runtime.getRuntime().exec(command);
