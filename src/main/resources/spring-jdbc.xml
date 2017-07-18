@@ -11,10 +11,9 @@
       http://www.springframework.org/schema/task/spring-task-4.3.xsd
       http://www.springframework.org/schema/aop
 	  http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
-
+	  
 	<context:property-placeholder location="classpath:jdbc.properties"
-		ignore-unresolvable="true" />
-	<!-- 配置DataSource数据源 -->
+			ignore-unresolvable="true" />
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
@@ -32,17 +31,102 @@
 		</property>
 		<property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}" />
 	</bean>
-
-	<!-- mybatis文件配置，扫描所有mapper文件 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:dataSource-ref="dataSource" 
 		p:configLocation="classpath:mybatis-config.xml"
 		p:mapperLocations="classpath:orgs/cm/*/xml/*Mapper.xml" />
 
-	<!-- spring与mybatis整合配置，扫描所有dao -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
 		p:basePackage="orgs.cm.*.dao" 
-		p:sqlSessionFactoryBeanName="sqlSessionFactory" />
+		p:sqlSessionFactoryBeanName="sqlSessionFactory" />		
+<!-- 	<context:property-placeholder location="classpath:jdbc.properties"
+		ignore-unresolvable="true" />
+	配置DataSource数据源
+	<bean id="dataSourceCmd" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="${jdbc.initialSize}" />
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<property name="maxWait" value="${jdbc.maxWait}" />
+		<property name="removeAbandoned">
+			<value>true</value>
+		</property>
+		<property name="removeAbandonedTimeout">
+			<value>60</value>
+		</property>
+		<property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}" />
+	</bean>
+	Cmd mybatis文件配置，扫描所有mapper文件
+	<bean id="sqlSessionFactoryCmd" class="org.mybatis.spring.SqlSessionFactoryBean"
+		p:dataSource-ref="dataSourceCmd" 
+		p:configLocation="classpath:mybatis-config.xml"
+		p:mapperLocations="classpath:orgs/cm/*/xml/*Mapper.xml" />
+
+	Cmd spring与mybatis整合配置，扫描所有dao
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+		p:basePackage="orgs.cm.*.dao" 
+		p:sqlSessionFactoryBeanName="sqlSessionFactoryCmd" />
+
+
+	<bean id="dataSourceCms" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="${jdbc.initialSize}" />
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<property name="maxWait" value="${jdbc.maxWait}" />
+		<property name="removeAbandoned">
+			<value>true</value>
+		</property>
+		<property name="removeAbandonedTimeout">
+			<value>60</value>
+		</property>
+		<property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}" />
+	</bean>
+	Cms mybatis文件配置，扫描所有mapper文件
+	<bean id="sqlSessionFactoryCms" class="org.mybatis.spring.SqlSessionFactoryBean"
+		p:dataSource-ref="dataSourceCms" 
+		p:configLocation="classpath:mybatis-config.xml"
+		p:mapperLocations="classpath:orgs/cm/*/xml/*Mapper.xml" />
+
+	Cms spring与mybatis整合配置，扫描所有dao
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+		p:basePackage="orgs.cm.*.dao" 
+		p:sqlSessionFactoryBeanName="sqlSessionFactoryCms" />
+
+
+	<bean id="dataSourceAuth" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="${jdbc.initialSize}" />
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<property name="maxWait" value="${jdbc.maxWait}" />
+		<property name="removeAbandoned">
+			<value>true</value>
+		</property>
+		<property name="removeAbandonedTimeout">
+			<value>60</value>
+		</property>
+		<property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}" />
+	</bean>			
+	Auth mybatis文件配置，扫描所有mapper文件
+	<bean id="sqlSessionFactoryAuth" class="org.mybatis.spring.SqlSessionFactoryBean"
+		p:dataSource-ref="dataSourceAuth" 
+		p:configLocation="classpath:mybatis-config.xml"
+		p:mapperLocations="classpath:orgs/cm/*/xml/*Mapper.xml" />
+
+	Auth spring与mybatis整合配置，扫描所有dao
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
+		p:basePackage="orgs.cm.*.dao" 
+		p:sqlSessionFactoryBeanName="sqlSessionFactoryAuth" /> -->
 
 </beans>
 	  

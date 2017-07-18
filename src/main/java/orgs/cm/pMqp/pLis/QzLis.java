@@ -4,6 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import orgs.cm.pMqp.pComms.Propertiesmap;
+import orgs.cm.pMqp.pQz.QuartzJob;
+import orgs.cm.pMqp.pQz.QuartzManager;
 
 public class QzLis {
 	private final String strCname = ProLis.class.getName();
@@ -17,11 +19,15 @@ public class QzLis {
 			if(strPath!=null && strPath.trim().length()>0
 					&& strPath.indexOf("WEB-INF")>0){
 				int intOdx = strPath.indexOf("WEB-INF");
-				strPath = strPath.substring(0, intOdx) + "WEB-INF/classes/quartzs.properties";
+				strPath = strPath.substring(0, intOdx) + "WEB-INF/classes/quartz.properties";
 				Propertiesmap.setPpt(strPath);
 				
 				QuartzSett objQuartzSett = new QuartzSett();
 				objQuartzSett.disSettProcess();
+				
+//				QuartzJob objQuartzJob = new QuartzJob();
+//				QuartzManager.addJob("as", objQuartzJob, "0 */1 * * * ?");
+
 			}
 			
 

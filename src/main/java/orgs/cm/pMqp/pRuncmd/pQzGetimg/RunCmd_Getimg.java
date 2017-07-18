@@ -1,5 +1,6 @@
 package orgs.cm.pMqp.pRuncmd.pQzGetimg;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -49,12 +50,14 @@ STD line:         "+--------------------------------------+------------+"
 STD line:     ]
 STD line: } */
 			
+			SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
+			logger.info(strCname + strFname + " ----" + objSdf.format(new Date()));
+			logger.info("Run Cmmd ----> " + command);
+			
 			process = Runtime.getRuntime().exec(command);
 
 			CmdStreamGobbler errorGobbler = new CmdStreamGobbler(process.getErrorStream(), command, "ERR");
 			CmdStreamGobbler outputGobbler = new CmdStreamGobbler(process.getInputStream(), command, "STD");
-
-			logger.info("Run Cmmd ----> " + command);
 			errorGobbler.start();
 			// 必须先等待错误输出ready再建立标准输出
 			while (!errorGobbler.isReady()) {

@@ -33,19 +33,27 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 		AbsRunAfter objAfter = null;
 		
 		try {
-			if(hmpPar!=null && hmpPar.size()>0){
-				objPrepare = new RunPrepare_Getimg();
-				objBefore = new RunBefore_Getimg();
-				objCmd = new RunCmd_Getimg();
-				objAfter = new RunAfter_Getimg();
-				
-				super.disRunPrepare(objPrepare);
-				super.disRunBefre(objBefore);
-				super.disRunCmd(objCmd);
-				super.dusRunAfter(objAfter);
-			} else {
-				throw new Exception("hmpPar Error ! is null or is empty!");
-			}
+			objPrepare = new RunPrepare_Getimg();
+			objBefore = new RunBefore_Getimg();
+			objCmd = new RunCmd_Getimg();
+			objAfter = new RunAfter_Getimg();
+			super.disRunPrepare(objPrepare);
+			super.disRunBefre(objBefore);
+			super.disRunCmd(objCmd);
+			super.dusRunAfter(objAfter);
+//			if(hmpPar!=null && hmpPar.size()>0){
+//				objPrepare = new RunPrepare_Getimg();
+//				objBefore = new RunBefore_Getimg();
+//				objCmd = new RunCmd_Getimg();
+//				objAfter = new RunAfter_Getimg();
+//				
+//				super.disRunPrepare(objPrepare);
+//				super.disRunBefre(objBefore);
+//				super.disRunCmd(objCmd);
+//				super.dusRunAfter(objAfter);
+//			} else {
+//				throw new Exception("hmpPar Error ! is null or is empty!");
+//			}
 		} catch(Exception ex) {
 			long lonFlg = System.currentTimeMillis();
 			logger.error(strCname + strFname + ex + "||" + lonFlg);

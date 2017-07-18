@@ -18,8 +18,12 @@ public class DbCont {
 	private final Logger logger = LogManager.getLogger(strCname);
 	
 	private Connection cont = null;
+	private String strDbFlg = null;
 	
-	public DbCont(){
+	private DbCont(){}
+	
+	public DbCont(String strDbFlgp){
+		this.strDbFlg = strDbFlgp;
 		disInitCont();
 	}
 	
@@ -28,11 +32,12 @@ public class DbCont {
 		try {
 			logger.info(strCname + strFname + " Start!");
 			Properties objPptJdbc = Propertiesmap.getPpt("jdbc.properties");
-			if(objPptJdbc!=null){
-				String strDriver = objPptJdbc.getProperty("jdbc.driverClassName");
-				String strUrl    = objPptJdbc.getProperty("jdbc.url");
-				String strUser   = objPptJdbc.getProperty("jdbc.username");
-				String strPass   = objPptJdbc.getProperty("jdbc.password");
+			if(strDbFlg!=null && strDbFlg.trim().length()>0
+					&& objPptJdbc!=null){
+				String strDriver = objPptJdbc.getProperty(strDbFlg + ".driverClassName");
+				String strUrl    = objPptJdbc.getProperty(strDbFlg + ".url");
+				String strUser   = objPptJdbc.getProperty(strDbFlg + ".username");
+				String strPass   = objPptJdbc.getProperty(strDbFlg + ".password");
 				if(strDriver!=null && strDriver.trim().length()>0
 						&& strUrl!=null && strUrl.trim().length()>0
 						&& strUser!=null && strUser.trim().length()>0
