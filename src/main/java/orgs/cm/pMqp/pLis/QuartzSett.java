@@ -6,6 +6,7 @@ import org.quartz.Job;
 
 import orgs.cm.pMqp.pComms.Propertiesmap;
 import orgs.cm.pMqp.pQz.QuartzManager;
+import orgs.cm.pMqp.pRuncmd.pQzGetflv.QuartzJob_Getflv;
 import orgs.cm.pMqp.pRuncmd.pQzGetimg.QuartzJob_Getimg;
 /**
  * Qz定时任务设置
@@ -76,7 +77,7 @@ public class QuartzSett {
 				objRe = new QuartzJob_Getimg();
 			}
 			if(strJobname.indexOf("flvJob")>-1){
-//				objJob = new QuartzJob_Getimg();
+				objRe = new QuartzJob_Getflv();
 			}
 			if(strJobname.indexOf("netwJob")>-1){
 //				objJob = new QuartzJob_Getimg();
