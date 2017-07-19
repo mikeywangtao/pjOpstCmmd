@@ -8,12 +8,14 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 public class QuartzJob implements Job {//extends QuartzBaseJob {
-	SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	Date d = new Date();
-	String returnstr = DateFormat.format(d);
+
 	
 
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
+		SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date d = new Date();
+		String returnstr = DateFormat.format(d);
+		
 		// TODO Auto-generated method stub
 		System.out.println(returnstr + "★★★★★★★★★★★");
 

@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import orgs.cm.pMqp.pRuncmd.pjCreate00.Runcmdpro_Create00;
 
 public class DateFlg {
-	private static final String strCname = Runcmdpro_Create00.class.getName();
+	private static final String strCname = DateFlg.class.getName();
 	private static final Logger logger = LogManager.getLogger(strCname);
 	
 	private static SimpleDateFormat objSdf = new SimpleDateFormat("yyyy-MM-dd");

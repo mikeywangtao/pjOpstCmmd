@@ -12,15 +12,16 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import orgs.cm.pMqp.pRuncmd.pQzGetimg.RunCmd_Getimg;
+import orgs.cm.pMqp.pRuncmd.comm.AbsRunCmd;
 
 public class CmdStreamGobbler extends Thread {
 
 	private InputStream is;
 	private String command;
 	private String prefix = "";
-	private boolean readFinish = false;
+//	private boolean readFinish = false;
 	private boolean ready = false;
+	private AbsRunCmd objAbsRunCmd = null; 
 
 	// 命令执行结果,0:执行中 1:超时
 	private int commandResult = 0;
@@ -32,10 +33,11 @@ public class CmdStreamGobbler extends Thread {
 	
 	private SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
 
-	public CmdStreamGobbler(InputStream is, String command, String prefix) {
+	public CmdStreamGobbler(InputStream is, String command, String prefix, AbsRunCmd objRuncmdp) {
 		this.is = is;
 		this.command = command;
 		this.prefix = prefix;
+		this.objAbsRunCmd = objRuncmdp;
 	}
 
 	public void run() {
@@ -48,20 +50,34 @@ public class CmdStreamGobbler extends Thread {
 			String line = null;
 			ready = true;
 			logger.info(strCname + strFname + " ----" + prefix + " Start:" + objSdf.format(new Date()));
-//			System.out.println(prefix + " ---->" + (new Date()).getTime());
-			while (commandResult != 1) {
+			while(commandResult != 1){
 				if (br.ready()) {
-					if ((line = br.readLine()) != null) {
+					while((line = br.readLine()) != null) {
 						infoList.add(line);
 						System.out.println(prefix + " line: " + line);
-					} else {
-						logger.info(strCname + strFname + " ----" + prefix + " End:" + objSdf.format(new Date()));
-						break;
 					}
+					commandResult = 1;
 				} else {
 					Thread.sleep(1000);
 				}
 			}
+			
+			logger.info(strCname + strFname + " ----" + prefix + " End:" + objSdf.format(new Date()));
+			
+			this.objAbsRunCmd.setBooThrflg(true);
+//			while (commandResult != 1) {
+//				if (br.ready()) {
+//					if ((line = br.readLine()) != null) {
+//						infoList.add(line);
+//						System.out.println(prefix + " line: " + line);
+//					} else {
+//						logger.info(strCname + strFname + " ----" + prefix + " End:" + objSdf.format(new Date()));
+//						break;
+//					}
+//				} else {
+//					Thread.sleep(1000);
+//				}
+//			}
 			
 		} catch (IOException | InterruptedException ioe) {
 			System.out.println("正式执行命令：" + command + "有IO异常");
@@ -77,7 +93,7 @@ public class CmdStreamGobbler extends Thread {
 			} catch (IOException ioe) {
 				System.out.println("正式执行命令：" + command + "有IO异常");
 			}
-			readFinish = true;
+//			readFinish = true;
 		}
 	}
 
@@ -89,9 +105,9 @@ public class CmdStreamGobbler extends Thread {
 		return command;
 	}
 
-	public boolean isReadFinish() {
-		return readFinish;
-	}
+//	public boolean isReadFinish() {
+//		return readFinish;
+//	}
 
 	public boolean isReady() {
 		return ready;

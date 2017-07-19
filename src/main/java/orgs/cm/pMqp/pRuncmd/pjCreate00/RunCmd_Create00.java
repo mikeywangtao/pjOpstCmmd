@@ -8,6 +8,9 @@ public class RunCmd_Create00 extends AbsRunCmd {
 
 	private HashMap<String, Object> hmpAll;
 	
+	public void setBooThrflg(boolean booThrflgp){
+		this.booThrflg = booThrflgp;
+	}
 	@Override
 	public HashMap<String, Object> disRunCmd() {
 		// TODO Auto-generated method stub

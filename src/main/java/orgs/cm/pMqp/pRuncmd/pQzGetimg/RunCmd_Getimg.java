@@ -17,6 +17,9 @@ public class RunCmd_Getimg extends AbsRunCmd {
 	private final String strCname = RunCmd_Getimg.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
+	public void setBooThrflg(boolean booThrflgp){
+		this.booThrflg = booThrflgp;
+	}
 	@Override
 	public HashMap<String, Object> disRunCmd() {
 		disRuncmd();
@@ -25,7 +28,8 @@ public class RunCmd_Getimg extends AbsRunCmd {
 	
 	private void disRuncmd(){
 		String strFname = " disRuncmd : ";
-		long timeout = 10 * 1000;
+//		long timeout = 10 * 1000;
+		long lonBasrDt = new Date().getTime();
 		Process process = null;
 		
 		try {
@@ -56,8 +60,8 @@ STD line: } */
 			
 			process = Runtime.getRuntime().exec(command);
 
-			CmdStreamGobbler errorGobbler = new CmdStreamGobbler(process.getErrorStream(), command, "查看镜像 ERR");
-			CmdStreamGobbler outputGobbler = new CmdStreamGobbler(process.getInputStream(), command, "查看镜像 STD");
+			CmdStreamGobbler errorGobbler = new CmdStreamGobbler(process.getErrorStream(), command, "查看镜像 ERR", this);
+			CmdStreamGobbler outputGobbler = new CmdStreamGobbler(process.getInputStream(), command, "查看镜像 STD", this);
 			errorGobbler.start();
 			// 必须先等待错误输出ready再建立标准输出
 			while (!errorGobbler.isReady()) {
@@ -68,42 +72,67 @@ STD line: } */
 				Thread.sleep(10);
 			}
 
-			CommandWaitForThread01 commandThread = new CommandWaitForThread01(process);
-			commandThread.start();
-
-			long commandTime = new Date().getTime();
-			long nowTime = new Date().getTime();
-			boolean timeoutFlag = false;
-			while (!commandThread.isFinish()) {
-				if (nowTime - commandTime > timeout) {
-					timeoutFlag = true;
-					break;
+			while(!super.booThrflg){
+				if((new Date().getTime())-lonBasrDt<=8000){
+					Thread.sleep(1000);
 				} else {
-					Thread.sleep(10000);
-					nowTime = new Date().getTime();
-				}
-			}
-			if (timeoutFlag) {
-				// 命令超时
-				errorGobbler.setTimeout(1);
-				outputGobbler.setTimeout(1);
-				System.out.println("正式执行命令：" + command + "超时");
-			}
-
-			while (true) {
-				if (errorGobbler.isReadFinish() && outputGobbler.isReadFinish()) {
+					try {
+						errorGobbler.destroy();
+					} catch(Exception exx) {
+						disOutputLog(strFname, exx);
+					} finally{
+						errorGobbler = null;
+					}
+					try {
+						outputGobbler.destroy();
+					} catch(Exception exx) {
+						disOutputLog(strFname, exx);
+					} finally{
+						outputGobbler = null;
+					}
 					break;
 				}
-				Thread.sleep(10);
 			}
+//			CommandWaitForThread01 commandThread = new CommandWaitForThread01(process);
+//			commandThread.start();
+//
+//			long commandTime = new Date().getTime();
+//			long nowTime = new Date().getTime();
+//			boolean timeoutFlag = false;
+//			while (!commandThread.isFinish()) {
+//				if (nowTime - commandTime > timeout) {
+//					timeoutFlag = true;
+//					break;
+//				} else {
+//					Thread.sleep(10000);
+//					nowTime = new Date().getTime();
+//				}
+//			}
+//			if (timeoutFlag) {
+//				// 命令超时
+//				errorGobbler.setTimeout(1);
+//				outputGobbler.setTimeout(1);
+//				System.out.println("正式执行命令：" + command + "超时");
+//			}
+
+//			while (true) {
+//				if (errorGobbler.isReadFinish() && outputGobbler.isReadFinish()) {
+//					break;
+//				}
+//				Thread.sleep(10);
+//			}
 		} catch(Exception ex) {
-			long lonFlg = System.currentTimeMillis();
-			logger.error(strCname + strFname + ex + "||" + lonFlg);
-			StackTraceElement[] subSte = ex.getStackTrace();
-			for(int i=0; i<subSte.length; i++){
-				logger.error(
-						subSte[i].getClassName() + subSte[i].getMethodName() + ":" + subSte[i].getLineNumber() + "||" + lonFlg );
-			}
+			disOutputLog(strFname, ex);
+		}
+	}
+	
+	private void disOutputLog(String strFnamep, Exception exp){
+		long lonFlg = System.currentTimeMillis();
+		logger.error(strCname + strFnamep + exp + "||" + lonFlg);
+		StackTraceElement[] subSte = exp.getStackTrace();
+		for(int i=0; i<subSte.length; i++){
+			logger.error(
+					subSte[i].getClassName() + subSte[i].getMethodName() + ":" + subSte[i].getLineNumber() + "||" + lonFlg );
 		}
 	}
 
