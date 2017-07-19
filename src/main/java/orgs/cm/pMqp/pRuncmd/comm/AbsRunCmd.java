@@ -7,6 +7,7 @@ import java.util.HashMap;
 public abstract class AbsRunCmd {
 	public abstract HashMap<String, Object> disRunCmd();
 	
-	protected boolean booThrflg = false;
-	public abstract void setBooThrflg(boolean booThrflgp);
+	protected String strThrflg = "";
+	public abstract void setStrThrflg(String strThrflgp);
+	public abstract void disSetAll(HashMap<String, Object> hmpAllp);
 }

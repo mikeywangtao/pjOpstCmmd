@@ -66,8 +66,8 @@ public class WebLis implements ServletContextListener {
 //			MqLis objMqLis = new MqLis();
 //			objMqLis.disMqInit();
 				
-//			QzLis objQzLis = new QzLis();
-//			objQzLis.disQzInit();
+			QzLis objQzLis = new QzLis();
+			objQzLis.disQzInit();
 			
 		} catch(Exception ex) {
 			long lonFlg = System.currentTimeMillis();

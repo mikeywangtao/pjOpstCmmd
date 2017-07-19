@@ -1,19 +1,17 @@
 package orgs.cm.pMqp.pRuncmd.pQzGetimg;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import orgs.cm.pMqp.pComms.ProcessAttrs;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunAfter;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunBefore;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunCmd;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunPrepare;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
-import orgs.cm.pMqp.pRuncmd.pjCreate00.RunAfter_Create00;
-import orgs.cm.pMqp.pRuncmd.pjCreate00.RunBefore_Create00;
-import orgs.cm.pMqp.pRuncmd.pjCreate00.RunCmd_Create00;
-import orgs.cm.pMqp.pRuncmd.pjCreate00.RunPrepare_Create00;
 import orgs.cm.pMqp.pRuncmd.pjCreate00.Runcmdpro_Create00;
 
 public class Runcmdpro_Getimg extends AbsRuncmdPro {
@@ -33,10 +31,18 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 		AbsRunAfter objAfter = null;
 		
 		try {
+			UUID objUuid = UUID.randomUUID();
+			HashMap<String, Object> hmpAllp = new HashMap<>();
+			hmpAllp.put(ProcessAttrs.strParmapKey_Inpars, hmpPar);
+			hmpAllp.put(ProcessAttrs.strInfoKey_Cpuuid, objUuid.toString().replaceAll("-", ""));
 			objPrepare = new RunPrepare_Getimg();
+//			objPrepare.disSetAll(hmpAllp);
 			objBefore = new RunBefore_Getimg();
+//			objBefore.disSetAll(hmpAllp);
 			objCmd = new RunCmd_Getimg();
+			objCmd.disSetAll(hmpAllp);
 			objAfter = new RunAfter_Getimg();
+//			objAfter.disSetAll(hmpAllp);
 			super.disRunPrepare(objPrepare);
 			super.disRunBefre(objBefore);
 			super.disRunCmd(objCmd);

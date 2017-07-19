@@ -7,9 +7,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import orgs.cm.pMqp.pRuncmd.pQzGetflv.RunCmd_Getflv;
+import orgs.cm.pMqp.pRuncmd.pQzGetflv.Runcmdpro_Getflv;
 import orgs.cm.pMqp.pRuncmd.pQzGetimg.Runcmdpro_Getimg;
-import orgs.cm.pMqp.pRuncmd.pQzGetnetw.RunCmd_Getnetw;
+import orgs.cm.pMqp.pRuncmd.pQzGetnetw.Runcmdpro_Getnetw;
 import orgs.cm.tst.dao.TstDao;
 import orgs.cm.tst.model.RunCmmd000;
 import orgs.cm.tst.model.RunCmmd001;
@@ -42,17 +42,20 @@ public class TstServ {
 //		runCmmd001.disPro000();
 //		runCmmd002.disPro000();
 		
+//		Runcmdpro_Getimg objRcGetimg = new Runcmdpro_Getimg();
+//		objRcGetimg.disRuncmdPro();
+		
 		try {
 			for(int i=0; i<2000; i++){
 				
 				Runcmdpro_Getimg objRcGetimg = new Runcmdpro_Getimg();
 				objRcGetimg.disRuncmdPro();
 				Thread.sleep(3000);
-				RunCmd_Getflv objRunCmd_Getflv = new RunCmd_Getflv();
-				objRunCmd_Getflv.disRunCmd();
+				Runcmdpro_Getflv objRuncmdpro_Getflv = new Runcmdpro_Getflv();
+				objRuncmdpro_Getflv.disRuncmdPro();
 				Thread.sleep(3000);
-				RunCmd_Getnetw objRunCmd_Getnetw = new RunCmd_Getnetw();
-				objRunCmd_Getnetw.disRunCmd();
+				Runcmdpro_Getnetw objRuncmdpro_Getnetw = new Runcmdpro_Getnetw();
+				objRuncmdpro_Getnetw.disRuncmdPro();
 				
 				System.out.println(" disRuncmdPro Run ----" + i);
 				Thread.sleep(10000);

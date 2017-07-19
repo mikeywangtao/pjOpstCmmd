@@ -19,8 +19,8 @@ public class CmdStreamGobbler extends Thread {
 	private InputStream is;
 	private String command;
 	private String prefix = "";
-//	private boolean readFinish = false;
 	private boolean ready = false;
+	private String strCpUuid = null;
 	private AbsRunCmd objAbsRunCmd = null; 
 
 	// 命令执行结果,0:执行中 1:超时
@@ -33,13 +33,18 @@ public class CmdStreamGobbler extends Thread {
 	
 	private SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
 
-	public CmdStreamGobbler(InputStream is, String command, String prefix, AbsRunCmd objRuncmdp) {
+	public CmdStreamGobbler(InputStream is, String command, String prefix, String strCpUuidp, AbsRunCmd objRuncmdp) {
 		this.is = is;
 		this.command = command;
 		this.prefix = prefix;
+		this.strCpUuid = strCpUuidp;
 		this.objAbsRunCmd = objRuncmdp;
 	}
 
+	public void setStop(){
+		logger.info(strCname + " CpUuid:" + strCpUuid+ " setStop : 强制中断: " + prefix + objSdf.format(new Date()));
+		commandResult = 1;
+	}
 	public void run() {
 		String strFname = " run : ";
 		InputStreamReader isr = null;
@@ -58,13 +63,13 @@ public class CmdStreamGobbler extends Thread {
 					}
 					commandResult = 1;
 				} else {
-					Thread.sleep(1000);
+					Thread.sleep(500);
 				}
 			}
 			
 			logger.info(strCname + strFname + " ----" + prefix + " End:" + objSdf.format(new Date()));
 			
-			this.objAbsRunCmd.setBooThrflg(true);
+			this.objAbsRunCmd.setStrThrflg(prefix.split(" ")[1]);
 //			while (commandResult != 1) {
 //				if (br.ready()) {
 //					if ((line = br.readLine()) != null) {
@@ -79,8 +84,8 @@ public class CmdStreamGobbler extends Thread {
 //				}
 //			}
 			
-		} catch (IOException | InterruptedException ioe) {
-			System.out.println("正式执行命令：" + command + "有IO异常");
+		} catch (Exception ex) {
+			disOutputLog(strFname, ex);
 		} finally {
 			try {
 				if (br != null) {
@@ -97,6 +102,15 @@ public class CmdStreamGobbler extends Thread {
 		}
 	}
 
+	private void disOutputLog(String strFnamep, Exception exp){
+		long lonFlg = System.currentTimeMillis();
+		logger.error(strCname + strFnamep + exp + "||" + lonFlg);
+		StackTraceElement[] subSte = exp.getStackTrace();
+		for(int i=0; i<subSte.length; i++){
+			logger.error(
+					subSte[i].getClassName() + subSte[i].getMethodName() + ":" + subSte[i].getLineNumber() + "||" + lonFlg );
+		}
+	}
 	public InputStream getIs() {
 		return is;
 	}
