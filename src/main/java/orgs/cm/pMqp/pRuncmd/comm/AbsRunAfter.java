@@ -7,4 +7,6 @@ import java.util.HashMap;
 public abstract class AbsRunAfter {
 
 	public abstract HashMap<String, Object> disRunAfter();
+	
+	public abstract void disSetAll(HashMap<String, Object> hmpAllp);
 }

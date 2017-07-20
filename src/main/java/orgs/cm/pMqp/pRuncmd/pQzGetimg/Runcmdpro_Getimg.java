@@ -42,7 +42,7 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 			objCmd = new RunCmd_Getimg();
 			objCmd.disSetAll(hmpAllp);
 			objAfter = new RunAfter_Getimg();
-//			objAfter.disSetAll(hmpAllp);
+			objAfter.disSetAll(hmpAllp);
 			super.disRunPrepare(objPrepare);
 			super.disRunBefre(objBefore);
 			super.disRunCmd(objCmd);
