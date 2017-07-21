@@ -21,6 +21,16 @@ public class RunCmd_Getnetw extends AbsRunCmd {
 	private final String strCname = RunCmd_Getnetw.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
+	public void setRuncres(String strflgp, ArrayList<LinkedHashMap<String, String>> altRunc){
+		if(strflgp!=null && strflgp.trim().length()>0){
+			if("ERR".equals(strflgp)){
+				hmpAll.put(ProcessAttrs.strInfoFlgKey_Reserr, altRunc);
+			}
+			if("STD".equals(strflgp)){
+				hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstd, altRunc);
+			}
+		}
+	}
 	public void setStrThrflg(String strThrflgp){
 		this.strThrflg = strThrflgp;
 	}

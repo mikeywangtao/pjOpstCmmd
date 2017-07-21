@@ -44,7 +44,7 @@ public class TstCtrl {
 			tstServ.disTstServ_Pro(null);
 			strRe = "myTest00";
 		} catch(Exception ex) {
-			
+			System.out.println(strCname + strFname + ex);
 		}
 		return strRe;
 	}

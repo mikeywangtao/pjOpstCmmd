@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class CmdStreamGobbler extends Thread {
 	// 命令执行结果,0:执行中 1:超时
 	private int commandResult = 0;
 
-	private List<String> infoList = new LinkedList<String>();
+	private ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();	
 	
 	private final String strCname = CmdStreamGobbler.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
@@ -42,11 +44,18 @@ public class CmdStreamGobbler extends Thread {
 	}
 
 	public void setStop(){
-		logger.info(strCname + " CpUuid:" + strCpUuid+ " setStop : 强制中断: " + prefix + objSdf.format(new Date()));
+		String strInfo = strCname + " CpUuid:" + strCpUuid+ " setStop : 强制中断: " + prefix + objSdf.format(new Date());
+		logger.info(strInfo);
+		LinkedHashMap<String, String> lhpInfo = new LinkedHashMap<String, String>();
+		lhpInfo.put(ProcessAttrs.strInfoType_Info, ProcessAttrs.strInfoFlgKey_Res+prefix.split(" ")[1].toLowerCase());
+		altRunc = disSetInfo(strInfo, lhpInfo, altRunc, "info");
 		commandResult = 1;
 	}
 	public void run() {
 		String strFname = " run : ";
+		String strInfo = "";
+		LinkedHashMap<String, String> lhpInfo = new LinkedHashMap<String, String>();
+		lhpInfo.put(ProcessAttrs.strInfoType_Info, ProcessAttrs.strInfoFlgKey_Res+prefix.split(" ")[1].toLowerCase());
 		InputStreamReader isr = null;
 		BufferedReader br = null;
 		try {
@@ -54,11 +63,16 @@ public class CmdStreamGobbler extends Thread {
 			br = new BufferedReader(isr);
 			String line = null;
 			ready = true;
-			logger.info(strCname + strFname + " ----" + prefix + " Start:" + objSdf.format(new Date()));
+//			logger.info(strCname + strFname + " ----" + prefix + " Start:" + objSdf.format(new Date()));
+			strInfo = strCname + strFname + " ----" + prefix + " Start:" + objSdf.format(new Date());
+			altRunc = disSetInfo(strInfo, lhpInfo, altRunc, "info");
+			
 			while(commandResult != 1){
 				if (br.ready()) {
 					while((line = br.readLine()) != null) {
-						infoList.add(line);
+//						infoList.add(line);
+						strInfo = prefix.split(" ")[1] + "}}}" + line;
+						altRunc = disSetInfo(strInfo, lhpInfo, altRunc, "res");
 						System.out.println(prefix + " line: " + line);
 					}
 					commandResult = 1;
@@ -67,22 +81,12 @@ public class CmdStreamGobbler extends Thread {
 				}
 			}
 			
-			logger.info(strCname + strFname + " ----" + prefix + " End:" + objSdf.format(new Date()));
+//			logger.info(strCname + strFname + " ----" + prefix + " End:" + objSdf.format(new Date()));
+			strInfo = strCname + strFname + " ----" + prefix + " End:" + objSdf.format(new Date());
+			altRunc = disSetInfo(strInfo, lhpInfo, altRunc, "info");
 			
 			this.objAbsRunCmd.setStrThrflg(prefix.split(" ")[1]);
-//			while (commandResult != 1) {
-//				if (br.ready()) {
-//					if ((line = br.readLine()) != null) {
-//						infoList.add(line);
-//						System.out.println(prefix + " line: " + line);
-//					} else {
-//						logger.info(strCname + strFname + " ----" + prefix + " End:" + objSdf.format(new Date()));
-//						break;
-//					}
-//				} else {
-//					Thread.sleep(1000);
-//				}
-//			}
+			this.objAbsRunCmd.setRuncres(prefix.split(" ")[1], altRunc);
 			
 		} catch (Exception ex) {
 			disOutputLog(strFname, ex);
@@ -94,12 +98,24 @@ public class CmdStreamGobbler extends Thread {
 				if (isr != null) {
 					isr.close();
 				}
-
 			} catch (IOException ioe) {
 				System.out.println("正式执行命令：" + command + "有IO异常");
 			}
-//			readFinish = true;
 		}
+	}
+	
+	private ArrayList<LinkedHashMap<String, String>> disSetInfo(String strInfop
+			, LinkedHashMap<String, String> lhpInfop
+			, ArrayList<LinkedHashMap<String, String>> altRuncp
+			, String strSubflgp){
+		LinkedHashMap<String, String> lhpInfof = null;
+		String strInfo = strInfop;
+		lhpInfof = (LinkedHashMap<String, String>)lhpInfop.clone();
+		lhpInfof.put(ProcessAttrs.strInfoKey_Info, strInfo);
+		lhpInfof.put(ProcessAttrs.strInfoSubtype_Info, strSubflgp);
+		lhpInfof.put(ProcessAttrs.strInfoKey_Rundt, DatePro.disGetStrdate4NowObjSdf001());
+		altRuncp.add(lhpInfof);
+		return altRuncp;
 	}
 
 	private void disOutputLog(String strFnamep, Exception exp){
@@ -119,16 +135,8 @@ public class CmdStreamGobbler extends Thread {
 		return command;
 	}
 
-//	public boolean isReadFinish() {
-//		return readFinish;
-//	}
-
 	public boolean isReady() {
 		return ready;
-	}
-
-	public List<String> getInfoList() {
-		return infoList;
 	}
 
 	public void setTimeout(int timeout) {

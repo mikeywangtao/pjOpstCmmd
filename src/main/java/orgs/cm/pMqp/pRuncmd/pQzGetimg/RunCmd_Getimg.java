@@ -20,6 +20,17 @@ public class RunCmd_Getimg extends AbsRunCmd {
 	private final String strCname = RunCmd_Getimg.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
+	public void setRuncres(String strflgp, ArrayList<LinkedHashMap<String, String>> altRunc){
+		if(strflgp!=null && strflgp.trim().length()>0){
+			if("ERR".equals(strflgp)){
+				hmpAll.put(ProcessAttrs.strInfoFlgKey_Reserr, altRunc);
+			}
+			if("STD".equals(strflgp)){
+				hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstd, altRunc);
+			}
+		}
+	}
+	
 	public void setStrThrflg(String strThrflgp){
 		this.strThrflg = strThrflgp;
 	}
@@ -44,7 +55,10 @@ public class RunCmd_Getimg extends AbsRunCmd {
 		try {
 			logger.info(strCname + strFname + "  Start!");
 			hmpAll.put(ProcessAttrs.strParmapKey_Runlst, null);
+			hmpAll.put(ProcessAttrs.strInfoFlgKey_Reserr, null);
+			hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstd, null);
 			lhpInfo.put(ProcessAttrs.strInfoType_Info, ProcessAttrs.strInfoFlgKey_Runc);
+
 			if(hmpAll!=null 
 					&& hmpAll.containsKey(ProcessAttrs.strInfoKey_Cpuuid)){
 				strstrCpuuid = hmpAll.get(ProcessAttrs.strInfoKey_Cpuuid)==null?
@@ -142,74 +156,14 @@ STD line: } */
 				for(int i=0; i<altRunc.size(); i++){
 					System.out.println(altRunc.get(i));
 				}
+				System.out.println(hmpAll);
 			}
 		} catch(Exception ex) {
 			disOutputLog(strFname, ex);
 		}  finally{
 			process = null;
 		}
-//			errorGobbler.start();
-//			// 必须先等待错误输出ready再建立标准输出
-//			while (!errorGobbler.isReady()) {
-//				Thread.sleep(10);
-//			}
-//			outputGobbler.start();
-//			while (!outputGobbler.isReady()) {
-//				Thread.sleep(10);
-//			}
-//
-//			while(!super.booThrflg){
-//				if((new Date().getTime())-lonBasrDt<=8000){
-//					Thread.sleep(1000);
-//				} else {
-//					try {
-//						errorGobbler.destroy();
-//					} catch(Exception exx) {
-//						disOutputLog(strFname, exx);
-//					} finally{
-//						errorGobbler = null;
-//					}
-//					try {
-//						outputGobbler.destroy();
-//					} catch(Exception exx) {
-//						disOutputLog(strFname, exx);
-//					} finally{
-//						outputGobbler = null;
-//					}
-//					break;
-//				}
-//			}
-////			CommandWaitForThread01 commandThread = new CommandWaitForThread01(process);
-////			commandThread.start();
-////
-////			long commandTime = new Date().getTime();
-////			long nowTime = new Date().getTime();
-////			boolean timeoutFlag = false;
-////			while (!commandThread.isFinish()) {
-////				if (nowTime - commandTime > timeout) {
-////					timeoutFlag = true;
-////					break;
-////				} else {
-////					Thread.sleep(10000);
-////					nowTime = new Date().getTime();
-////				}
-////			}
-////			if (timeoutFlag) {
-////				// 命令超时
-////				errorGobbler.setTimeout(1);
-////				outputGobbler.setTimeout(1);
-////				System.out.println("正式执行命令：" + command + "超时");
-////			}
-//
-////			while (true) {
-////				if (errorGobbler.isReadFinish() && outputGobbler.isReadFinish()) {
-////					break;
-////				}
-////				Thread.sleep(10);
-////			}
-//		} catch(Exception ex) {
-//			disOutputLog(strFname, ex);
-//		}
+
 	}
 	
 	private ArrayList<LinkedHashMap<String, String>> disSetInfo(String strInfop

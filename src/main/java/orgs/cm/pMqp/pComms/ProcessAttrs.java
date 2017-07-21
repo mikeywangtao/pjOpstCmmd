@@ -16,6 +16,7 @@ public class ProcessAttrs {
 	public static final String strInfoFlgKey_Cp ="cp";
 	public static final String strInfoFlgKey_Runc ="runc";
 	public static final String strInfoFlgKey_Shell ="shell";
+	public static final String strInfoFlgKey_Res ="res";
 	public static final String strInfoFlgKey_Reserr ="reserr";
 	public static final String strInfoFlgKey_Resstd ="resstd";
 	public static final String strInfoFlgKey_Aft ="aft";
@@ -31,6 +32,7 @@ public class ProcessAttrs {
 	public static final String strParmapKey_Cplst = "cplst";
 	public static final String strParmapKey_Ppalst = "ppalst";
 	public static final String strParmapKey_Runlst = "runlst";
+//	public static final String strParmapKey_Reslst = "reslst";
 	public static final String strParmapKey_Beflst = "beflst";
 	public static final String strParmapKey_Aftlst = "aftlst";
 	public static final String strParmapKey_Inpars = "inpars";

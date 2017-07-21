@@ -21,14 +21,16 @@ public class RunCmd_Getflv extends AbsRunCmd {
 	private final String strCname = RunCmd_Getflv.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
-//	public void setBooThrflg(boolean booThrflgp){
-//		this.booThrflg = booThrflgp;
-//	}
-//	@Override
-//	public HashMap<String, Object> disRunCmd() {
-//		disRuncmd();
-//		return hmpAll;
-//	}
+	public void setRuncres(String strflgp, ArrayList<LinkedHashMap<String, String>> altRunc){
+		if(strflgp!=null && strflgp.trim().length()>0){
+			if("ERR".equals(strflgp)){
+				hmpAll.put(ProcessAttrs.strInfoFlgKey_Reserr, altRunc);
+			}
+			if("STD".equals(strflgp)){
+				hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstd, altRunc);
+			}
+		}
+	}
 	
 	public void setStrThrflg(String strThrflgp){
 		this.strThrflg = strThrflgp;
