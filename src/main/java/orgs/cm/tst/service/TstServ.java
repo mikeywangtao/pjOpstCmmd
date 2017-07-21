@@ -81,7 +81,12 @@ public class TstServ {
 								String strVal = map.get(objkey)==null? "":map.get(objkey).toString();
 								System.out.print(objkey + ":" + strVal + ", ");
 								/*
-								 name
+								 intId
+								 strName
+								 strIp
+								 strLoginName
+								 strPassword
+								 strSshKey
 								 */
 							}
 							System.out.println("");
@@ -119,14 +124,15 @@ public class TstServ {
 								String strVal = map.get(objkey)==null? "":map.get(objkey).toString();
 								System.out.print(objkey + ":" + strVal + ", ");
 								/*
-								 * dom
-								 * dom
-								 * project
-								 * userName
-								 * password
-								 * authUrl
-								 * ideenity
-								 * imgapiv
+								 * strPDom
+								 * strUDom
+								 * strProject
+								 * strUserName
+								 * strPassword
+								 * strAuthUrl
+								 * strIdeenity
+								 * strImgapiv
+								 * **intAnsibleId
 								 */
 							}
 							System.out.println("");

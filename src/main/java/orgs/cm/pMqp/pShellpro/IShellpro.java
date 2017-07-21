@@ -4,6 +4,6 @@ import java.util.HashMap;
 
 public interface IShellpro {
 
-//	public void disSetPars(HashMap<String, String> mapParp);
+	public HashMap<String , String> disGetRes();
 	public boolean disShellpro();
 }

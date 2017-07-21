@@ -1,5 +1,6 @@
 package orgs.cm.pMqp.pShellpro;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.logging.log4j.LogManager;
@@ -20,12 +21,24 @@ public class StandardShellpro_Getimg extends StandardShellpro{
 	public boolean disShellpro() {
 		String strFname = "";
 		try {
-			ShellFilepro objShellFilepro = new ShellFilepro(null, null);
+			String strFileroot = "/home/anshells";
+			ArrayList<String> altShell = super.disGetAltshell();
+			ShellFilepro objShellFilepro = new ShellFilepro(strFileroot, altShell);
 			boolean booflg = objShellFilepro.disCreateshell();
 		} catch(Exception ex) {
 			
 		}
 		return false;
+	}
+	
+	public HashMap<String , String> disGetRes(){
+		String strFname = " disGetRes : ";
+		try {
+			
+		} catch(Exception ex) {
+			
+		}
+		return mapRes;
 	}
 
 }
