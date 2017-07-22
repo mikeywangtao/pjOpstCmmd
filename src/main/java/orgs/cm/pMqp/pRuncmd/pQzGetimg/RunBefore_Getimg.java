@@ -24,11 +24,12 @@ public class RunBefore_Getimg extends AbsRunBefore {
 	public HashMap<String, Object> disRunBefore() {
 		String strFname = " disRunBefore : ";
 		try {
-			AbsShellpro objShellpro = new StandardShellpro_Getimg(hmpAll);
-			if(objShellpro.disShellpro()){
-				hmpAll.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "t");
+			if(hmpAll!=null && hmpAll.size()>0){
+				AbsShellpro objShellpro = new StandardShellpro_Getimg(hmpAll);
+				if(objShellpro.disShellpro()){
+					hmpAll.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "t");
+				}
 			}
-			
 		} catch(Exception ex) {
 			disOutputLog(strFname, ex);
 		}

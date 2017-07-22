@@ -32,30 +32,31 @@ public class RunAfter_Getimg extends AbsRunAfter {
 		ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();	
 		
 		try {
-			logger.info(strCname + strFname + "  Start!");
-			hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, null);
-			lhpInfo.put(ProcessAttrs.strInfoType_Info, ProcessAttrs.strInfoFlgKey_Aft);
-			strInfo = strCname + strFname + " 镜像 After Start----" + DatePro.disGetStrdate4NowObjSdf001();
-			altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
-			hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
-			
-			//httpclient 访问
-			
-			
-			String strPackage = this.getClass().getPackage().getName();
-			String[] subTmp = strPackage.split("\\.");
-			if(subTmp!=null && subTmp.length>1){
-				strPackage = subTmp[subTmp.length-1];
+			if(hmpAll!=null && hmpAll.size()>0){
+				logger.info(strCname + strFname + "  Start!");
+				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, null);
+				lhpInfo.put(ProcessAttrs.strInfoType_Info, ProcessAttrs.strInfoFlgKey_Aft);
+				strInfo = strCname + strFname + " 镜像 After Start----" + DatePro.disGetStrdate4NowObjSdf001();
+				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
+				
+				//httpclient 访问
+				
+				
+				String strPackage = this.getClass().getPackage().getName();
+				String[] subTmp = strPackage.split("\\.");
+				if(subTmp!=null && subTmp.length>1){
+					strPackage = subTmp[subTmp.length-1];
+				}
+				if(strPackage.indexOf(".")==-1){
+					strPackage = strPackage.toLowerCase();
+					DbInfotablePro4Cmmd.disInfotablePro(strPackage);
+				}
+				
+				strInfo = strCname + strFname + " 镜像 After End----" + DatePro.disGetStrdate4NowObjSdf001();
+				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 			}
-			if(strPackage.indexOf(".")==-1){
-				strPackage = strPackage.toLowerCase();
-				DbInfotablePro4Cmmd.disInfotablePro(strPackage);
-			}
-			
-			strInfo = strCname + strFname + " 镜像 After End----" + DatePro.disGetStrdate4NowObjSdf001();
-			altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
-			hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
-			
 		} catch(Exception ex) {
 			disOutputLog(strFname, ex);
 		}

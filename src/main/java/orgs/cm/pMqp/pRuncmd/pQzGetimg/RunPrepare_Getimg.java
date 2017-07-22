@@ -36,15 +36,17 @@ public class RunPrepare_Getimg extends AbsRunPrepare {
 		HashMap<String, Object> hmpCmds = new HashMap<>();
 		
 		try {
-			objDbpro = new BaseDbpro(DbproAttrs.strDbflg_Cmd);
-			
-			disSearchCmdi(ProcessSql_Qz.strQzSql_Search_Cmdi, hmpCmds);
-			disSearchCmdsh(ProcessSql_Qz.strQzSql_Search_Cmdsh, hmpCmds);
-			disSearchCmdpar(ProcessSql_Qz.strQzSql_Search_Cmdpar, hmpCmds);
-			
-			hmpAll.put(ProcessAttrs.strParmapKey_Ppalst, hmpCmds);
-			
-			disSetShell();
+			if(hmpAll!=null && hmpAll.size()>0){
+				objDbpro = new BaseDbpro(DbproAttrs.strDbflg_Cmd);
+				
+				disSearchCmdi(ProcessSql_Qz.strQzSql_Search_Cmdi, hmpCmds);
+				disSearchCmdsh(ProcessSql_Qz.strQzSql_Search_Cmdsh, hmpCmds);
+				disSearchCmdpar(ProcessSql_Qz.strQzSql_Search_Cmdpar, hmpCmds);
+				
+				hmpAll.put(ProcessAttrs.strParmapKey_Ppalst, hmpCmds);
+				
+				disSetShell();
+			}
 		} catch(Exception ex) {
 			disOutputLog(strFname, ex);
 		}
