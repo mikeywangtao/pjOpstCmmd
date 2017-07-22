@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 
-import orgs.cm.pMqp.pComms.HttpClientUtil;
+import orgs.cm.pMqp.pHttpc.HttpClientUtil;
 import orgs.cm.pMqp.pRuncmd.pQzGetimg.Runcmdpro_Getimg;
 import orgs.cm.pMqp.pShellpro.AbsShellpro;
 import orgs.cm.pMqp.pShellpro.StandardShellpro_Getimg;

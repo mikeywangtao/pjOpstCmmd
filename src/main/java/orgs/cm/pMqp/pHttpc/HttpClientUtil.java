@@ -1,4 +1,4 @@
-package orgs.cm.pMqp.pComms;
+package orgs.cm.pMqp.pHttpc;
 
 import java.io.File;
 import java.io.IOException;
