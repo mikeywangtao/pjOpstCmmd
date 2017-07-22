@@ -42,4 +42,9 @@ public class ProcessAttrs {
 	public static final String strParmapKey_Ppa_Cmdsh = "cmdsh";
 	public static final String strParmapKey_Ppa_Cmdpar = "cmdpar";
 	public static final String strParmapKey_Ppa_Cmdshr = "cmdshr";
+	
+	public static final String strParmapKey_Ppa_ShFileroot = "strShFileroot";
+	public static final String strParmapKey_Ppa_ShFilename = "strShFilename";
+	public static final String strParmapKey_Ppa_ShFilecflg = "strShFilecflg";
+	public static final String strParmapKey_Ppa_RunShCmmd = "strRunShCmmd";
 }

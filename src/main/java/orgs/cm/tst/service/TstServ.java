@@ -142,9 +142,9 @@ public class TstServ {
 			}
 		}
 		
-		HashMap<String, String> mapPar = new HashMap<>();
-		AbsShellpro objShellpro = new StandardShellpro_Getimg(mapPar);
-		boolean booFlg = objShellpro.disShellpro();
+//		HashMap<String, Object> mapPar = new HashMap<>();
+//		AbsShellpro objShellpro = new StandardShellpro_Getimg(mapPar);
+//		boolean booFlg = objShellpro.disShellpro();
 		
 		
 //		Map<String, Object> mapRes = JSON.parseObject(strAnsible, HashMap.class);

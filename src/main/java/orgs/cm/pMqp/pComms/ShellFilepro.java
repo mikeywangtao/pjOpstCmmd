@@ -18,13 +18,15 @@ public class ShellFilepro {
 	private final Logger logger = LogManager.getLogger(strCname);
 
 	private String strFileroot;
+	private String strFilename;
 	private ArrayList<String> altShell;
 
 	private ShellFilepro() {
 	}
 
-	public ShellFilepro(String strFilerootp, ArrayList<String> altShellp) {
+	public ShellFilepro(String strFilerootp, String strFilenamep, ArrayList<String> altShellp) {
 		strFileroot = strFilerootp;
+		strFilename = strFilenamep;
 		altShell = altShellp;
 	}
 
@@ -39,10 +41,15 @@ public class ShellFilepro {
 		try {
 			if (strFileroot != null && strFileroot.trim().length() > 0 
 					&& altShell != null && altShell.size() > 0) {
-				file = new File(strFileroot +"/sssss/");
+//				file = new File(strFileroot +"/sssss/");
+//				file.mkdirs();
+//				file = null;
+//				file=new File(strFileroot +"/sssss/" + "ssss.sh");
+//				fw = new FileWriter(file);
+				file = new File(strFileroot);
 				file.mkdirs();
 				file = null;
-				file=new File(strFileroot +"/sssss/" + "ssss.sh");
+				file=new File(strFileroot + strFilename);
 				fw = new FileWriter(file);
 				writer = new BufferedWriter(fw);
 				for (String str : altShell) {
@@ -50,9 +57,10 @@ public class ShellFilepro {
 					writer.newLine();// 换行
 				}
 				writer.flush();
+				booRe = true;
 			}
 		} catch (Exception ex) {
-
+			 booRe = false;
 		} finally {
 			try {
 				writer.close();

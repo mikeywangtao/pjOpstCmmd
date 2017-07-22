@@ -5,5 +5,7 @@ import java.util.HashMap;
  * cmd运行前生成cmd文件等
  * */
 public abstract class AbsRunBefore {
+	public abstract void disSetAll(HashMap<String, Object> hmpAllp);
 	public abstract HashMap<String, Object> disRunBefore();
+	
 }

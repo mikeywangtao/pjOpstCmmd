@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import orgs.cm.pMqp.pComms.DatePro;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunAfter;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunBefore;
@@ -32,27 +33,44 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 		
 		try {
 			UUID objUuid = UUID.randomUUID();
-			HashMap<String, String> hmpAllp = new HashMap<>();
-			hmpAllp.put(ProcessAttrs.strInfoKey_Cpuuid, objUuid.toString().replaceAll("-", ""));
+			HashMap<String, String> hmpAllInp = new HashMap<>();
 			
-			hmpAllp.put("^req_type^", "qz");
-			hmpAllp.put("^req_subtype^", "getimg");
+			hmpAllInp.put("^anscmmd^", "openstack");
+			hmpAllInp.put("^ansinfo^", "ansinfo......");
 			
-			hmpAllp.put("^pdom^", "Default");
-			hmpAllp.put("^udom^", "Default");
-			hmpAllp.put("^pname^", "admin");
-			hmpAllp.put("^uname^", "admin");
-			hmpAllp.put("^pass^", "admin");
-			hmpAllp.put("^authurl^", "http://test-controller:5000/v3");
-			hmpAllp.put("^ideapi^", "3");
-			hmpAllp.put("^imgapi^", "2");
+			hmpAllInp.put("^req_type^", "qz");
+			hmpAllInp.put("^req_subtype^", "getimg");
 			
-			hmpPar.put(ProcessAttrs.strParmapKey_Inpars, hmpAllp);
+			hmpAllInp.put("^pdom^", "Default");
+			hmpAllInp.put("^udom^", "Default");
+			hmpAllInp.put("^pname^", "admin");
+			hmpAllInp.put("^uname^", "admin");
+			hmpAllInp.put("^pass^", "admin");
+			hmpAllInp.put("^authurl^", "http://test-controller:5000/v3");
+			hmpAllInp.put("^ideapi^", "3");
+			hmpAllInp.put("^imgapi^", "2");
+			
+
+			
+			hmpPar.put(ProcessAttrs.strParmapKey_Inpars, hmpAllInp);
+			hmpPar.put("^anscmmd^", "openstack");
+			hmpPar.put("^ansinfo^", "ansinfo......");
+			hmpPar.put(ProcessAttrs.strInfoKey_Cpuuid, objUuid.toString().replaceAll("-", ""));
+			hmpPar.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "f");
+			hmpPar.put(ProcessAttrs.strParmapKey_Ppa_RunShCmmd, null);
+			hmpPar.put(ProcessAttrs.strParmapKey_Ppa_ShFileroot, 
+					"/home/anshells/" + DatePro.disGetYear4now()+DatePro.disGetWeek4now());
+			hmpPar.put(ProcessAttrs.strParmapKey_Ppa_ShFilename, 
+					"/" 
+					+ DatePro.disGetStrdate4NowObjSdf001() 
+					+ "_" + hmpAllInp.get("^req_type^").toString()
+					+ hmpAllInp.get("^req_subtype^").toString() 
+					+ ".sh");
 			
 			objPrepare = new RunPrepare_Getimg();
 			objPrepare.disSetAll(hmpPar);
 			objBefore = new RunBefore_Getimg();
-//			objBefore.disSetAll(hmpAllp);
+			objBefore.disSetAll(hmpPar);
 			objCmd = new RunCmd_Getimg();
 			objCmd.disSetAll(hmpPar);
 			objAfter = new RunAfter_Getimg();

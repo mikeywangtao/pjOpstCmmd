@@ -60,7 +60,8 @@ public class RunCmd_Getimg extends AbsRunCmd {
 			lhpInfo.put(ProcessAttrs.strInfoType_Info, ProcessAttrs.strInfoFlgKey_Runc);
 
 			if(hmpAll!=null 
-					&& hmpAll.containsKey(ProcessAttrs.strInfoKey_Cpuuid)){
+					&& hmpAll.containsKey(ProcessAttrs.strInfoKey_Cpuuid)
+					){
 				strstrCpuuid = hmpAll.get(ProcessAttrs.strInfoKey_Cpuuid)==null?
 						null:hmpAll.get(ProcessAttrs.strInfoKey_Cpuuid).toString();
 			}
@@ -69,9 +70,43 @@ public class RunCmd_Getimg extends AbsRunCmd {
 				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 				return;
 			}
-			
+			if(hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_ShFilecflg)
+					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFilecflg)!=null
+					&& !("t".equals(hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFilecflg).toString()))
+					){
+				strInfo = strCname + strFname + " Shell File create 失败!" ;
+				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+				return;
+			}
+			String strFileroot = null;
+			String strFilename = null;
+			String StrCommand = null;
+			String strAnsCmmd = null;
+			if(hmpAll.containsKey("^anscmmd^")
+					&& hmpAll.get("^anscmmd^")!=null
+					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_RunShCmmd)
+					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunShCmmd)!=null
+					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_ShFileroot)
+					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFileroot)!=null
+					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_ShFilename)
+					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFilename)!=null
+					){
+					strFileroot = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFileroot).toString();
+					strFilename = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFilename).toString(); 
+					StrCommand = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunShCmmd).toString(); 
+					strAnsCmmd = hmpAll.get("^anscmmd^").toString(); 
+			}
+			if(strFileroot!=null && strFileroot.trim().length()>0
+					&& strFilename!=null && strFilename.trim().length()>0){
+				StrCommand = StrCommand.replaceAll("\\^anscmmd\\^", strAnsCmmd);
+				StrCommand = StrCommand.replaceAll("\\^shell_allpath\\^", strFileroot+strFilename);
+			} else {
+				strInfo = strCname + strFname + " Shell cmmd 构建失败!" ;
+				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+				return;
+			}
 			/* ------------------------------------------------------------------------------- */
-			String command = "ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u root "; //查看镜像
+//			String StrCommand = "ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u root "; //查看镜像
 /* 11:17:09.345 [http-bio-8080-exec-10] INFO  orgs.cm.tst.model.RunCmmd002 - Run Cmmd ----> ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u rootSTD line: 10.167.212.1 | SUCCESS => {
 STD line:     "changed": true, 
 STD line:     "rc": 0, 
@@ -93,15 +128,15 @@ STD line: } */
 			SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
 			strInfo = strCname + strFname + " 查看镜像 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
-			strInfo = strCname + strFname + " 查看镜像 Cmmd----" + command;
+			strInfo = strCname + strFname + " 查看镜像 Cmmd----" + StrCommand;
 			altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 			logger.info(strInfo);
 			logger.info(strInfo);
 			
-			process = Runtime.getRuntime().exec(command);
+			process = Runtime.getRuntime().exec(StrCommand);
 
-			errorGobbler = new CmdStreamGobbler(process.getErrorStream(), command, "查看镜像 ERR", strstrCpuuid, this);
-			outputGobbler = new CmdStreamGobbler(process.getInputStream(), command, "查看镜像 STD", strstrCpuuid, this);
+			errorGobbler = new CmdStreamGobbler(process.getErrorStream(), StrCommand, "查看镜像 ERR", strstrCpuuid, this);
+			outputGobbler = new CmdStreamGobbler(process.getInputStream(), StrCommand, "查看镜像 STD", strstrCpuuid, this);
 
 			if(errorGobbler!=null && outputGobbler!=null){
 				errorGobbler.start();
