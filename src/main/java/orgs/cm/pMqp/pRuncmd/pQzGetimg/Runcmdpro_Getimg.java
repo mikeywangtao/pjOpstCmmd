@@ -16,12 +16,12 @@ import orgs.cm.pMqp.pRuncmd.pjCreate00.Runcmdpro_Create00;
 
 public class Runcmdpro_Getimg extends AbsRuncmdPro {
 
-	private final String strCname = Runcmdpro_Create00.class.getName();
+	private final String strCname = Runcmdpro_Getimg.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
 	private static final String strInfoflg = "imgJob";
 	
-	private HashMap<String, Object> hmpPar;
+	private HashMap<String, Object> hmpPar = new HashMap<>();
 	
 	public void disRuncmdPro(){
 		String strFname = " disRuncmdPro : ";
@@ -32,17 +32,31 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 		
 		try {
 			UUID objUuid = UUID.randomUUID();
-			HashMap<String, Object> hmpAllp = new HashMap<>();
-			hmpAllp.put(ProcessAttrs.strParmapKey_Inpars, hmpPar);
+			HashMap<String, String> hmpAllp = new HashMap<>();
 			hmpAllp.put(ProcessAttrs.strInfoKey_Cpuuid, objUuid.toString().replaceAll("-", ""));
+			
+			hmpAllp.put("^req_type^", "qz");
+			hmpAllp.put("^req_subtype^", "getimg");
+			
+			hmpAllp.put("^pdom^", "Default");
+			hmpAllp.put("^udom^", "Default");
+			hmpAllp.put("^pname^", "admin");
+			hmpAllp.put("^uname^", "admin");
+			hmpAllp.put("^pass^", "admin");
+			hmpAllp.put("^authurl^", "http://test-controller:5000/v3");
+			hmpAllp.put("^ideapi^", "3");
+			hmpAllp.put("^imgapi^", "2");
+			
+			hmpPar.put(ProcessAttrs.strParmapKey_Inpars, hmpAllp);
+			
 			objPrepare = new RunPrepare_Getimg();
-			objPrepare.disSetAll(hmpAllp);
+			objPrepare.disSetAll(hmpPar);
 			objBefore = new RunBefore_Getimg();
 //			objBefore.disSetAll(hmpAllp);
 			objCmd = new RunCmd_Getimg();
-			objCmd.disSetAll(hmpAllp);
+			objCmd.disSetAll(hmpPar);
 			objAfter = new RunAfter_Getimg();
-			objAfter.disSetAll(hmpAllp);
+			objAfter.disSetAll(hmpPar);
 			super.disRunPrepare(objPrepare);
 			super.disRunBefre(objBefore);
 			super.disRunCmd(objCmd);

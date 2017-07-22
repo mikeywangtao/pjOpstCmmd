@@ -29,6 +29,7 @@ public class ProcessAttrs {
 	public static final String strInfoKey_Rundt = "rundt";
 	public static final String strInfoKey_Cpuuid = "cpuuid";
 	
+	public static final String strParmapKey_Param = "param";
 	public static final String strParmapKey_Cplst = "cplst";
 	public static final String strParmapKey_Ppalst = "ppalst";
 	public static final String strParmapKey_Runlst = "runlst";
@@ -40,4 +41,5 @@ public class ProcessAttrs {
 	public static final String strParmapKey_Ppa_Cmdi = "cmdi";
 	public static final String strParmapKey_Ppa_Cmdsh = "cmdsh";
 	public static final String strParmapKey_Ppa_Cmdpar = "cmdpar";
+	public static final String strParmapKey_Ppa_Cmdshr = "cmdshr";
 }
