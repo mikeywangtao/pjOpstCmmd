@@ -12,10 +12,12 @@ public class AbsDbpro {
 	private final String strCname = AbsDbpro.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
+	protected String strDbFlg = null;
 	protected Statement objStmt = null;
 	
 	public void disGetStmt(String strDbFlgp){
-		objStmt = DbContManage.getDbstmt(strDbFlgp);
+		strDbFlg = strDbFlgp;
+		objStmt = DbContManage.getDbstmt(strDbFlg);
 	}
 	
 	public void disStmtdel(){

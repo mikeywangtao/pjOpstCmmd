@@ -17,7 +17,7 @@ public class DbInfotablePro4Cmmd {
 	private static final Logger logger = LogManager.getLogger(strCname);
 	
 	private static Statement objStmt = null;
-	private static final String strDbflg = "Cmdpool";
+//	private static final String strDbflg = "Cmdpool";
 	private static String strBusname = null;
 	private static String strYear = null;
 	private static String strWeeknum = null;
@@ -35,7 +35,7 @@ public class DbInfotablePro4Cmmd {
 				strYear = DatePro.disGetYear4now()+"";
 				strWeeknum = DatePro.disGetWeek4now()+"";
 				strBusname = strBusnamep;
-				disGetStmt(strDbflg);
+				disGetStmt(DbproAttrs.strDbflg_Cmd);
 				disCpCheck();
 				disRunCheck();
 				strBusname = null;

@@ -18,7 +18,7 @@ public class RunAfter_Getflv extends AbsRunAfter {
 	public HashMap<String, Object> disRunAfter() {
 		// TODO Auto-generated method stub
 		
-		objDbpro = new BaseDbpro();
+		objDbpro = new BaseDbpro(null);
 		
 		return hmpAll;
 	}

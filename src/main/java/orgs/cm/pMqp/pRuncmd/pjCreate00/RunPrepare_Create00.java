@@ -11,11 +11,14 @@ public class RunPrepare_Create00 extends AbsRunPrepare {
 	private AbsDbpro objDbpro = null;
 	private HashMap<String, Object> hmpAll;
 	
+	public void disSetAll(HashMap<String, Object> hmpAllp){
+		hmpAll = hmpAllp;
+	}
 	@Override
 	public HashMap<String, Object> disRunPrepare() {
 		// TODO Auto-generated method stub
 		
-		objDbpro = new BaseDbpro();
+		objDbpro = new BaseDbpro(null);
 		
 		return hmpAll;
 	}

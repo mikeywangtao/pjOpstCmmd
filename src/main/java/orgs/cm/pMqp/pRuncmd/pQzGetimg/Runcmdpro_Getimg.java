@@ -36,7 +36,7 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 			hmpAllp.put(ProcessAttrs.strParmapKey_Inpars, hmpPar);
 			hmpAllp.put(ProcessAttrs.strInfoKey_Cpuuid, objUuid.toString().replaceAll("-", ""));
 			objPrepare = new RunPrepare_Getimg();
-//			objPrepare.disSetAll(hmpAllp);
+			objPrepare.disSetAll(hmpAllp);
 			objBefore = new RunBefore_Getimg();
 //			objBefore.disSetAll(hmpAllp);
 			objCmd = new RunCmd_Getimg();

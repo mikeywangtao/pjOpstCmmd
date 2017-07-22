@@ -36,4 +36,8 @@ public class ProcessAttrs {
 	public static final String strParmapKey_Beflst = "beflst";
 	public static final String strParmapKey_Aftlst = "aftlst";
 	public static final String strParmapKey_Inpars = "inpars";
+	
+	public static final String strParmapKey_Ppa_Cmdi = "cmdi";
+	public static final String strParmapKey_Ppa_Cmdsh = "cmdsh";
+	public static final String strParmapKey_Ppa_Cmdpar = "cmdpar";
 }
