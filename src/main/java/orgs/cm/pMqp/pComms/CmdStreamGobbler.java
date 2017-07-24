@@ -85,8 +85,8 @@ public class CmdStreamGobbler extends Thread {
 			strInfo = strCname + strFname + " ----" + prefix + " End:" + objSdf.format(new Date());
 			altRunc = disSetInfo(strInfo, lhpInfo, altRunc, "info");
 			
-			this.objAbsRunCmd.setStrThrflg(prefix.split(" ")[1]);
 			this.objAbsRunCmd.setRuncres(prefix.split(" ")[1], altRunc);
+			this.objAbsRunCmd.setStrThrflg(prefix.split(" ")[1]);
 			
 		} catch (Exception ex) {
 			disOutputLog(strFname, ex);

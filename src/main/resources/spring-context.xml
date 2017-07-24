@@ -12,6 +12,7 @@
       http://www.springframework.org/schema/task/spring-task-4.3.xsd
       http://www.springframework.org/schema/aop
 	  http://www.springframework.org/schema/aop/spring-aop-4.3.xsd" >
+	  
 	  <!-- 扫描包下的spring注解  -->
 	<context:component-scan base-package="orgs.cm.*.service, orgs.cm.*.dao, orgs.cm.*.model" /> 
 

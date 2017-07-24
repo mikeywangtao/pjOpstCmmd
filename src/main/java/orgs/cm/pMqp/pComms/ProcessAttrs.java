@@ -19,6 +19,7 @@ public class ProcessAttrs {
 	public static final String strInfoFlgKey_Res ="res";
 	public static final String strInfoFlgKey_Reserr ="reserr";
 	public static final String strInfoFlgKey_Resstd ="resstd";
+	public static final String strInfoFlgKey_Resstdf = "resstdf";
 	public static final String strInfoFlgKey_Aft ="aft";
 	public static final String strInfoFlgKey_Bef ="bef";
 	public static final String strInfoFlgKey_Prep ="prep";

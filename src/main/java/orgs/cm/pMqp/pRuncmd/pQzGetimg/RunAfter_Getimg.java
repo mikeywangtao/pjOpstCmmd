@@ -3,15 +3,19 @@ package orgs.cm.pMqp.pRuncmd.pQzGetimg;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.alibaba.fastjson.JSON;
 
 import orgs.cm.pMqp.pComms.DatePro;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
 import orgs.cm.pMqp.pDbpro.AbsDbpro;
 import orgs.cm.pMqp.pDbpro.BaseDbpro;
 import orgs.cm.pMqp.pDbpro.DbInfotablePro4Cmmd;
+import orgs.cm.pMqp.pHttpc.HttpClientUtil;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunAfter;
 
 public class RunAfter_Getimg extends AbsRunAfter {
@@ -40,8 +44,24 @@ public class RunAfter_Getimg extends AbsRunAfter {
 				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 				
-				//httpclient 访问
-				
+				//格式化返回
+				ResFormatpro objResFormatpro = new ResFormatpro(
+						(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd));
+				ArrayList<LinkedHashMap<String, String>> altResf = objResFormatpro.disFormatpro();
+				if(altResf!=null){
+					hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstdf, altResf);
+					//httpclient 访问
+					String strReq = disCreateJson(altResf);
+					if(strReq!=null && strReq.trim().length()>0){
+						Map<String, Object> mapSetImg = new HashMap<>(); 
+						mapSetImg.put("msg", "ok");
+						mapSetImg.put("data", strReq);
+						String strSetImg = JSON.toJSONString(mapSetImg);
+						String strSetImgres = HttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/images/saveImages", strSetImg);
+						Map<String, Object> mapResAnsible = JSON.parseObject(strSetImgres, HashMap.class);
+					}
+				}
+
 				
 				String strPackage = this.getClass().getPackage().getName();
 				String[] subTmp = strPackage.split("\\.");
@@ -64,6 +84,18 @@ public class RunAfter_Getimg extends AbsRunAfter {
 		return hmpAll;
 	}
 
+	private String disCreateJson(ArrayList<LinkedHashMap<String, String>> altResfp){
+		String strFname = " disCreateJson : ";
+		String strRe = null;
+		try {
+			strRe = JSON.toJSONString(altResfp);
+		} catch(Exception ex) {
+			strRe = null;
+			disOutputLog(strFname, ex);
+		}
+		return strRe;
+	}
+	
 	private ArrayList<LinkedHashMap<String, String>> disSetInfo(String strInfop
 			, LinkedHashMap<String, String> lhpInfop
 			, ArrayList<LinkedHashMap<String, String>> altRuncp){
