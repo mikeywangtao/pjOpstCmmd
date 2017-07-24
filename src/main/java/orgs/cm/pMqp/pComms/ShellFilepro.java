@@ -19,14 +19,18 @@ public class ShellFilepro {
 
 	private String strFileroot;
 	private String strFilename;
+	private String strCmdids;
+	private String strPostfix = null;
 	private ArrayList<String> altShell;
 
 	private ShellFilepro() {
 	}
 
-	public ShellFilepro(String strFilerootp, String strFilenamep, ArrayList<String> altShellp) {
+	public ShellFilepro(String strFilerootp, String strFilenamep, ArrayList<String> altShellp, String strCmdidsp, String strPostfixp) {
 		strFileroot = strFilerootp;
 		strFilename = strFilenamep;
+		strCmdids= strCmdidsp;
+		strPostfix = strPostfixp;
 		altShell = altShellp;
 	}
 
@@ -49,12 +53,23 @@ public class ShellFilepro {
 				file = new File(strFileroot);
 				file.mkdirs();
 				file = null;
-				file=new File(strFileroot + strFilename);
+				if(strPostfix==null){
+					file=new File(strFileroot + strFilename);
+				} else {
+					file=new File(strFileroot + strFilename + strPostfix);
+				}
 				fw = new FileWriter(file);
 				writer = new BufferedWriter(fw);
 				for (String str : altShell) {
-					writer.write(str);
-					writer.newLine();// 换行
+					if(str.indexOf("}}}")>-1){
+						String[] subLine = str.split("}}}");
+						if(subLine!=null && subLine.length==2){
+							if(subLine[0]!=null && subLine[0].trim().equals(strCmdids.trim())){
+								writer.write(subLine[1].trim() + " ");
+								writer.newLine();// 换行
+							}
+						}
+					}
 				}
 				writer.flush();
 				booRe = true;

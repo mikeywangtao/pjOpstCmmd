@@ -78,6 +78,7 @@ public class RunPrepare_Getimg extends AbsRunPrepare {
 					if(mapShellRow==null || mapShellRow.size()==0){
 						continue;
 					}
+					String strCmdshids = mapShellRow.get("cmdi_ids");
 					String strShline = mapShellRow.get("shell_line");
 					if(strShline==null ||(strShline!=null && strShline.trim().length()==0)){
 						continue;
@@ -91,12 +92,10 @@ public class RunPrepare_Getimg extends AbsRunPrepare {
 						if(strSigParam==null ||(strSigParam!=null && strSigParam.trim().length()==0)){
 							continue;
 						}
-						if("^pdom^".equals(strSigParam)){
-							System.out.println("");
-						}
 //						strShline = strShline.replaceAll(strSigParam, mapParam.get(mapParam));
 						strShline = strShline.replaceAll(strSigParam.replaceAll("\\^", "\\\\^"), mapParam.get(strSigParam));
 					}
+					strShline = strCmdshids + "}}}" + strShline; 
 					altShell.add(strShline);
 				}
 			}
@@ -160,6 +159,7 @@ public class RunPrepare_Getimg extends AbsRunPrepare {
 						strCmdiIds = strCmdiIds.substring(0, strCmdiIds.length()-2);
 						hmpCmdsp.put(ProcessAttrs.strParmapKey_Ppa_Cmdi, altCmdi);
 						hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunShCmmd, strCmd);
+						hmpAll.put(ProcessAttrs.strParmapKey_Ppa_Cmdids, strCmdiIds.replaceAll("'", ""));
 					}
 				}
 			}

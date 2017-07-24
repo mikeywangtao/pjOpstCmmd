@@ -127,8 +127,8 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 							"/" 
 							+ DatePro.disGetStrdate4NowObjSdf001() 
 							+ "_" + hmpAllInp.get("^req_type^").toString()
-							+ hmpAllInp.get("^req_subtype^").toString() 
-							+ ".sh");
+							+ hmpAllInp.get("^req_subtype^").toString() );
+//							+ ".sh");
 				} else {
 					hmpPar = null;
 				}

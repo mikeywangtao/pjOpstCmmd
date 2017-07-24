@@ -158,6 +158,7 @@ public class RunPrepare_Create00 extends AbsRunPrepare {
 						strCmdiIds = strCmdiIds.substring(0, strCmdiIds.length()-2);
 						hmpCmdsp.put(ProcessAttrs.strParmapKey_Ppa_Cmdi, altCmdi);
 						hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunShCmmd, strCmd);
+						hmpAll.put(ProcessAttrs.strParmapKey_Ppa_Cmdids, strCmdiIds.replaceAll("'", ""));
 					}
 				}
 			}
