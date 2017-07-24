@@ -18,15 +18,19 @@ public class ResFormatpro {
 
 	private ResFormatpro(){};
 	
+	private String strAnsId = "0";
 	private ArrayList<LinkedHashMap<String, String>> altRes;
-	public ResFormatpro(ArrayList<LinkedHashMap<String, String>> altResp){
+	public ResFormatpro(ArrayList<LinkedHashMap<String, String>> altResp, String intAnsidp){
 		this.altRes = altResp;
+		this.strAnsId = intAnsidp;
 	}
+	
+	
 	
 	public ArrayList<LinkedHashMap<String, String>> disFormatpro(){
 		String strFname = " disFormatpro : ";
 		boolean booFlg = false;
-		LinkedHashMap<String, String> lmpRpw = new LinkedHashMap<>();
+		LinkedHashMap<String, String> lmpRow = new LinkedHashMap<>();
 		ArrayList<LinkedHashMap<String, String>> altRe = new ArrayList<>();
 		try{
 			if(altRes!=null && altRes.size()>0){
@@ -41,14 +45,15 @@ public class ResFormatpro {
 								continue;
 							}
 							if(booFlg && strInfo.indexOf("| ")>-1){
-								lmpRpw.clear();
+								lmpRow.clear();
 								String[] subInfo = strInfo.split("\\|");
 								if(subInfo!=null && subInfo.length==4
 										&& !"ID".equals(subInfo[1].trim())){
 									//20170724 strImgId,strName
-									lmpRpw.put("strImgId", subInfo[1].trim());
-									lmpRpw.put("strName", subInfo[2].trim());
-									altRe.add((LinkedHashMap<String, String>)lmpRpw.clone());
+									lmpRow.put("strImgId", subInfo[1].trim());
+									lmpRow.put("strName", subInfo[2].trim());
+									lmpRow.put("intAnsibleId", strAnsId);
+									altRe.add((LinkedHashMap<String, String>)lmpRow.clone());
 								}
 							}
 						}

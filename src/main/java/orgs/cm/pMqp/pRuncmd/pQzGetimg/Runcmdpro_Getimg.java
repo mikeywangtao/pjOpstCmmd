@@ -39,7 +39,8 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 		try {
 			List<HashMap> altDataAnsible = disGetAnsible();
 			if(altDataAnsible!=null && altDataAnsible.size()>0){
-				for(HashMap map : altDataAnsible){
+//				for(HashMap map : altDataAnsible){
+					HashMap map = altDataAnsible.get(0);
 					disSetParinfos(map);
 					objPrepare = new RunPrepare_Getimg();
 					objPrepare.disSetAll(hmpPar);
@@ -54,7 +55,7 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 					super.disRunCmd(objCmd);
 					super.dusRunAfter(objAfter);
 
-				}
+//				}
 			}
 		} catch(Exception ex) {
 			long lonFlg = System.currentTimeMillis();
@@ -78,11 +79,14 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 					UUID objUuid = UUID.randomUUID();
 					HashMap<String, String> hmpAllInp = new HashMap<>();
 					
+					hmpAllInp.put("^ansid^", "1");
 					hmpAllInp.put("^anscmmd^", "openstack");
 					hmpAllInp.put("^ansinfo^", "ansinfo......");
 					
 					hmpAllInp.put("^req_type^", "qz");
 					hmpAllInp.put("^req_subtype^", "getimg");
+					
+					hmpAllInp.put("^customerids^", "quartz");
 					
 					hmpAllInp.put("^pdom^", "Default");
 					hmpAllInp.put("^udom^", "Default");
@@ -96,6 +100,7 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 
 					
 					hmpPar.put(ProcessAttrs.strParmapKey_Inpars, hmpAllInp);
+					hmpPar.put("^ansid^", "1");
 					hmpPar.put("^anscmmd^", "openstack");
 					hmpPar.put("^ansinfo^", "ansinfo......");
 					hmpPar.put(ProcessAttrs.strInfoKey_Cpuuid, objUuid.toString().replaceAll("-", ""));

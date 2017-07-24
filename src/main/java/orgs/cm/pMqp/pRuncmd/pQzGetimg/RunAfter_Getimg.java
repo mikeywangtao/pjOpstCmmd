@@ -36,7 +36,9 @@ public class RunAfter_Getimg extends AbsRunAfter {
 		ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();	
 		
 		try {
-			if(hmpAll!=null && hmpAll.size()>0){
+			if(hmpAll!=null && hmpAll.size()>0
+					&& hmpAll.containsKey("^ansid^")
+					&& hmpAll.get("^ansid^")!=null){
 				logger.info(strCname + strFname + "  Start!");
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, null);
 				lhpInfo.put(ProcessAttrs.strInfoType_Info, ProcessAttrs.strInfoFlgKey_Aft);
@@ -45,22 +47,32 @@ public class RunAfter_Getimg extends AbsRunAfter {
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 				
 				//格式化返回
-				ResFormatpro objResFormatpro = new ResFormatpro(
-						(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd));
-				ArrayList<LinkedHashMap<String, String>> altResf = objResFormatpro.disFormatpro();
-				if(altResf!=null){
-					hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstdf, altResf);
-					//httpclient 访问
-					String strReq = disCreateJson(altResf);
-					if(strReq!=null && strReq.trim().length()>0){
-						Map<String, Object> mapSetImg = new HashMap<>(); 
-						mapSetImg.put("msg", "ok");
-						mapSetImg.put("data", strReq);
-						String strSetImg = JSON.toJSONString(mapSetImg);
-						String strSetImgres = HttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/images/saveImages", strSetImg);
-						Map<String, Object> mapResAnsible = JSON.parseObject(strSetImgres, HashMap.class);
+				String strAnsidf = hmpAll.get("^ansid^")==null? null:hmpAll.get("^ansid^").toString();
+				if(strAnsidf!=null && strAnsidf.trim().length()>0){
+					ResFormatpro objResFormatpro = new ResFormatpro(
+							(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd), strAnsidf);
+					ArrayList<LinkedHashMap<String, String>> altResf = objResFormatpro.disFormatpro();
+					if(altResf!=null){
+						hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstdf, altResf);
+						//httpclient 访问
+						String strReq = disCreateJson(altResf);
+						if(strReq!=null && strReq.trim().length()>0){
+							Map<String, Object> mapSetImg = new HashMap<>(); 
+							mapSetImg.put("msg", "ok");
+							mapSetImg.put("data", strReq);
+							String strSetImg = JSON.toJSONString(mapSetImg);
+							strInfo = strCname + strFname + " 镜像 After RequestBody----" + strSetImg;
+							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+							hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
+							String strSetImgres = HttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/images/saveImages", strSetImg);
+							Map<String, Object> mapResAnsible = JSON.parseObject(strSetImgres, HashMap.class);
+							strInfo = strCname + strFname + " 镜像 After respones----" + mapResAnsible;
+							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+							hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
+						}
 					}
 				}
+
 
 				
 				String strPackage = this.getClass().getPackage().getName();

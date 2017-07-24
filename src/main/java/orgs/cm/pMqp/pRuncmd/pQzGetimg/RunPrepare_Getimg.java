@@ -50,7 +50,6 @@ public class RunPrepare_Getimg extends AbsRunPrepare {
 		} catch(Exception ex) {
 			disOutputLog(strFname, ex);
 		}
-		
 		return hmpAll;
 	}
 	

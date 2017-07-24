@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
 import orgs.cm.pMqp.pRuncmd.comm.RuncmdproFactory;
+import orgs.cm.pMqp.pRuncmd.pQzGetimg.Runcmdpro_Getimg;
 
 /**
  * 获取cmd处理逻辑，并使runcmd排队。
@@ -36,7 +37,29 @@ public class ThrdRuncmdPro extends AbsThrdRuncmdPro {
 				
 				//create bus:subbbus
 				//get filepath from db 
-				AbsRuncmdPro objRuncmdPro = RuncmdproFactory.disGetObj(null);
+//				AbsRuncmdPro objRuncmdPro = RuncmdproFactory.disGetObj(null);
+//				objRuncmdPro.disRuncmdPro();
+				
+				HashMap<String, Object> hmpInputPar = new HashMap<>();
+				hmpInputPar.put("^anscmmd^", "openstack");
+				hmpInputPar.put("^ansinfo^", "ansinfo......");
+				
+				hmpInputPar.put("^req_type^", "CREATE");
+				hmpInputPar.put("^req_subtype^", "CREATE00");
+				
+				hmpInputPar.put("^customerids^", "20170724000");
+				
+				hmpInputPar.put("^pdom^", "Default");
+				hmpInputPar.put("^udom^", "Default");
+				hmpInputPar.put("^pname^", "admin");
+				hmpInputPar.put("^uname^", "admin");
+				hmpInputPar.put("^pass^", "admin");
+				hmpInputPar.put("^authurl^", "http://test-controller:5000/v3");
+				hmpInputPar.put("^ideapi^", "3");
+				hmpInputPar.put("^imgapi^", "2");
+				
+				AbsRuncmdPro objRuncmdPro  = new Runcmdpro_Getimg();
+				objRuncmdPro.disSetPars(hmpInputPar);
 				objRuncmdPro.disRuncmdPro();
 				
 				logger.info(strCname + strFname + " MsgInfo ----!" + mapMsg);
