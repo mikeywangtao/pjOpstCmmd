@@ -44,15 +44,17 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 					disSetParinfos(map);
 					objPrepare = new RunPrepare_Getimg();
 					objPrepare.disSetAll(hmpPar);
+					super.disRunPrepare(objPrepare);
+					
+					
 					objBefore = new RunBefore_Getimg();
 					objBefore.disSetAll(hmpPar);
+					super.disRunBefre(objBefore);
 					objCmd = new RunCmd_Getimg();
 					objCmd.disSetAll(hmpPar);
+					super.disRunCmd(objCmd);
 					objAfter = new RunAfter_Getimg();
 					objAfter.disSetAll(hmpPar);
-					super.disRunPrepare(objPrepare);
-					super.disRunBefre(objBefore);
-					super.disRunCmd(objCmd);
 					super.dusRunAfter(objAfter);
 
 //				}

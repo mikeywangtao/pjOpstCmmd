@@ -44,15 +44,18 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 					disSetParinfos(map);
 					objPrepare = new RunPrepare_Create00();
 					objPrepare.disSetAll(hmpPar);
+					super.disRunPrepare(objPrepare);
+					
 					objBefore = new RunBefore_Create00();
 					objBefore.disSetAll(hmpPar);
+					super.disRunBefre(objBefore);
+					
 					objCmd = new RunCmd_Create00();
 					objCmd.disSetAll(hmpPar);
+					super.disRunCmd(objCmd);
+					
 					objAfter = new RunAfter_Create00();
 					objAfter.disSetAll(hmpPar);
-					super.disRunPrepare(objPrepare);
-					super.disRunBefre(objBefore);
-					super.disRunCmd(objCmd);
 					super.dusRunAfter(objAfter);
 				}
 			} else {
