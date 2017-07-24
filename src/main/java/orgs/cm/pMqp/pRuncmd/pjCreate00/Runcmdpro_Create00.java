@@ -18,10 +18,6 @@ import orgs.cm.pMqp.pRuncmd.comm.AbsRunBefore;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunCmd;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunPrepare;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
-import orgs.cm.pMqp.pRuncmd.pQzGetimg.RunAfter_Getimg;
-import orgs.cm.pMqp.pRuncmd.pQzGetimg.RunBefore_Getimg;
-import orgs.cm.pMqp.pRuncmd.pQzGetimg.RunCmd_Getimg;
-import orgs.cm.pMqp.pRuncmd.pQzGetimg.RunPrepare_Getimg;
 
 /**
  * 创建 Vm 虚拟机。

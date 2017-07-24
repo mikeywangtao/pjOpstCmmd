@@ -12,7 +12,8 @@ public class ProcessSql_Qz {
 			+ " FROM cmd_info t01 " 
 			+ " WHERE 1=1 " 
 			+ " AND t01.req_type = '^req_type^' " 
-			+ " AND t01.req_subtype = '^req_subtype^' " ;
+			+ " AND t01.req_subtype = '^req_subtype^' " 
+			+ " ORDER BY orders ";
 	
 	public static final String strQzSql_Search_Cmdsh = ""
 			+ " SELECT " 
@@ -23,7 +24,8 @@ public class ProcessSql_Qz {
 			+ "  ,t01.orders " 
 			+ " FROM cmd_shell t01 LEFT JOIN cmd_info t02 on t01.cmdi_ids=t02.cmdi_ids " 
 			+ " WHERE 1=1 " 
-			+ " AND t01.cmdi_ids = '^cmdi_ids^' " ;
+			+ " AND t01.cmdi_ids in( ^cmdi_ids^ )" 
+			+ " ORDER BY cmdi_ids, orders " ;
 			
 	public static final String strQzSql_Search_Cmdpar = ""
 			+ " SELECT " 
@@ -33,5 +35,5 @@ public class ProcessSql_Qz {
 			+ "  ,t01.states " 
 			+ " FROM cmd_pars t01 LEFT JOIN cmd_info t02 ON t01.cmdi_ids=t02.cmdi_ids "  
 			+ " WHERE 1=1 " 
-			+ " AND t01.cmdi_ids = '^cmdi_ids^' " ;
+			+ " AND t01.cmdi_ids in( ^cmdi_ids^ )" ;
 }

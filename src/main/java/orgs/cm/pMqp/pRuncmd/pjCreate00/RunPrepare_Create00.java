@@ -10,12 +10,10 @@ import org.apache.logging.log4j.Logger;
 
 import orgs.cm.pMqp.pComms.ProcessAttrs;
 import orgs.cm.pMqp.pComms.ProcessSql_Qz;
-import orgs.cm.pMqp.pDbpro.AbsDbpro;
 import orgs.cm.pMqp.pDbpro.BaseDbpro;
 import orgs.cm.pMqp.pDbpro.DbproAttrs;
 import orgs.cm.pMqp.pDbpro.IBaseDbpro;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunPrepare;
-import orgs.cm.pMqp.pRuncmd.pQzGetimg.RunPrepare_Getimg;
 
 public class RunPrepare_Create00 extends AbsRunPrepare {
 
@@ -149,10 +147,15 @@ public class RunPrepare_Create00 extends AbsRunPrepare {
 				strSqlf = strSqlf.replaceAll("\\^req_subtype\\^", "getimg");
 				ArrayList<LinkedHashMap<String, Object>> altCmdi = objDbpro.disSearch(strSqlf);
 				if(altCmdi!=null && altCmdi.size()==1){
-					String strCmd = altCmdi.get(0).get("cmmd")==null? null:altCmdi.get(0).get("cmmd").toString();
-					strCmdiIds = altCmdi.get(0).get("cmdi_ids")==null? null:altCmdi.get(0).get("cmdi_ids").toString();
+					String strCmd = null;
+					strCmdiIds = null;
+					for(LinkedHashMap<String, Object> mapRow : altCmdi){
+						strCmd = altCmdi.get(0).get("cmmd")==null? null:altCmdi.get(0).get("cmmd").toString()+",";
+						strCmdiIds = altCmdi.get(0).get("cmdi_ids")==null? null:"'"+altCmdi.get(0).get("cmdi_ids").toString()+"','";
+					}
 					if(strCmdiIds!=null 
 							&& strCmd!=null && strCmd.trim().length()>0){
+						strCmdiIds = strCmdiIds.substring(0, strCmdiIds.length()-2);
 						hmpCmdsp.put(ProcessAttrs.strParmapKey_Ppa_Cmdi, altCmdi);
 						hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunShCmmd, strCmd);
 					}

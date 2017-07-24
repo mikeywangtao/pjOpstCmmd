@@ -1,12 +1,10 @@
 package orgs.cm.pMqp.pHttpc;
 
-import java.io.File;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
@@ -15,6 +13,7 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.config.ConnectionConfig;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
@@ -22,7 +21,6 @@ import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLContextBuilder;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 //import org.apache.http.entity.mime.MultipartEntityBuilder;
 //import org.apache.http.entity.mime.content.FileBody;
@@ -95,8 +93,9 @@ public class HttpClientUtil {
 	}
 
 	public static CloseableHttpClient getHttpClient() {
-
+		ConnectionConfig connectionConfig = ConnectionConfig.custom().setBufferSize(25536).build();
 		CloseableHttpClient httpClient = HttpClients.custom()
+				.setDefaultConnectionConfig(connectionConfig)
 				// 设置连接池管理
 				.setConnectionManager(pool)
 				// 设置请求配置

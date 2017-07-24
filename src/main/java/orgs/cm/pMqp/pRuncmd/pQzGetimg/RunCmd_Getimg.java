@@ -124,7 +124,7 @@ STD line:         "| a1f55a3b-fd1c-4512-bbcf-15f4a231371c | ubuntu1404 |",
 STD line:         "+--------------------------------------+------------+"
 STD line:     ]
 STD line: } */
-			
+			StrCommand = StrCommand.replaceAll(",", "");
 			SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
 			strInfo = strCname + strFname + " 查看镜像 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			altRunc = disSetInfo(strInfo, lhpInfo, altRunc);

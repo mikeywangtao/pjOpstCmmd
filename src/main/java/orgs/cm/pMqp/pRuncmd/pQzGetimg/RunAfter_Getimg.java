@@ -72,8 +72,6 @@ public class RunAfter_Getimg extends AbsRunAfter {
 						}
 					}
 				}
-
-
 				
 				String strPackage = this.getClass().getPackage().getName();
 				String[] subTmp = strPackage.split("\\.");
