@@ -39,25 +39,31 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 		
 		try {
 			List<HashMap> altDataAnsible = disGetAnsible();
-			if(altDataAnsible!=null && altDataAnsible.size()>0){
-				for(HashMap map : altDataAnsible){
-					disSetParinfos(map);
-					objPrepare = new RunPrepare_Create00();
-					objPrepare.disSetAll(hmpPar);
-					super.disRunPrepare(objPrepare);
-					
-					objBefore = new RunBefore_Create00();
-					objBefore.disSetAll(hmpPar);
-					super.disRunBefre(objBefore);
-					
-					objCmd = new RunCmd_Create00();
-					objCmd.disSetAll(hmpPar);
-					super.disRunCmd(objCmd);
-					
-					objAfter = new RunAfter_Create00();
-					objAfter.disSetAll(hmpPar);
-					super.dusRunAfter(objAfter);
-				}
+			if(altDataAnsible!=null && altDataAnsible.size()==1){
+				HashMap map = altDataAnsible.get(0);
+				
+//				String strNowRunCmdids = "";
+//				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_NowRunCmdids, strNowRunCmdids);
+				
+				disSetParinfos(map);
+				objPrepare = new RunPrepare_Create00();
+				objPrepare.disSetAll(hmpPar);
+				super.disRunPrepare(objPrepare);
+				
+				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_NowRunNext, "stop");
+				objBefore = new RunBefore_Create00();
+				objBefore.disSetAll(hmpPar);
+				super.disRunBefre(objBefore);
+				
+				objCmd = new RunCmd_Create00();
+				objCmd.disSetAll(hmpPar);
+				super.disRunCmd(objCmd);
+				
+				objAfter = new RunAfter_Create00();
+				objAfter.disSetAll(hmpPar);
+				super.dusRunAfter(objAfter);
+				
+				
 			} else {
 				throw new Exception("hmpPar Error ! is null or is empty!");
 			}

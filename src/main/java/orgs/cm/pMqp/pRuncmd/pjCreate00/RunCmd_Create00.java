@@ -61,9 +61,7 @@ public class RunCmd_Create00 extends AbsRunCmd {
 			hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstd, null);
 			lhpInfo.put(ProcessAttrs.strInfoType_Info, ProcessAttrs.strInfoFlgKey_Runc);
 
-			if(hmpAll!=null 
-					&& hmpAll.containsKey(ProcessAttrs.strInfoKey_Cpuuid)
-					){
+			if(hmpAll!=null && hmpAll.containsKey(ProcessAttrs.strInfoKey_Cpuuid)){
 				strstrCpuuid = hmpAll.get(ProcessAttrs.strInfoKey_Cpuuid)==null?
 						null:hmpAll.get(ProcessAttrs.strInfoKey_Cpuuid).toString();
 			}
@@ -128,17 +126,17 @@ STD line:     ]
 STD line: } */
 			
 			SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
-			strInfo = strCname + strFname + " 查看镜像 Start----" + DatePro.disGetStrdate4NowObjSdf001();
+			strInfo = strCname + strFname + " 创建VM Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
-			strInfo = strCname + strFname + " 查看镜像 Cmmd----" + StrCommand;
+			strInfo = strCname + strFname + " 创建VM Cmmd----" + StrCommand;
 			altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 			logger.info(strInfo);
 			logger.info(strInfo);
 			
 			process = Runtime.getRuntime().exec(StrCommand);
 
-			errorGobbler = new CmdStreamGobbler(process.getErrorStream(), StrCommand, "查看镜像 ERR", strstrCpuuid, this);
-			outputGobbler = new CmdStreamGobbler(process.getInputStream(), StrCommand, "查看镜像 STD", strstrCpuuid, this);
+			errorGobbler = new CmdStreamGobbler(process.getErrorStream(), StrCommand, "创建VM ERR", strstrCpuuid, this);
+			outputGobbler = new CmdStreamGobbler(process.getInputStream(), StrCommand, "创建VM STD", strstrCpuuid, this);
 
 			if(errorGobbler!=null && outputGobbler!=null){
 				errorGobbler.start();

@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSON;
 
 import orgs.cm.pMqp.pHttpc.HttpClientUtil;
+import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
 import orgs.cm.pMqp.pRuncmd.pQzGetimg.Runcmdpro_Getimg;
-import orgs.cm.pMqp.pShellpro.AbsShellpro;
-import orgs.cm.pMqp.pShellpro.StandardShellpro_Getimg;
+import orgs.cm.pMqp.pRuncmd.pjCreate00.Runcmdpro_Create00;
 import orgs.cm.tst.dao.TstDao;
 import orgs.cm.tst.model.RunCmmd000;
 import orgs.cm.tst.model.RunCmmd001;
@@ -165,8 +165,11 @@ public class TstServ {
 //		runCmmd000.disPro000();
 //		runCmmd001.disPro000();
 //		runCmmd002.disPro000();
-		Runcmdpro_Getimg objRcGetimg = new Runcmdpro_Getimg();
+		AbsRuncmdPro objRcGetimg = new Runcmdpro_Getimg();
 		objRcGetimg.disRuncmdPro();
+		
+//		AbsRuncmdPro objRcCreate00 = new Runcmdpro_Create00();
+//		objRcCreate00.disRuncmdPro();
 		
 //		try {
 //			for(int i=0; i<2000; i++){
