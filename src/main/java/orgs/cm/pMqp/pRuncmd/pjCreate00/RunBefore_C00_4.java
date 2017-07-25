@@ -12,9 +12,9 @@ import orgs.cm.pMqp.pRuncmd.comm.AbsRunBefore;
 import orgs.cm.pMqp.pShellpro.AbsShellpro;
 import orgs.cm.pMqp.pShellpro.StandardShellpro_C00;
 
-public class RunBefore_C00_3 extends AbsRunBefore {
+public class RunBefore_C00_4 extends AbsRunBefore {
 
-	private final String strCname = RunBefore_C00_3.class.getName();
+	private final String strCname = RunBefore_C00_4.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
 	private HashMap<String, Object> hmpAll;

@@ -108,6 +108,25 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 					super.dusRunAfter(objAfter);
 					objAfter = null;
 				}
+				
+				if(hmpPar.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg) 
+						&& hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
+						&& "4".equals(hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString().trim())){
+					objBefore = new RunBefore_C00_4();
+					objBefore.disSetAll(hmpPar);
+					super.disRunBefre(objBefore);
+					objBefore = null;
+					
+					objCmd = new RunCmd_C00_4();
+					objCmd.disSetAll(hmpPar);
+					super.disRunCmd(objCmd);
+					objCmd = null;
+					
+					objAfter = new RunAfter_C00_4();
+					objAfter.disSetAll(hmpPar);
+					super.dusRunAfter(objAfter);
+					objAfter = null;
+				}
 			} else {
 				throw new Exception("hmpPar Error ! is null or is empty!");
 			}
@@ -156,6 +175,7 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 				hmpAllInp.put("^flvids^", "0");
 				hmpAllInp.put("^netwids^", "aedbece2-0b64-4879-94e5-461439cd6930");
 				hmpAllInp.put("^vmname^", "vm-"+objUuid.toString().replaceAll("-", ""));
+				hmpAllInp.put("^vmids^", null);
 				
 //					HashMap<String, Object> hmpAllInp = null;
 //					hmpAllInp = hmpPar;
@@ -169,6 +189,7 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 				hmpPar.put("^customerids^", hmpAllInp.get("^customerids^"));
 				hmpPar.put("^devname^", "dev-"+objUuid.toString().replaceAll("-", ""));
 				hmpPar.put("^devids^", null);
+				hmpPar.put("^vmids^", null);
 				
 				hmpPar.put(ProcessAttrs.strInfoKey_Cpuuid, objUuid.toString().replaceAll("-", ""));
 				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "f");

@@ -104,7 +104,7 @@ public class RunCmd_C00_1 extends AbsRunCmd {
 				strFileroot = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFileroot).toString();
 				strFilename = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFilename).toString(); 
 				StrCommand = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunShCmmd).toString(); 
-				StrCommand = StrCommand.split(",")[Integer.parseInt(strNowRunflg)];
+				StrCommand = StrCommand.split(",")[Integer.parseInt(strNowRunflg)-1];
 				strAnsCmmd = hmpAll.get("^anscmmd^").toString(); 
 			}
 			if(StrCommand!=null && StrCommand.trim().length()>0 && StrCommand.indexOf(",")==-1

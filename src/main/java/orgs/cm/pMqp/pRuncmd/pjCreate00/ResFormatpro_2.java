@@ -46,7 +46,7 @@ public class ResFormatpro_2 {
 								if(subInfo!=null && subInfo.length==9
 										&& !"ID".equals(subInfo[1].trim())
 										&& strBaseFlg.trim().equals(subInfo[3].trim())){
-									strRe = subInfo[2];
+									strRe = subInfo[2].trim()+"}}}"+subInfo[1].trim();
 									break;
 								}
 							}

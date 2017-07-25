@@ -11,16 +11,16 @@ import orgs.cm.pMqp.pComms.ProcessAttrs;
 /**
  * 格式化img返回信息，结果用于request。
  * */
-public class ResFormatpro_3 {
+public class ResFormatpro_4 {
 	
-	private final String strCname = ResFormatpro_3.class.getName();
+	private final String strCname = ResFormatpro_4.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 
-	private ResFormatpro_3(){};
+	private ResFormatpro_4(){};
 	
 	private String strAnsId = "0";
 	private ArrayList<LinkedHashMap<String, String>> altRes;
-	public ResFormatpro_3(ArrayList<LinkedHashMap<String, String>> altResp, String intAnsidp){
+	public ResFormatpro_4(ArrayList<LinkedHashMap<String, String>> altResp, String intAnsidp){
 		this.altRes = altResp;
 		this.strAnsId = intAnsidp;
 	}

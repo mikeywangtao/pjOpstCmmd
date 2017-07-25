@@ -56,19 +56,23 @@ public class RunAfter_C00_2 extends AbsRunAfter {
 								(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd);
 						ResFormatpro_2 objResFormatpro_2 = new ResFormatpro_2(altStd, strDevname);
 						String strFlg = objResFormatpro_2.disGetFlg();
-//						if("available".equals(strFlg.trim())){
-						if("available".equals(strFlg)){
-							hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg, "f");//循环runcmd
-							hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "3");
-							strInfo = strCname + strFname + " VM创建 After ----strParmapKey_Ppa_NowRunflg:f" + DatePro.disGetStrdate4NowObjSdf001();
-							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
-							hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
-						} else {
-							hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg, "t");//不循环runcmd
-							hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "2");
-							strInfo = strCname + strFname + " VM创建 After ----strParmapKey_Ppa_NowRunflg:t" + DatePro.disGetStrdate4NowObjSdf001();
-							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
-							hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
+						String[] subFlg = strFlg.split("}}}");
+						if(subFlg!=null && subFlg.length==2){
+							if("available".equals(subFlg[0])){
+								hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg, "f");//循环runcmd
+								hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "3");
+								hmpAll.put("^devids^", subFlg[1]);
+								((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).put("^devids^", subFlg[1]);
+								strInfo = strCname + strFname + " VM创建 After ----strParmapKey_Ppa_NowRunflg:f" + DatePro.disGetStrdate4NowObjSdf001();
+								altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+								hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
+							} else {
+								hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg, "t");//不循环runcmd
+								hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "2");
+								strInfo = strCname + strFname + " VM创建 After ----strParmapKey_Ppa_NowRunflg:t" + DatePro.disGetStrdate4NowObjSdf001();
+								altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+								hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
+							}
 						}
 					}
 				}
