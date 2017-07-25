@@ -51,15 +51,15 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 				super.disRunPrepare(objPrepare);
 				
 				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_NowRunNext, "stop");
-				objBefore = new RunBefore_Create00();
+				objBefore = new RunBefore_C00_1();
 				objBefore.disSetAll(hmpPar);
 				super.disRunBefre(objBefore);
 				
-				objCmd = new RunCmd_Create00();
+				objCmd = new RunCmd_C00_1();
 				objCmd.disSetAll(hmpPar);
 				super.disRunCmd(objCmd);
 				
-				objAfter = new RunAfter_Create00();
+				objAfter = new RunAfter_C00_1();
 				objAfter.disSetAll(hmpPar);
 				super.dusRunAfter(objAfter);
 				

@@ -17,12 +17,12 @@ import orgs.cm.pMqp.pDbpro.DbInfotablePro4Cmmd;
 import orgs.cm.pMqp.pHttpc.HttpClientUtil;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunAfter;
 
-public class RunAfter_Create00 extends AbsRunAfter {
+public class RunAfter_C00_3 extends AbsRunAfter {
 
 
 	private AbsDbpro objDbpro = null;
 	private HashMap<String, Object> hmpAll;
-	private final String strCname = RunAfter_Create00.class.getName();
+	private final String strCname = RunAfter_C00_3.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
 	public void disSetAll(HashMap<String, Object> hmpAllp){

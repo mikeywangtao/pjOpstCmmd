@@ -15,11 +15,11 @@ import orgs.cm.pMqp.pComms.ProcessAttrs;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunCmd;
 import orgs.cm.pMqp.pRuncmd.pQzGetimg.RunCmd_Getimg;
 
-public class RunCmd_Create00 extends AbsRunCmd {
+public class RunCmd_C00_3 extends AbsRunCmd {
 
 	private HashMap<String, Object> hmpAll;
 	
-	private final String strCname = RunCmd_Create00.class.getName();
+	private final String strCname = RunCmd_C00_3.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
 	public void setRuncres(String strflgp, ArrayList<LinkedHashMap<String, String>> altRunc){

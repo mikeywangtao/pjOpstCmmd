@@ -16,9 +16,9 @@ import orgs.cm.pMqp.pRuncmd.pQzGetimg.RunAfter_Getimg;
 import orgs.cm.pMqp.pRuncmd.pQzGetimg.RunBefore_Getimg;
 import orgs.cm.pMqp.pRuncmd.pQzGetimg.RunCmd_Getimg;
 import orgs.cm.pMqp.pRuncmd.pQzGetimg.RunPrepare_Getimg;
-import orgs.cm.pMqp.pRuncmd.pjCreate00.RunAfter_Create00;
-import orgs.cm.pMqp.pRuncmd.pjCreate00.RunBefore_Create00;
-import orgs.cm.pMqp.pRuncmd.pjCreate00.RunCmd_Create00;
+import orgs.cm.pMqp.pRuncmd.pjCreate00.RunAfter_C00_1;
+import orgs.cm.pMqp.pRuncmd.pjCreate00.RunBefore_C00_1;
+import orgs.cm.pMqp.pRuncmd.pjCreate00.RunCmd_C00_1;
 import orgs.cm.pMqp.pRuncmd.pjCreate00.RunPrepare_Create00;
 import orgs.cm.pMqp.pRuncmd.pjCreate00.Runcmdpro_Create00;
 
