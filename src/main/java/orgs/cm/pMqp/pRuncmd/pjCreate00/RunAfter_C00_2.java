@@ -36,45 +36,50 @@ public class RunAfter_C00_2 extends AbsRunAfter {
 		ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();	
 		
 		try {
-			if(hmpAll!=null && hmpAll.size()>0
-					&& hmpAll.containsKey("^ansid^")
-					&& hmpAll.get("^ansid^")!=null){
+			if(hmpAll!=null && hmpAll.size()>0) {
 				logger.info(strCname + strFname + "  Start!");
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, null);
 				lhpInfo.put(ProcessAttrs.strInfoType_Info, ProcessAttrs.strInfoFlgKey_Aft);
-				strInfo = strCname + strFname + " 镜像 After Start----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " VM创建 After ----strParmapKey_Ppa_NowRunflg:2" + DatePro.disGetStrdate4NowObjSdf001();
 				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 				
-				//格式化返回
-				String strAnsidf = hmpAll.get("^ansid^")==null? null:hmpAll.get("^ansid^").toString();
-				if(strAnsidf!=null && strAnsidf.trim().length()>0){
-					ResFormatpro objResFormatpro = new ResFormatpro(
-							(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd), strAnsidf);
-					ArrayList<LinkedHashMap<String, String>> altResf = objResFormatpro.disFormatpro();
-					if(altResf!=null){
-						hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstdf, altResf);
-						//httpclient 访问
-						String strReq = disCreateJson(altResf);
-						if(strReq!=null && strReq.trim().length()>0){
-							Map<String, Object> mapSetImg = new HashMap<>(); 
-							mapSetImg.put("msg", "ok");
-							mapSetImg.put("data", strReq);
-							String strSetImg = JSON.toJSONString(mapSetImg);
-							strInfo = strCname + strFname + " 镜像 After RequestBody----" + strSetImg;
+				if(hmpAll.containsKey(ProcessAttrs.strInfoFlgKey_Resstd)
+						&& hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd)!=null
+						&& hmpAll.containsKey(ProcessAttrs.strInfoFlgKey_Reserr)
+						&& hmpAll.get(ProcessAttrs.strInfoFlgKey_Reserr)==null
+						&& hmpAll.containsKey("^devname^")
+						&& hmpAll.get("^devname^")!=null){
+					String strDevname = hmpAll.get("^devname^").toString();
+					if(strDevname!=null && strDevname.trim().length()>0){
+						ArrayList<LinkedHashMap<String, String>> altStd = 
+								(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd);
+						ResFormatpro_2 objResFormatpro_2 = new ResFormatpro_2(altStd, strDevname);
+						String strFlg = objResFormatpro_2.disGetFlg();
+//						if("available".equals(strFlg.trim())){
+						if("available".equals(strFlg)){
+							hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg, "f");//循环runcmd
+							hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "3");
+							strInfo = strCname + strFname + " VM创建 After ----strParmapKey_Ppa_NowRunflg:f" + DatePro.disGetStrdate4NowObjSdf001();
 							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 							hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
-							String strSetImgres = HttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/images/saveVm", strSetImg);
-							Map<String, Object> mapResAnsible = JSON.parseObject(strSetImgres, HashMap.class);
-							strInfo = strCname + strFname + " 镜像 After respones----" + mapResAnsible;
+						} else {
+							hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg, "t");//不循环runcmd
+							hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "2");
+							strInfo = strCname + strFname + " VM创建 After ----strParmapKey_Ppa_NowRunflg:t" + DatePro.disGetStrdate4NowObjSdf001();
 							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 							hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 						}
 					}
 				}
-
-
-				
+				if(hmpAll.containsKey(ProcessAttrs.strInfoFlgKey_Reserr)
+						&& hmpAll.get(ProcessAttrs.strInfoFlgKey_Reserr)!=null){
+					hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, null);
+					strInfo = strCname + strFname + " VM创建 After ----strInfoFlgKey_Reserr:Error" + DatePro.disGetStrdate4NowObjSdf001();
+					altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+					hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
+				}
+			
 				String strPackage = this.getClass().getPackage().getName();
 				String[] subTmp = strPackage.split("\\.");
 				if(subTmp!=null && subTmp.length>1){
@@ -85,10 +90,9 @@ public class RunAfter_C00_2 extends AbsRunAfter {
 					DbInfotablePro4Cmmd.disInfotablePro(strPackage);
 				}
 				
-				strInfo = strCname + strFname + " 镜像 After End----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " VM创建 After End----" + DatePro.disGetStrdate4NowObjSdf001();
 				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
-//				hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunNext, "next");
 			}
 		} catch(Exception ex) {
 			disOutputLog(strFname, ex);

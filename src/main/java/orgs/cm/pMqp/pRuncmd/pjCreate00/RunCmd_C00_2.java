@@ -80,6 +80,8 @@ public class RunCmd_C00_2 extends AbsRunCmd {
 			}
 			String strFileroot = null;
 			String strFilename = null;
+			String strPostfix = null;
+			String strNowRunflg = null;
 			String StrCommand = null;
 			String strAnsCmmd = null;
 			if(hmpAll.containsKey("^anscmmd^")
@@ -90,16 +92,24 @@ public class RunCmd_C00_2 extends AbsRunCmd {
 					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFileroot)!=null
 					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_ShFilename)
 					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFilename)!=null
+					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_NowPostfix)
+					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowPostfix)!=null
+					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg)
+					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
 					){
-					strFileroot = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFileroot).toString();
-					strFilename = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFilename).toString(); 
-					StrCommand = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunShCmmd).toString(); 
-					strAnsCmmd = hmpAll.get("^anscmmd^").toString(); 
+				strNowRunflg = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString();
+				strPostfix = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowPostfix).toString();
+				strFileroot = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFileroot).toString();
+				strFilename = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFilename).toString(); 
+				StrCommand = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunShCmmd).toString(); 
+				StrCommand = StrCommand.split(",")[Integer.parseInt(strNowRunflg)];
+				strAnsCmmd = hmpAll.get("^anscmmd^").toString(); 
 			}
-			if(strFileroot!=null && strFileroot.trim().length()>0
+			if(StrCommand!=null && StrCommand.trim().length()>0 && StrCommand.indexOf(",")==-1
+					&& strFileroot!=null && strFileroot.trim().length()>0
 					&& strFilename!=null && strFilename.trim().length()>0){
 				StrCommand = StrCommand.replaceAll("\\^anscmmd\\^", strAnsCmmd);
-				StrCommand = StrCommand.replaceAll("\\^shell_allpath\\^", strFileroot+strFilename);
+				StrCommand = StrCommand.replaceAll("\\^shell_allpath\\^", strFileroot+strFilename+strPostfix);
 			} else {
 				strInfo = strCname + strFname + " Shell cmmd 构建失败!" ;
 				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
@@ -107,25 +117,31 @@ public class RunCmd_C00_2 extends AbsRunCmd {
 			}
 			/* ------------------------------------------------------------------------------- */
 //			String StrCommand = "ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u root "; //查看镜像
-/* 11:17:09.345 [http-bio-8080-exec-10] INFO  orgs.cm.tst.model.RunCmmd002 - Run Cmmd ----> ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u rootSTD line: 10.167.212.1 | SUCCESS => {
-STD line:     "changed": true, 
-STD line:     "rc": 0, 
-STD line:     "stderr": "", 
-STD line:     "stdout": "+--------------------------------------+------------+\r\n| ID                                   | Name       |\r\n+--------------------------------------+------------+\r\n| 4c367d93-fbe5-4c58-ac85-f7aab0310740 | centos6    |\r\n| 4c3b9963-bc32-4c38-a592-309e2da5722e | centos6.5  |\r\n| 20022a68-bc87-462d-ba6c-af6570ba839e | cirros     |\r\n| a7ff7cec-f187-4439-969e-a696020fb6a6 | fedora25   |\r\n| a1f55a3b-fd1c-4512-bbcf-15f4a231371c | ubuntu1404 |\r\n+--------------------------------------+------------+\r\n", 
-STD line:     "stdout_lines": [
-STD line:         "+--------------------------------------+------------+", 
-STD line:         "| ID                                   | Name       |", 
-STD line:         "+--------------------------------------+------------+", 
-STD line:         "| 4c367d93-fbe5-4c58-ac85-f7aab0310740 | centos6    |", 
-STD line:         "| 4c3b9963-bc32-4c38-a592-309e2da5722e | centos6.5  |", 
-STD line:         "| 20022a68-bc87-462d-ba6c-af6570ba839e | cirros     |", 
-STD line:         "| a7ff7cec-f187-4439-969e-a696020fb6a6 | fedora25   |", 
-STD line:         "| a1f55a3b-fd1c-4512-bbcf-15f4a231371c | ubuntu1404 |", 
-STD line:         "+--------------------------------------+------------+"
-STD line:     ]
-STD line: } */
+/* 
+创建VM STD line: 10.167.212.1 | SUCCESS => {
+创建VM STD line:     "changed": true, 
+创建VM STD line:     "rc": 0, 
+创建VM STD line:     "stderr": "", 
+创建VM STD line:     "stdout": "+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+\r\n| ID                                   | Status    | Name                                 | Size | Volume Type | Bootable | Attached to |\r\n+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+\r\n| 30ff9ce4-290d-47a5-acd4-5073ca1639f0 | available | -                                    | 1    | -           | true     |             |\r\n| 37c50bb0-2538-4ad7-9c89-fdf33c0424b7 | available | dev-c36397e8f4bd491a9360130d89bd2eab | 1    | -           | true     |             |\r\n| 4dce04ba-2fab-4af7-bc60-44e9e912fc96 | available | dev-4bdd73081c5f4420946100e2a478d396 | 1    | -           | true     |             |\r\n| 50041379-58f6-465f-a4c4-7e76fda0ff87 | available | dev-c36397e8f4bd491a9360130d89bd2eab | 1    | -           | true     |             |\r\n| 7b216755-b341-45f6-90ea-d46e6d9d8724 | available | -                                    | 1    | -           | true     |             |\r\n| aa90b0c2-f9c1-45e8-8201-48db06a01338 | available | dev-f5b0cea9169e44a8aaebb4238079fb84 | 1    | -           | true     |             |\r\n| b38ed2d2-c21f-4331-8930-0fb74884699a | available | dev-f5b0cea9169e44a8aaebb4238079fb84 | 1    | -           | true     |             |\r\n| b4e47dda-2a3c-43ba-bbc8-c80ecde70628 | available | -                                    | 1    | -           | true     |             |\r\n| ddcc7c2d-0c31-450c-b4c2-c6ee53f50e14 | available | dev-4bdd73081c5f4420946100e2a478d396 | 1    | -           | true     |             |\r\n+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+\r\n", 
+创建VM STD line:     "stdout_lines": [
+创建VM STD line:         "+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+", 
+创建VM STD line:         "| ID                                   | Status    | Name                                 | Size | Volume Type | Bootable | Attached to |", 
+创建VM STD line:         "+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+", 
+创建VM STD line:         "| 30ff9ce4-290d-47a5-acd4-5073ca1639f0 | available | -                                    | 1    | -           | true     |             |", 
+创建VM STD line:         "| 37c50bb0-2538-4ad7-9c89-fdf33c0424b7 | available | dev-c36397e8f4bd491a9360130d89bd2eab | 1    | -           | true     |             |", 
+创建VM STD line:         "| 4dce04ba-2fab-4af7-bc60-44e9e912fc96 | available | dev-4bdd73081c5f4420946100e2a478d396 | 1    | -           | true     |             |", 
+创建VM STD line:         "| 50041379-58f6-465f-a4c4-7e76fda0ff87 | available | dev-c36397e8f4bd491a9360130d89bd2eab | 1    | -           | true     |             |", 
+创建VM STD line:         "| 7b216755-b341-45f6-90ea-d46e6d9d8724 | available | -                                    | 1    | -           | true     |             |", 
+创建VM STD line:         "| aa90b0c2-f9c1-45e8-8201-48db06a01338 | available | dev-f5b0cea9169e44a8aaebb4238079fb84 | 1    | -           | true     |             |", 
+创建VM STD line:         "| b38ed2d2-c21f-4331-8930-0fb74884699a | available | dev-f5b0cea9169e44a8aaebb4238079fb84 | 1    | -           | true     |             |", 
+创建VM STD line:         "| b4e47dda-2a3c-43ba-bbc8-c80ecde70628 | available | -                                    | 1    | -           | true     |             |", 
+创建VM STD line:         "| ddcc7c2d-0c31-450c-b4c2-c6ee53f50e14 | available | dev-4bdd73081c5f4420946100e2a478d396 | 1    | -           | true     |             |", 
+创建VM STD line:         "+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+"
+创建VM STD line:     ]
+创建VM STD line: }
+*/
 			
-			SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
+//			StrCommand = StrCommand.substring(0, StrCommand.length()-1);
 			strInfo = strCname + strFname + " 创建VM Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 			strInfo = strCname + strFname + " 创建VM Cmmd----" + StrCommand;
@@ -172,13 +188,11 @@ STD line: } */
 						if(outputGobbler!=null){
 							strInfo = strCname + strFname + " SDT 超时！";
 							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
-//							outputGobbler.setStop();
 							outputGobbler = null;
 						}
 						if(errorGobbler!=null){
 							strInfo = strCname + strFname + " ERR 超时！";
 							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
-//							errorGobbler.setStop();
 							errorGobbler = null;
 						}
 						break;

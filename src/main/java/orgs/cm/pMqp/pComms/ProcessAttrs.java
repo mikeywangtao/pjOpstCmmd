@@ -51,4 +51,6 @@ public class ProcessAttrs {
 	public static final String strParmapKey_Ppa_RunShCmmd = "strRunShCmmd";
 	public static final String strParmapKey_Ppa_NowRunCmdids = "strNowRunCmdids";
 	public static final String strParmapKey_Ppa_NowRunflg = "strNowRunflg";
+	public static final String strParmapKey_Ppa_NowPostfix = "strNowPostfix";
+	public static final String strParmapKey_Ppa_RunLoopFlg = "strRunLoopFlg";
 }

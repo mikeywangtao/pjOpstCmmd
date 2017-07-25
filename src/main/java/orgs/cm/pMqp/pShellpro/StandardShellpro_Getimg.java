@@ -53,7 +53,7 @@ public class StandardShellpro_Getimg extends StandardShellpro{
 							String strFileroot = mapPar.get("strShFileroot").toString();
 							String strFilename = mapPar.get("strShFilename").toString(); 
 							ArrayList<String> altShell = (ArrayList<String>)mapPar.get(ProcessAttrs.strParmapKey_Ppa_Cmdshr); 
-							ShellFilepro objShellFilepro = new ShellFilepro(strFileroot, strFilename, altShell, strCmdids, null);
+							ShellFilepro objShellFilepro = new ShellFilepro(strFileroot, strFilename, altShell, null);
 							booRe = objShellFilepro.disCreateshell();
 						}
 					}

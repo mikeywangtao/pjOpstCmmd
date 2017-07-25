@@ -47,71 +47,70 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 				objPrepare.disSetAll(hmpPar);
 				super.disRunPrepare(objPrepare);
 				
-				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "1");
-				objBefore = new RunBefore_C00_1();
-				objBefore.disSetAll(hmpPar);
-				super.disRunBefre(objBefore);
-				objBefore = null;
+				if(hmpPar.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg) 
+						&& hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
+						&& "1".equals(hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString().trim())){
+					objBefore = new RunBefore_C00_1();
+					objBefore.disSetAll(hmpPar);
+					super.disRunBefre(objBefore);
+					objBefore = null;
+					
+					objCmd = new RunCmd_C00_1();
+					objCmd.disSetAll(hmpPar);
+					super.disRunCmd(objCmd);
+					objCmd = null;
+					
+					objAfter = new RunAfter_C00_1();
+					objAfter.disSetAll(hmpPar);
+					super.dusRunAfter(objAfter);
+					objAfter = null;
+				}
 				
-				objCmd = new RunCmd_C00_1();
-				objCmd.disSetAll(hmpPar);
-				super.disRunCmd(objCmd);
-				objCmd = null;
-				
-				objAfter = new RunAfter_C00_1();
-				objAfter.disSetAll(hmpPar);
-				super.dusRunAfter(objAfter);
-				objAfter = null;
-				
-				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "2");
-				objBefore = new RunBefore_C00_2();
-				objBefore.disSetAll(hmpPar);
-				super.disRunBefre(objBefore);
-				objBefore = null;
-				
-				objCmd = new RunCmd_C00_2();
-				objCmd.disSetAll(hmpPar);
-				super.disRunCmd(objCmd);
-				objCmd = null;
-				
-				objAfter = new RunAfter_C00_2();
-				objAfter.disSetAll(hmpPar);
-				super.dusRunAfter(objAfter);
-				objAfter = null;
-				
-				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "3");
-				objBefore = new RunBefore_C00_3();
-				objBefore.disSetAll(hmpPar);
-				super.disRunBefre(objBefore);
-				objBefore = null;
-				
-				objCmd = new RunCmd_C00_3();
-				objCmd.disSetAll(hmpPar);
-				super.disRunCmd(objCmd);
-				objCmd = null;
-				
-				objAfter = new RunAfter_C00_3();
-				objAfter.disSetAll(hmpPar);
-				super.dusRunAfter(objAfter);
-				objAfter = null;
-				
+				if(hmpPar.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg) 
+						&& hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
+						&& "2".equals(hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString().trim())){
+					String strRunlopp = null;
+					do {
+						objBefore = new RunBefore_C00_2();
+						objBefore.disSetAll(hmpPar);
+						super.disRunBefre(objBefore);
+						objBefore = null;
+						
+						objCmd = new RunCmd_C00_2();
+						objCmd.disSetAll(hmpPar);
+						super.disRunCmd(objCmd);
+						objCmd = null;
+						
+						objAfter = new RunAfter_C00_2();
+						objAfter.disSetAll(hmpPar);
+						super.dusRunAfter(objAfter);
+						objAfter = null;
+						strRunlopp = hmpPar.get(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg).toString();
+					} while("t".equals(strRunlopp));
+
+				}
+
+				if(hmpPar.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg) 
+						&& hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
+						&& "3".equals(hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString().trim())){
+					objBefore = new RunBefore_C00_3();
+					objBefore.disSetAll(hmpPar);
+					super.disRunBefre(objBefore);
+					objBefore = null;
+					
+					objCmd = new RunCmd_C00_3();
+					objCmd.disSetAll(hmpPar);
+					super.disRunCmd(objCmd);
+					objCmd = null;
+					
+					objAfter = new RunAfter_C00_3();
+					objAfter.disSetAll(hmpPar);
+					super.dusRunAfter(objAfter);
+					objAfter = null;
+				}
 			} else {
 				throw new Exception("hmpPar Error ! is null or is empty!");
 			}
-			
-//			if(hmpPar!=null && hmpPar.size()>0){
-//				objPrepare = new RunPrepare_Create00();
-//				objBefore = new RunBefore_Create00();
-//				objCmd = new RunCmd_Create00();
-//				objAfter = new RunAfter_Create00();
-//				
-//				super.disRunPrepare(objPrepare);
-//				super.disRunBefre(objBefore);
-//				super.disRunCmd(objCmd);
-//				super.dusRunAfter(objAfter);
-//			} else {
-//				throw new Exception("hmpPar Error ! is null or is empty!");
-//			}
 		} catch(Exception ex) {
 			long lonFlg = System.currentTimeMillis();
 			logger.error(strCname + strFname + ex + "||" + lonFlg);
@@ -152,11 +151,11 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 				
 				hmpAllInp.put("^shell_allpath^", null);
 				hmpAllInp.put("^imgids^", "20022a68-bc87-462d-ba6c-af6570ba839e");
-				hmpAllInp.put("^devname^", null);
+				hmpAllInp.put("^devname^", "dev-"+objUuid.toString().replaceAll("-", ""));
 				hmpAllInp.put("^devids^", null);
 				hmpAllInp.put("^flvids^", "0");
 				hmpAllInp.put("^netwids^", "aedbece2-0b64-4879-94e5-461439cd6930");
-				hmpAllInp.put("^vmname^", null);
+				hmpAllInp.put("^vmname^", "vm-"+objUuid.toString().replaceAll("-", ""));
 				
 //					HashMap<String, Object> hmpAllInp = null;
 //					hmpAllInp = hmpPar;
@@ -168,6 +167,8 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 				hmpPar.put("^req_type^", hmpAllInp.get("^req_type^"));
 				hmpPar.put("^req_subtype^", hmpAllInp.get("^req_subtype^"));
 				hmpPar.put("^customerids^", hmpAllInp.get("^customerids^"));
+				hmpPar.put("^devname^", "dev-"+objUuid.toString().replaceAll("-", ""));
+				hmpPar.put("^devids^", null);
 				
 				hmpPar.put(ProcessAttrs.strInfoKey_Cpuuid, objUuid.toString().replaceAll("-", ""));
 				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "f");

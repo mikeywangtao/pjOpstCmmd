@@ -40,10 +40,12 @@ public class RunPrepare_Create00 extends AbsRunPrepare {
 				disSearchCmdpar(ProcessSql_Qz.strQzSql_Search_Cmdpar, hmpCmds);
 				
 				hmpAll.put(ProcessAttrs.strParmapKey_Ppalst, hmpCmds);
-				
+				hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "1");
+				hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg, null);
 //				disSetShell();
 			}
 		} catch(Exception ex) {
+			hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, null);
 			disOutputLog(strFname, ex);
 		}
 		return hmpAll;

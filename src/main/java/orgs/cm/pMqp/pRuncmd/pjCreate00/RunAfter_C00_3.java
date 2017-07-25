@@ -49,7 +49,7 @@ public class RunAfter_C00_3 extends AbsRunAfter {
 				//格式化返回
 				String strAnsidf = hmpAll.get("^ansid^")==null? null:hmpAll.get("^ansid^").toString();
 				if(strAnsidf!=null && strAnsidf.trim().length()>0){
-					ResFormatpro objResFormatpro = new ResFormatpro(
+					ResFormatpro_3 objResFormatpro = new ResFormatpro_3(
 							(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd), strAnsidf);
 					ArrayList<LinkedHashMap<String, String>> altResf = objResFormatpro.disFormatpro();
 					if(altResf!=null){

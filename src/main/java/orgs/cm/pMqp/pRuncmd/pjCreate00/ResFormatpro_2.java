@@ -11,32 +11,29 @@ import orgs.cm.pMqp.pComms.ProcessAttrs;
 /**
  * 格式化img返回信息，结果用于request。
  * */
-public class ResFormatpro {
+public class ResFormatpro_2 {
 	
-	private final String strCname = ResFormatpro.class.getName();
+	private final String strCname = ResFormatpro_2.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 
-	private ResFormatpro(){};
+	private ResFormatpro_2(){};
 	
-	private String strAnsId = "0";
+	private String strBaseFlg = null;
 	private ArrayList<LinkedHashMap<String, String>> altRes;
-	public ResFormatpro(ArrayList<LinkedHashMap<String, String>> altResp, String intAnsidp){
+	public ResFormatpro_2(ArrayList<LinkedHashMap<String, String>> altResp, String strBaseFlgp){
 		this.altRes = altResp;
-		this.strAnsId = intAnsidp;
+		this.strBaseFlg = strBaseFlgp;
 	}
-	
-	
-	
-	public ArrayList<LinkedHashMap<String, String>> disFormatpro(){
-		String strFname = " disFormatpro : ";
+		
+	public String disGetFlg(){
+		String strFname = " disGetFlg : ";
 		boolean booFlg = false;
-		LinkedHashMap<String, String> lmpRow = new LinkedHashMap<>();
-		ArrayList<LinkedHashMap<String, String>> altRe = new ArrayList<>();
+		String strRe = null;
 		try{
-			if(altRes!=null && altRes.size()>0){
+			if(strBaseFlg!=null && strBaseFlg.trim().length()>0
+					&& altRes!=null && altRes.size()>0){
 				for(LinkedHashMap<String, String> mapRow : altRes){
-					if(mapRow.containsKey(ProcessAttrs.strInfoKey_Info)
-							&& mapRow.get(ProcessAttrs.strInfoKey_Info)!=null){
+					if(mapRow!=null && mapRow.size()>0){
 						String strInfo = mapRow.get(ProcessAttrs.strInfoKey_Info)==null?
 								null : mapRow.get(ProcessAttrs.strInfoKey_Info).toString();
 						if(strInfo!=null && strInfo.trim().length()>0){
@@ -45,21 +42,30 @@ public class ResFormatpro {
 								continue;
 							}
 							if(booFlg && strInfo.indexOf("| ")>-1){
-								lmpRow.clear();
 								String[] subInfo = strInfo.split("\\|");
-								if(subInfo!=null && subInfo.length==4
-										&& !"ID".equals(subInfo[1].trim())){
-									//20170724 strImgId,strName
-									lmpRow.put("strImgId", subInfo[1].trim());
-									lmpRow.put("strName", subInfo[2].trim());
-									lmpRow.put("intAnsibleId", strAnsId);
-									altRe.add((LinkedHashMap<String, String>)lmpRow.clone());
+								if(subInfo!=null && subInfo.length==9
+										&& !"ID".equals(subInfo[1].trim())
+										&& strBaseFlg.trim().equals(subInfo[3].trim())){
+									strRe = subInfo[2];
+									break;
 								}
 							}
 						}
 					}
 				}
 			}
+		} catch(Exception ex) {
+			strRe = null;
+			disOutputLog(strFname, ex);
+		}
+		return strRe;
+	}
+	public ArrayList<LinkedHashMap<String, String>> disFormatpro(){
+		String strFname = " disFormatpro : ";
+		boolean booFlg = false;
+		LinkedHashMap<String, String> lmpRow = new LinkedHashMap<>();
+		ArrayList<LinkedHashMap<String, String>> altRe = new ArrayList<>();
+		try{
 		} catch(Exception ex) {
 			altRe = null;
 			disOutputLog(strFname, ex);

@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunBefore;
 import orgs.cm.pMqp.pShellpro.AbsShellpro;
-import orgs.cm.pMqp.pShellpro.StandardShellpro_C00_1;
+import orgs.cm.pMqp.pShellpro.StandardShellpro_C00;
 
 public class RunBefore_C00_1 extends AbsRunBefore {
 
@@ -26,11 +26,18 @@ public class RunBefore_C00_1 extends AbsRunBefore {
 	public HashMap<String, Object> disRunBefore() {
 		String strFname = " disRunBefore : ";
 		try {
-			if(hmpAll!=null && hmpAll.size()>0){
+			if(hmpAll!=null && hmpAll.size()>0
+					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg)
+					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null){
 				disSetShell();
-				AbsShellpro objShellpro = new StandardShellpro_C00_1(hmpAll);
-				if(objShellpro.disShellpro()){
-					hmpAll.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "t");
+				
+				String strNowRunflg = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString();
+				if(strNowRunflg!=null && strNowRunflg.trim().length()>0){
+					hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowPostfix, "_"+strNowRunflg+".sh");
+					AbsShellpro objShellpro = new StandardShellpro_C00(hmpAll);
+					if(objShellpro.disShellpro()){
+						hmpAll.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "t");
+					}
 				}
 			}
 		} catch(Exception ex) {
@@ -60,13 +67,15 @@ public class RunBefore_C00_1 extends AbsRunBefore {
 					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
 					){
 				
+				String strCmdids = null;
+				String strNowRunflg = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString();
 				String[] subCmmd = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunShCmmd).toString().split(",");
 				String[] subCmdids = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_Cmdids).toString().split(",");
 				if(subCmmd!=null && subCmmd.length==3
-						&& subCmdids!=null && subCmdids.length==3){
-					String strNowRunflg = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString();
-					if(strNowRunflg==null){
-						strNowRunflg = "";
+						&& subCmdids!=null && subCmdids.length==3
+						&& strNowRunflg!=null && strNowRunflg.trim().length()>0){
+					if(strNowRunflg!=null && strNowRunflg.trim().length()>0){
+						strCmdids = subCmdids[Integer.parseInt(strNowRunflg)-1];
 					}
 					HashMap<String, String> mapParam = (HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars);
 					ArrayList<HashMap<String, String>> altCmdsh = 
@@ -80,8 +89,14 @@ public class RunBefore_C00_1 extends AbsRunBefore {
 								|| strNowRunflg.equals(mapShellRow.get("runorder"))){
 							continue;
 						}
+						String strCmdshids = mapShellRow.get("cmdi_ids");
 						String strShline = mapShellRow.get("shell_line");
 						if(strShline==null ||(strShline!=null && strShline.trim().length()==0)){
+							continue;
+						}
+						if(!mapShellRow.containsKey("cmdi_ids")
+								|| (mapShellRow.containsKey("cmdi_ids") && mapShellRow.get("cmdi_ids")==null)
+								|| (mapShellRow.containsKey("cmdi_ids") && mapShellRow.get("cmdi_ids")!=null && !strCmdids.equals(mapShellRow.get("cmdi_ids").toString()))){
 							continue;
 						}
 						for(int j=0; j<altCmdpar.size(); j++){
@@ -93,12 +108,9 @@ public class RunBefore_C00_1 extends AbsRunBefore {
 							if(strSigParam==null ||(strSigParam!=null && strSigParam.trim().length()==0)){
 								continue;
 							}
-							if("^pdom^".equals(strSigParam)){
-								System.out.println("");
-							}
-//							strShline = strShline.replaceAll(strSigParam, mapParam.get(mapParam));
 							strShline = strShline.replaceAll(strSigParam.replaceAll("\\^", "\\\\^"), mapParam.get(strSigParam));
 						}
+						strShline = strCmdshids + "}}}" + strShline; 
 						altShell.add(strShline);
 					}
 				}

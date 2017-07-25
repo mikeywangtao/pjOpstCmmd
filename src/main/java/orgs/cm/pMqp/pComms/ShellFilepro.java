@@ -19,17 +19,15 @@ public class ShellFilepro {
 
 	private String strFileroot;
 	private String strFilename;
-	private String strCmdids;
 	private String strPostfix = null;
 	private ArrayList<String> altShell;
 
 	private ShellFilepro() {
 	}
 
-	public ShellFilepro(String strFilerootp, String strFilenamep, ArrayList<String> altShellp, String strCmdidsp, String strPostfixp) {
+	public ShellFilepro(String strFilerootp, String strFilenamep, ArrayList<String> altShellp, String strPostfixp) {
 		strFileroot = strFilerootp;
 		strFilename = strFilenamep;
-		strCmdids= strCmdidsp;
 		strPostfix = strPostfixp;
 		altShell = altShellp;
 	}
@@ -64,10 +62,8 @@ public class ShellFilepro {
 					if(str.indexOf("}}}")>-1){
 						String[] subLine = str.split("}}}");
 						if(subLine!=null && subLine.length==2){
-							if(subLine[0]!=null && subLine[0].trim().equals(strCmdids.trim())){
-								writer.write(subLine[1].trim() + " ");
-								writer.newLine();// 换行
-							}
+							writer.write(subLine[1].trim() + " ");
+							writer.newLine();// 换行
 						}
 					}
 				}

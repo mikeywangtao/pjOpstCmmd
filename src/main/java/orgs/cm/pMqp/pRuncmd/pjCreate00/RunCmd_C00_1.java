@@ -1,5 +1,7 @@
 package orgs.cm.pMqp.pRuncmd.pjCreate00;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -80,6 +82,8 @@ public class RunCmd_C00_1 extends AbsRunCmd {
 			}
 			String strFileroot = null;
 			String strFilename = null;
+			String strPostfix = null;
+			String strNowRunflg = null;
 			String StrCommand = null;
 			String strAnsCmmd = null;
 			if(hmpAll.containsKey("^anscmmd^")
@@ -90,16 +94,24 @@ public class RunCmd_C00_1 extends AbsRunCmd {
 					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFileroot)!=null
 					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_ShFilename)
 					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFilename)!=null
+					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_NowPostfix)
+					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowPostfix)!=null
+					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg)
+					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
 					){
-					strFileroot = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFileroot).toString();
-					strFilename = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFilename).toString(); 
-					StrCommand = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunShCmmd).toString(); 
-					strAnsCmmd = hmpAll.get("^anscmmd^").toString(); 
+				strNowRunflg = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString();
+				strPostfix = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowPostfix).toString();
+				strFileroot = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFileroot).toString();
+				strFilename = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFilename).toString(); 
+				StrCommand = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunShCmmd).toString(); 
+				StrCommand = StrCommand.split(",")[Integer.parseInt(strNowRunflg)];
+				strAnsCmmd = hmpAll.get("^anscmmd^").toString(); 
 			}
-			if(strFileroot!=null && strFileroot.trim().length()>0
+			if(StrCommand!=null && StrCommand.trim().length()>0 && StrCommand.indexOf(",")==-1
+					&& strFileroot!=null && strFileroot.trim().length()>0
 					&& strFilename!=null && strFilename.trim().length()>0){
 				StrCommand = StrCommand.replaceAll("\\^anscmmd\\^", strAnsCmmd);
-				StrCommand = StrCommand.replaceAll("\\^shell_allpath\\^", strFileroot+strFilename);
+				StrCommand = StrCommand.replaceAll("\\^shell_allpath\\^", strFileroot+strFilename+strPostfix);
 			} else {
 				strInfo = strCname + strFname + " Shell cmmd 构建失败!" ;
 				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
@@ -107,25 +119,75 @@ public class RunCmd_C00_1 extends AbsRunCmd {
 			}
 			/* ------------------------------------------------------------------------------- */
 //			String StrCommand = "ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u root "; //查看镜像
-/* 11:17:09.345 [http-bio-8080-exec-10] INFO  orgs.cm.tst.model.RunCmmd002 - Run Cmmd ----> ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u rootSTD line: 10.167.212.1 | SUCCESS => {
-STD line:     "changed": true, 
-STD line:     "rc": 0, 
-STD line:     "stderr": "", 
-STD line:     "stdout": "+--------------------------------------+------------+\r\n| ID                                   | Name       |\r\n+--------------------------------------+------------+\r\n| 4c367d93-fbe5-4c58-ac85-f7aab0310740 | centos6    |\r\n| 4c3b9963-bc32-4c38-a592-309e2da5722e | centos6.5  |\r\n| 20022a68-bc87-462d-ba6c-af6570ba839e | cirros     |\r\n| a7ff7cec-f187-4439-969e-a696020fb6a6 | fedora25   |\r\n| a1f55a3b-fd1c-4512-bbcf-15f4a231371c | ubuntu1404 |\r\n+--------------------------------------+------------+\r\n", 
-STD line:     "stdout_lines": [
-STD line:         "+--------------------------------------+------------+", 
-STD line:         "| ID                                   | Name       |", 
-STD line:         "+--------------------------------------+------------+", 
-STD line:         "| 4c367d93-fbe5-4c58-ac85-f7aab0310740 | centos6    |", 
-STD line:         "| 4c3b9963-bc32-4c38-a592-309e2da5722e | centos6.5  |", 
-STD line:         "| 20022a68-bc87-462d-ba6c-af6570ba839e | cirros     |", 
-STD line:         "| a7ff7cec-f187-4439-969e-a696020fb6a6 | fedora25   |", 
-STD line:         "| a1f55a3b-fd1c-4512-bbcf-15f4a231371c | ubuntu1404 |", 
-STD line:         "+--------------------------------------+------------+"
-STD line:     ]
-STD line: } */
+/* 
+{cmdids=201707240000,201707240001,201707240002, strNowPostfix=_1.sh, ^ansid^=1, reserr=null, strNowRunflg=1, runlst=[{type=runc, info=orgs.cm.pMqp.pRuncmd.pjCreate00.RunCmd_C00_1 disRuncmd :  创建VM Start----20170725153130407, subtype=info, rundt=20170725153131145}, {type=runc, info=orgs.cm.pMqp.pRuncmd.pjCreate00.RunCmd_C00_1 disRuncmd :  创建VM Cmmd----ansible openstack -m script -a  '/home/anshells/201730/20170725153051296_CREATECREATE00_1.sh' -u root , subtype=info, rundt=20170725153132150}, {type=runc, info=orgs.cm.pMqp.pRuncmd.pjCreate00.RunCmd_C00_1 disRuncmd :  SDT 超时！, subtype=info, rundt=2017072515321255}, {type=runc, info=orgs.cm.pMqp.pRuncmd.pjCreate00.RunCmd_C00_1 disRuncmd :  ERR 超时！, subtype=info, rundt=2017072515321256}, {type=runc, info=orgs.cm.pMqp.pRuncmd.pjCreate00.RunCmd_C00_1 disRuncmd :  查看镜像 End----2017072515321256, subtype=info, rundt=2017072515321256}], resstd=null, strShFilename=/20170725153051296_CREATECREATE00, strRunShCmmd=ansible ^anscmmd^ -m script -a  '^shell_allpath^' -u root ,ansible ^anscmmd^ -m script -a  '^shell_allpath^' -u root ,ansible ^anscmmd^ -m script -a  '^shell_allpath^' -u root ,, ^customerids^=20170725000, ^anscmmd^=openstack, inpars={^pname^=admin, ^ansid^=1, ^pdom^=Default, ^ideapi^=3, ^uname^=admin, ^pass^=admin, ^customerids^=20170725000, ^imgids^=20022a68-bc87-462d-ba6c-af6570ba839e, ^shell_allpath^=null, ^udom^=Default, ^anscmmd^=openstack, ^vmname^=vm-d35274b78826461aafe73a25f471a5df, ^netwids^=aedbece2-0b64-4879-94e5-461439cd6930, ^req_type^=CREATE, ^req_subtype^=CREATE00, ^devids^=null, ^authurl^=http://test-controller:5000/v3, ^flvids^=0, ^imgapi^=2, ^devname^=dev-d35274b78826461aafe73a25f471a5df}, cpuuid=d35274b78826461aafe73a25f471a5df, strShFilecflg=t, ^req_type^=CREATE, ^req_subtype^=CREATE00, ppalst={cmdi=[{cmdi_ids=201707240000, req_type=CREATE, req_subtype=CREATE00, cmmd=ansible ^anscmmd^ -m script -a  '^shell_allpath^' -u root , states=创建标准VM}, {cmdi_ids=201707240001, req_type=CREATE, req_subtype=CREATE00, cmmd=ansible ^anscmmd^ -m script -a  '^shell_allpath^' -u root , states=创建标准VM}, {cmdi_ids=201707240002, req_type=CREATE, req_subtype=CREATE00, cmmd=ansible ^anscmmd^ -m script -a  '^shell_allpath^' -u root , states=创建标准VM}], cmdsh=[{smdsh_ids=201707240100, cmdi_ids=201707240000, shell_line=#!/bin/bash, states=1s, orders=1, runorder=1}, {smdsh_ids=201707240101, cmdi_ids=201707240000, shell_line=export OS_PROJECT_DOMAIN_NAME=^pdom^, states=2s, orders=2, runorder=1}, {smdsh_ids=201707240102, cmdi_ids=201707240000, shell_line=export OS_USER_DOMAIN_NAME=^udom^, states=3s, orders=3, runorder=1}, {smdsh_ids=201707240103, cmdi_ids=201707240000, shell_line=export OS_PROJECT_NAME=^pname^, states=4s, orders=4, runorder=1}, {smdsh_ids=201707240104, cmdi_ids=201707240000, shell_line=export OS_USERNAME=^uname^, states=5s, orders=5, runorder=1}, {smdsh_ids=201707240105, cmdi_ids=201707240000, shell_line=export OS_PASSWORD=^pass^, states=6s, orders=6, runorder=1}, {smdsh_ids=201707240106, cmdi_ids=201707240000, shell_line=export OS_AUTH_URL=^authurl^, states=7s, orders=7, runorder=1}, {smdsh_ids=201707240107, cmdi_ids=201707240000, shell_line=export OS_IDENTITY_API_VERSION=^ideapi^, states=8s, orders=8, runorder=1}, {smdsh_ids=201707240108, cmdi_ids=201707240000, shell_line=export OS_IMAGE_API_VERSION=^imgapi^, states=9s, orders=9, runorder=1}, {smdsh_ids=201707240109, cmdi_ids=201707240000, shell_line=cinder create --image-id ^imgids^  --name ^devname^ 1 , states=10s, orders=10, runorder=1}, {smdsh_ids=201707240200, cmdi_ids=201707240001, shell_line=#!/bin/bash, states=1s, orders=1, runorder=2}, {smdsh_ids=201707240201, cmdi_ids=201707240001, shell_line=export OS_PROJECT_DOMAIN_NAME=^pdom^, states=2s, orders=2, runorder=2}, {smdsh_ids=201707240202, cmdi_ids=201707240001, shell_line=export OS_USER_DOMAIN_NAME=^udom^, states=3s, orders=3, runorder=2}, {smdsh_ids=201707240203, cmdi_ids=201707240001, shell_line=export OS_PROJECT_NAME=^pname^, states=4s, orders=4, runorder=2}, {smdsh_ids=201707240204, cmdi_ids=201707240001, shell_line=export OS_USERNAME=^uname^, states=5s, orders=5, runorder=2}, {smdsh_ids=201707240205, cmdi_ids=201707240001, shell_line=export OS_PASSWORD=^pass^, states=6s, orders=6, runorder=2}, {smdsh_ids=201707240206, cmdi_ids=201707240001, shell_line=export OS_AUTH_URL=^authurl^, states=7s, orders=7, runorder=2}, {smdsh_ids=201707240207, cmdi_ids=201707240001, shell_line=export OS_IDENTITY_API_VERSION=^ideapi^, states=8s, orders=8, runorder=2}, {smdsh_ids=201707240208, cmdi_ids=201707240001, shell_line=export OS_IMAGE_API_VERSION=^imgapi^, states=9s, orders=9, runorder=2}, {smdsh_ids=201707240209, cmdi_ids=201707240001, shell_line=cinder list , states=10s, orders=10, runorder=2}, {smdsh_ids=201707240300, cmdi_ids=201707240002, shell_line=#!/bin/bash, states=1s, orders=1, runorder=3}, {smdsh_ids=201707240301, cmdi_ids=201707240002, shell_line=export OS_PROJECT_DOMAIN_NAME=^pdom^, states=2s, orders=2, runorder=3}, {smdsh_ids=201707240302, cmdi_ids=201707240002, shell_line=export OS_USER_DOMAIN_NAME=^udom^, states=3s, orders=3, runorder=3}, {smdsh_ids=201707240303, cmdi_ids=201707240002, shell_line=export OS_PROJECT_NAME=^pname^, states=4s, orders=4, runorder=3}, {smdsh_ids=201707240304, cmdi_ids=201707240002, shell_line=export OS_USERNAME=^uname^, states=5s, orders=5, runorder=3}, {smdsh_ids=201707240305, cmdi_ids=201707240002, shell_line=export OS_PASSWORD=^pass^, states=6s, orders=6, runorder=3}, {smdsh_ids=201707240306, cmdi_ids=201707240002, shell_line=export OS_AUTH_URL=^authurl^, states=7s, orders=7, runorder=3}, {smdsh_ids=201707240307, cmdi_ids=201707240002, shell_line=export OS_IDENTITY_API_VERSION=^ideapi^, states=8s, orders=8, runorder=3}, {smdsh_ids=201707240308, cmdi_ids=201707240002, shell_line=export OS_IMAGE_API_VERSION=^imgapi^, states=9s, orders=9, runorder=3}, {smdsh_ids=201707240309, cmdi_ids=201707240002, shell_line=nova boot  --flavor ^flvids^ --image ^imgids^  --nic net-id=^netwids^  --block-device-mapping vda=^devids^:::1 ^vmname^ , states=10s, orders=10, runorder=3}], cmdpar=[{cmdpa_ids=201707250100, cmdi_ids=201707240000, par_flg=^pdom^, states=null}, {cmdpa_ids=201707250101, cmdi_ids=201707240000, par_flg=^udom^, states=null}, {cmdpa_ids=201707250102, cmdi_ids=201707240000, par_flg=^pname^, states=null}, {cmdpa_ids=201707250103, cmdi_ids=201707240000, par_flg=^uname^, states=null}, {cmdpa_ids=201707250104, cmdi_ids=201707240000, par_flg=^pass^, states=null}, {cmdpa_ids=201707250105, cmdi_ids=201707240000, par_flg=^authurl^, states=null}, {cmdpa_ids=201707250106, cmdi_ids=201707240000, par_flg=^ideapi^, states=null}, {cmdpa_ids=201707250107, cmdi_ids=201707240000, par_flg=^imgapi^, states=null}, {cmdpa_ids=201707250108, cmdi_ids=201707240000, par_flg=^anscmmd^, states=null}, {cmdpa_ids=201707250109, cmdi_ids=201707240000, par_flg=^shell_allpath^, states=null}, {cmdpa_ids=201707250110, cmdi_ids=201707240000, par_flg=^imgids^, states=null}, {cmdpa_ids=201707250111, cmdi_ids=201707240000, par_flg=^devname^, states=null}, {cmdpa_ids=201707250112, cmdi_ids=201707240000, par_flg=^flvids^, states=null}, {cmdpa_ids=201707250113, cmdi_ids=201707240000, par_flg=^netwids^, states=null}, {cmdpa_ids=201707250114, cmdi_ids=201707240000, par_flg=^devids^, states=null}, {cmdpa_ids=201707250115, cmdi_ids=201707240000, par_flg=^vmname^, states=null}, {cmdpa_ids=201707250200, cmdi_ids=201707240001, par_flg=^pdom^, states=null}, {cmdpa_ids=201707250201, cmdi_ids=201707240001, par_flg=^udom^, states=null}, {cmdpa_ids=201707250202, cmdi_ids=201707240001, par_flg=^pname^, states=null}, {cmdpa_ids=201707250203, cmdi_ids=201707240001, par_flg=^uname^, states=null}, {cmdpa_ids=201707250204, cmdi_ids=201707240001, par_flg=^pass^, states=null}, {cmdpa_ids=201707250205, cmdi_ids=201707240001, par_flg=^authurl^, states=null}, {cmdpa_ids=201707250206, cmdi_ids=201707240001, par_flg=^ideapi^, states=null}, {cmdpa_ids=201707250207, cmdi_ids=201707240001, par_flg=^imgapi^, states=null}, {cmdpa_ids=201707250208, cmdi_ids=201707240001, par_flg=^anscmmd^, states=null}, {cmdpa_ids=201707250209, cmdi_ids=201707240001, par_flg=^shell_allpath^, states=null}, {cmdpa_ids=201707250210, cmdi_ids=201707240001, par_flg=^imgids^, states=null}, {cmdpa_ids=201707250211, cmdi_ids=201707240001, par_flg=^devname^, states=null}, {cmdpa_ids=201707250212, cmdi_ids=201707240001, par_flg=^flvids^, states=null}, {cmdpa_ids=201707250213, cmdi_ids=201707240001, par_flg=^netwids^, states=null}, {cmdpa_ids=201707250214, cmdi_ids=201707240001, par_flg=^devids^, states=null}, {cmdpa_ids=201707250215, cmdi_ids=201707240001, par_flg=^vmname^, states=null}, {cmdpa_ids=201707250300, cmdi_ids=201707240002, par_flg=^pdom^, states=null}, {cmdpa_ids=201707250301, cmdi_ids=201707240002, par_flg=^udom^, states=null}, {cmdpa_ids=201707250302, cmdi_ids=201707240002, par_flg=^pname^, states=null}, {cmdpa_ids=201707250303, cmdi_ids=201707240002, par_flg=^uname^, states=null}, {cmdpa_ids=201707250304, cmdi_ids=201707240002, par_flg=^pass^, states=null}, {cmdpa_ids=201707250305, cmdi_ids=201707240002, par_flg=^authurl^, states=null}, {cmdpa_ids=201707250306, cmdi_ids=201707240002, par_flg=^ideapi^, states=null}, {cmdpa_ids=201707250307, cmdi_ids=201707240002, par_flg=^imgapi^, states=null}, {cmdpa_ids=201707250308, cmdi_ids=201707240002, par_flg=^anscmmd^, states=null}, {cmdpa_ids=201707250309, cmdi_ids=201707240002, par_flg=^shell_allpath^, states=null}, {cmdpa_ids=201707250310, cmdi_ids=201707240002, par_flg=^imgids^, states=null}, {cmdpa_ids=201707250311, cmdi_ids=201707240002, par_flg=^devname^, states=null}, {cmdpa_ids=201707250312, cmdi_ids=201707240002, par_flg=^flvids^, states=null}, {cmdpa_ids=201707250313, cmdi_ids=201707240002, par_flg=^netwids^, states=null}, {cmdpa_ids=201707250314, cmdi_ids=201707240002, par_flg=^devids^, states=null}, {cmdpa_ids=201707250315, cmdi_ids=201707240002, par_flg=^vmname^, states=null}]}, strShFileroot=/home/anshells/201730, cmdshr=[201707240000}}}#!/bin/bash, 201707240000}}}#!/bin/bash, 201707240000}}}export OS_PROJECT_DOMAIN_NAME=Default, 201707240000}}}export OS_PROJECT_DOMAIN_NAME=Default, 201707240000}}}export OS_USER_DOMAIN_NAME=Default, 201707240000}}}export OS_USER_DOMAIN_NAME=Default, 201707240000}}}export OS_PROJECT_NAME=admin, 201707240000}}}export OS_PROJECT_NAME=admin, 201707240000}}}export OS_USERNAME=admin, 201707240000}}}export OS_USERNAME=admin, 201707240000}}}export OS_PASSWORD=admin, 201707240000}}}export OS_PASSWORD=admin, 201707240000}}}export OS_AUTH_URL=http://test-controller:5000/v3, 201707240000}}}export OS_AUTH_URL=http://test-controller:5000/v3, 201707240000}}}export OS_IDENTITY_API_VERSION=3, 201707240000}}}export OS_IDENTITY_API_VERSION=3, 201707240000}}}export OS_IMAGE_API_VERSION=2, 201707240000}}}export OS_IMAGE_API_VERSION=2, 201707240000}}}cinder create --image-id 20022a68-bc87-462d-ba6c-af6570ba839e  --name dev-d35274b78826461aafe73a25f471a5df 1 , 201707240000}}}cinder create --image-id 20022a68-bc87-462d-ba6c-af6570ba839e  --name dev-d35274b78826461aafe73a25f471a5df 1 ]}
+创建VM STD line: 10.167.212.1 | SUCCESS => {
+创建VM STD line:     "changed": true, 
+创建VM STD line:     "rc": 0, 
+创建VM STD line:     "stderr": "", 
+创建VM STD line:     "stdout": "+--------------------------------+--------------------------------------+\r\n| Property                       | Value                                |\r\n+--------------------------------+--------------------------------------+\r\n| attachments                    | []                                   |\r\n| availability_zone              | nova                                 |\r\n| bootable                       | false                                |\r\n| consistencygroup_id            | None                                 |\r\n| created_at                     | 2017-07-25T07:32:12.000000           |\r\n| description                    | None                                 |\r\n| encrypted                      | False                                |\r\n| id                             | aacf0e60-d280-4726-b1d0-e4f117b36abd |\r\n| metadata                       | {}                                   |\r\n| migration_status               | None                                 |\r\n| multiattach                    | False                                |\r\n| name                           | dev-d35274b78826461aafe73a25f471a5df |\r\n| os-vol-host-attr:host          | None                                 |\r\n| os-vol-mig-status-attr:migstat | None                                 |\r\n| os-vol-mig-status-attr:name_id | None                                 |\r\n| os-vol-tenant-attr:tenant_id   | 0f50d3fbc4f64fb6b0e892d56ff47ced     |\r\n| replication_status             | disabled                             |\r\n| size                           | 1                                    |\r\n| snapshot_id                    | None                                 |\r\n| source_volid                   | None                                 |\r\n| status                         | creating                             |\r\n| updated_at                     | None                                 |\r\n| user_id                        | fdb93da2369e494ea091004e9253013f     |\r\n| volume_type                    | None                                 |\r\n+--------------------------------+--------------------------------------+\r\n+--------------------------------+--------------------------------------+\r\n| Property                       | Value                                |\r\n+--------------------------------+--------------------------------------+\r\n| attachments                    | []                                   |\r\n| availability_zone              | nova                                 |\r\n| bootable                       | false                                |\r\n| consistencygroup_id            | None                                 |\r\n| created_at                     | 2017-07-25T07:32:14.000000           |\r\n| description                    | None                                 |\r\n| encrypted                      | False                                |\r\n| id                             | d5e45fda-3552-449b-8fce-d8aa23179ba5 |\r\n| metadata                       | {}                                   |\r\n| migration_status               | None                                 |\r\n| multiattach                    | False                                |\r\n| name                           | dev-d35274b78826461aafe73a25f471a5df |\r\n| os-vol-host-attr:host          | None                                 |\r\n| os-vol-mig-status-attr:migstat | None                                 |\r\n| os-vol-mig-status-attr:name_id | None                                 |\r\n| os-vol-tenant-attr:tenant_id   | 0f50d3fbc4f64fb6b0e892d56ff47ced     |\r\n| replication_status             | disabled                             |\r\n| size                           | 1                                    |\r\n| snapshot_id                    | None                                 |\r\n| source_volid                   | None                                 |\r\n| status                         | creating                             |\r\n| updated_at                     | None                                 |\r\n| user_id                        | fdb93da2369e494ea091004e9253013f     |\r\n| volume_type                    | None                                 |\r\n+--------------------------------+--------------------------------------+\r\n", 
+创建VM STD line:     "stdout_lines": [
+创建VM STD line:         "+--------------------------------+--------------------------------------+", 
+创建VM STD line:         "| Property                       | Value                                |", 
+创建VM STD line:         "+--------------------------------+--------------------------------------+", 
+创建VM STD line:         "| attachments                    | []                                   |", 
+创建VM STD line:         "| availability_zone              | nova                                 |", 
+创建VM STD line:         "| bootable                       | false                                |", 
+创建VM STD line:         "| consistencygroup_id            | None                                 |", 
+创建VM STD line:         "| created_at                     | 2017-07-25T07:32:12.000000           |", 
+创建VM STD line:         "| description                    | None                                 |", 
+创建VM STD line:         "| encrypted                      | False                                |", 
+创建VM STD line:         "| id                             | aacf0e60-d280-4726-b1d0-e4f117b36abd |", 
+创建VM STD line:         "| metadata                       | {}                                   |", 
+创建VM STD line:         "| migration_status               | None                                 |", 
+创建VM STD line:         "| multiattach                    | False                                |", 
+创建VM STD line:         "| name                           | dev-d35274b78826461aafe73a25f471a5df |", 
+创建VM STD line:         "| os-vol-host-attr:host          | None                                 |", 
+创建VM STD line:         "| os-vol-mig-status-attr:migstat | None                                 |", 
+创建VM STD line:         "| os-vol-mig-status-attr:name_id | None                                 |", 
+创建VM STD line:         "| os-vol-tenant-attr:tenant_id   | 0f50d3fbc4f64fb6b0e892d56ff47ced     |", 
+创建VM STD line:         "| replication_status             | disabled                             |", 
+创建VM STD line:         "| size                           | 1                                    |", 
+创建VM STD line:         "| snapshot_id                    | None                                 |", 
+创建VM STD line:         "| source_volid                   | None                                 |", 
+创建VM STD line:         "| status                         | creating                             |", 
+创建VM STD line:         "| updated_at                     | None                                 |", 
+创建VM STD line:         "| user_id                        | fdb93da2369e494ea091004e9253013f     |", 
+创建VM STD line:         "| volume_type                    | None                                 |", 
+创建VM STD line:         "+--------------------------------+--------------------------------------+", 
+创建VM STD line:         "+--------------------------------+--------------------------------------+", 
+创建VM STD line:         "| Property                       | Value                                |", 
+创建VM STD line:         "+--------------------------------+--------------------------------------+", 
+创建VM STD line:         "| attachments                    | []                                   |", 
+创建VM STD line:         "| availability_zone              | nova                                 |", 
+创建VM STD line:         "| bootable                       | false                                |", 
+创建VM STD line:         "| consistencygroup_id            | None                                 |", 
+创建VM STD line:         "| created_at                     | 2017-07-25T07:32:14.000000           |", 
+创建VM STD line:         "| description                    | None                                 |", 
+创建VM STD line:         "| encrypted                      | False                                |", 
+创建VM STD line:         "| id                             | d5e45fda-3552-449b-8fce-d8aa23179ba5 |", 
+创建VM STD line:         "| metadata                       | {}                                   |", 
+创建VM STD line:         "| migration_status               | None                                 |", 
+创建VM STD line:         "| multiattach                    | False                                |", 
+创建VM STD line:         "| name                           | dev-d35274b78826461aafe73a25f471a5df |", 
+创建VM STD line:         "| os-vol-host-attr:host          | None                                 |", 
+创建VM STD line:         "| os-vol-mig-status-attr:migstat | None                                 |", 
+创建VM STD line:         "| os-vol-mig-status-attr:name_id | None                                 |", 
+创建VM STD line:         "| os-vol-tenant-attr:tenant_id   | 0f50d3fbc4f64fb6b0e892d56ff47ced     |", 
+创建VM STD line:         "| replication_status             | disabled                             |", 
+创建VM STD line:         "| size                           | 1                                    |", 
+创建VM STD line:         "| snapshot_id                    | None                                 |", 
+创建VM STD line:         "| source_volid                   | None                                 |", 
+创建VM STD line:         "| status                         | creating                             |", 
+创建VM STD line:         "| updated_at                     | None                                 |", 
+创建VM STD line:         "| user_id                        | fdb93da2369e494ea091004e9253013f     |", 
+创建VM STD line:         "| volume_type                    | None                                 |", 
+创建VM STD line:         "+--------------------------------+--------------------------------------+"
+创建VM STD line:     ]
+创建VM STD line: }
+*/
 			
-			SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
+//			StrCommand = StrCommand.substring(0, StrCommand.length()-1);
 			strInfo = strCname + strFname + " 创建VM Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 			strInfo = strCname + strFname + " 创建VM Cmmd----" + StrCommand;
@@ -134,10 +196,11 @@ STD line: } */
 			logger.info(strInfo);
 			
 			process = Runtime.getRuntime().exec(StrCommand);
-
+			
 			errorGobbler = new CmdStreamGobbler(process.getErrorStream(), StrCommand, "创建VM ERR", strstrCpuuid, this);
 			outputGobbler = new CmdStreamGobbler(process.getInputStream(), StrCommand, "创建VM STD", strstrCpuuid, this);
 
+			
 			if(errorGobbler!=null && outputGobbler!=null){
 				errorGobbler.start();
 				while (!errorGobbler.isReady()) {
@@ -172,13 +235,11 @@ STD line: } */
 						if(outputGobbler!=null){
 							strInfo = strCname + strFname + " SDT 超时！";
 							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
-//							outputGobbler.setStop();
 							outputGobbler = null;
 						}
 						if(errorGobbler!=null){
 							strInfo = strCname + strFname + " ERR 超时！";
 							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
-//							errorGobbler.setStop();
 							errorGobbler = null;
 						}
 						break;

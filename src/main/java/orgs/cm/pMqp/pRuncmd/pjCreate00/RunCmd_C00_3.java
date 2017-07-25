@@ -80,6 +80,8 @@ public class RunCmd_C00_3 extends AbsRunCmd {
 			}
 			String strFileroot = null;
 			String strFilename = null;
+			String strPostfix = null;
+			String strNowRunflg = null;
 			String StrCommand = null;
 			String strAnsCmmd = null;
 			if(hmpAll.containsKey("^anscmmd^")
@@ -90,16 +92,24 @@ public class RunCmd_C00_3 extends AbsRunCmd {
 					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFileroot)!=null
 					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_ShFilename)
 					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFilename)!=null
+					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_NowPostfix)
+					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowPostfix)!=null
+					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg)
+					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
 					){
-					strFileroot = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFileroot).toString();
-					strFilename = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFilename).toString(); 
-					StrCommand = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunShCmmd).toString(); 
-					strAnsCmmd = hmpAll.get("^anscmmd^").toString(); 
+				strNowRunflg = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString();
+				strPostfix = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowPostfix).toString();
+				strFileroot = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFileroot).toString();
+				strFilename = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFilename).toString(); 
+				StrCommand = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunShCmmd).toString(); 
+				StrCommand = StrCommand.split(",")[Integer.parseInt(strNowRunflg)];
+				strAnsCmmd = hmpAll.get("^anscmmd^").toString(); 
 			}
-			if(strFileroot!=null && strFileroot.trim().length()>0
+			if(StrCommand!=null && StrCommand.trim().length()>0 && StrCommand.indexOf(",")==-1
+					&& strFileroot!=null && strFileroot.trim().length()>0
 					&& strFilename!=null && strFilename.trim().length()>0){
 				StrCommand = StrCommand.replaceAll("\\^anscmmd\\^", strAnsCmmd);
-				StrCommand = StrCommand.replaceAll("\\^shell_allpath\\^", strFileroot+strFilename);
+				StrCommand = StrCommand.replaceAll("\\^shell_allpath\\^", strFileroot+strFilename+strPostfix);
 			} else {
 				strInfo = strCname + strFname + " Shell cmmd 构建失败!" ;
 				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
@@ -125,7 +135,7 @@ STD line:         "+--------------------------------------+------------+"
 STD line:     ]
 STD line: } */
 			
-			SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
+//			StrCommand = StrCommand.substring(0, StrCommand.length()-1);
 			strInfo = strCname + strFname + " 创建VM Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 			strInfo = strCname + strFname + " 创建VM Cmmd----" + StrCommand;
@@ -172,13 +182,11 @@ STD line: } */
 						if(outputGobbler!=null){
 							strInfo = strCname + strFname + " SDT 超时！";
 							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
-//							outputGobbler.setStop();
 							outputGobbler = null;
 						}
 						if(errorGobbler!=null){
 							strInfo = strCname + strFname + " ERR 超时！";
 							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
-//							errorGobbler.setStop();
 							errorGobbler = null;
 						}
 						break;
