@@ -44,19 +44,9 @@ public class TstServ {
 		tstDao.disTstDao_Pro(lhpParp);
 		
 
-//		ArrayList<String> altPar = new ArrayList<>();
-//		altPar.add("alt1");
-//		altPar.add("alt2");
-//		altPar.add("alt3");
-//		Map<String, Object> mapPar = new HashMap<>();
-//		mapPar.put("key", "val");
-//		mapPar.put("keyy", "vall");
-//		mapPar.put("keyyy", altPar);
-//		
-//		String strPar = JSON.toJSONString(mapPar);
-//		HttpClientUtil.sendHttpPostJson("http://127.0.0.1:8080/pjOpStCmmd/tstCtrl/dishtpcReq", strPar);
+
 		
-		
+		/*
 		Map<String, Object> mapParAnsible = new HashMap<>(); 
 //		mapParAnsible.put("id", "1"); 
 //		mapParAnsible.put("ip", "1"); 
@@ -87,7 +77,7 @@ public class TstServ {
 								 strLoginName
 								 strPassword
 								 strSshKey
-								 */
+								 *
 							}
 							System.out.println("");
 						}
@@ -133,7 +123,7 @@ public class TstServ {
 								 * strIdeenity
 								 * strImgapiv
 								 * **intAnsibleId
-								 */
+								 *
 							}
 							System.out.println("");
 						}
@@ -141,30 +131,9 @@ public class TstServ {
 				}
 			}
 		}
-		
-//		HashMap<String, Object> mapPar = new HashMap<>();
-//		AbsShellpro objShellpro = new StandardShellpro_Getimg(mapPar);
-//		boolean booFlg = objShellpro.disShellpro();
-		
-		
-//		Map<String, Object> mapRes = JSON.parseObject(strAnsible, HashMap.class);
-//		if(mapRes!=null && mapRes.size()>0
-//				&& mapRes.containsKey("msg") && mapRes.get("msg")!=null
-//				&& mapRes.containsKey("data") && mapRes.get("data")!=null){
-//			String strMsg = mapRes.get("msg")==null?null:mapRes.get("msg").toString();
-//			if("ok".equals(strMsg)){
-//				String strData = mapRes.get("data").toString();
-//				if(strData!=null && strData.trim().length()>0){
-//					ArrayList altData = JSON.parseObject(strData, ArrayList.class);
-//					
-//					System.out.println(altData);
-//				}
-//			}
-//		}
-			
-//		runCmmd000.disPro000();
-//		runCmmd001.disPro000();
-//		runCmmd002.disPro000();
+		*/
+
+
 //		AbsRuncmdPro objRcGetimg = new Runcmdpro_Getimg();
 //		objRcGetimg.disRuncmdPro();
 		

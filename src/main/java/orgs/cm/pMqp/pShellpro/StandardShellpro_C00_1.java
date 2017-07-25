@@ -10,12 +10,12 @@ import org.apache.logging.log4j.Logger;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
 import orgs.cm.pMqp.pComms.ShellFilepro;
 
-public class StandardShellpro_Create00 extends StandardShellpro{
+public class StandardShellpro_C00_1 extends StandardShellpro{
 
-	private final String strCname = StandardShellpro_Create00.class.getName();
+	private final String strCname = StandardShellpro_C00_1.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
-	public StandardShellpro_Create00(HashMap<String, Object> mapParp) {
+	public StandardShellpro_C00_1(HashMap<String, Object> mapParp) {
 		mapPar = mapParp;
 	}
 
@@ -37,7 +37,9 @@ public class StandardShellpro_Create00 extends StandardShellpro{
 					&& mapPar.containsKey(ProcessAttrs.strParmapKey_Ppa_Cmdshr)
 					&& mapPar.get(ProcessAttrs.strParmapKey_Ppa_Cmdshr)!=null
 					&& mapPar.containsKey(ProcessAttrs.strParmapKey_Ppa_Cmdids)
-					&& mapPar.get(ProcessAttrs.strParmapKey_Ppa_Cmdids)!=null ){
+					&& mapPar.get(ProcessAttrs.strParmapKey_Ppa_Cmdids)!=null 
+					&& mapPar.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg)
+					&& mapPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null ){
 					
 					String strCmd = mapPar.get(ProcessAttrs.strParmapKey_Ppa_RunShCmmd).toString();
 					String strCmdids = mapPar.get(ProcessAttrs.strParmapKey_Ppa_Cmdids).toString();
@@ -49,12 +51,16 @@ public class StandardShellpro_Create00 extends StandardShellpro{
 						if(subCmd!=null && subCmd.length==3
 								&& subCmdids!=null && subCmdids.length==3){
 							for(int i=1; i<=subCmdids.length; i++){
-								strCmdids = subCmdids[i-1];
-								String strFileroot = mapPar.get("strShFileroot").toString();
-								String strFilename = mapPar.get("strShFilename").toString(); 
-								ArrayList<String> altShell = (ArrayList<String>)mapPar.get(ProcessAttrs.strParmapKey_Ppa_Cmdshr); 
-								ShellFilepro objShellFilepro = new ShellFilepro(strFileroot, strFilename, altShell, strCmdids, null);
-								booRe = objShellFilepro.disCreateshell();
+								String strNowRunflg = mapPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString();
+								if(strNowRunflg!=null && strNowRunflg.trim().length()>0
+										&& (i+"").equals(strNowRunflg.trim())){
+									strCmdids = subCmdids[i-1];
+									String strFileroot = mapPar.get("strShFileroot").toString();
+									String strFilename = mapPar.get("strShFilename").toString(); 
+									ArrayList<String> altShell = (ArrayList<String>)mapPar.get(ProcessAttrs.strParmapKey_Ppa_Cmdshr); 
+									ShellFilepro objShellFilepro = new ShellFilepro(strFileroot, strFilename, altShell, strCmdids, null);
+									booRe = objShellFilepro.disCreateshell();
+								}
 							}
 						}
 					}

@@ -88,7 +88,7 @@ public class RunAfter_C00_2 extends AbsRunAfter {
 				strInfo = strCname + strFname + " 镜像 After End----" + DatePro.disGetStrdate4NowObjSdf001();
 				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
-				hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunNext, "next");
+//				hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunNext, "next");
 			}
 		} catch(Exception ex) {
 			disOutputLog(strFname, ex);

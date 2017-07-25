@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunBefore;
 import orgs.cm.pMqp.pShellpro.AbsShellpro;
-import orgs.cm.pMqp.pShellpro.StandardShellpro_Create00;
+import orgs.cm.pMqp.pShellpro.StandardShellpro_C00_1;
 
 public class RunBefore_C00_3 extends AbsRunBefore {
 
@@ -25,7 +25,7 @@ public class RunBefore_C00_3 extends AbsRunBefore {
 		String strFname = " disRunBefore : ";
 		try {
 			if(hmpAll!=null && hmpAll.size()>0){
-				AbsShellpro objShellpro = new StandardShellpro_Create00(hmpAll);
+				AbsShellpro objShellpro = new StandardShellpro_C00_1(hmpAll);
 				if(objShellpro.disShellpro()){
 					hmpAll.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "t");
 				}

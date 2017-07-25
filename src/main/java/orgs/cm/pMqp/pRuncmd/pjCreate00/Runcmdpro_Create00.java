@@ -38,31 +38,62 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 		AbsRunAfter objAfter = null;
 		
 		try {
+			disSetParinfos();
 			List<HashMap> altDataAnsible = disGetAnsible();
 			if(altDataAnsible!=null && altDataAnsible.size()==1){
 				HashMap map = altDataAnsible.get(0);
 				
-//				String strNowRunCmdids = "";
-//				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_NowRunCmdids, strNowRunCmdids);
-				
-				disSetParinfos(map);
 				objPrepare = new RunPrepare_Create00();
 				objPrepare.disSetAll(hmpPar);
 				super.disRunPrepare(objPrepare);
 				
-				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_NowRunNext, "stop");
+				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "1");
 				objBefore = new RunBefore_C00_1();
 				objBefore.disSetAll(hmpPar);
 				super.disRunBefre(objBefore);
+				objBefore = null;
 				
 				objCmd = new RunCmd_C00_1();
 				objCmd.disSetAll(hmpPar);
 				super.disRunCmd(objCmd);
+				objCmd = null;
 				
 				objAfter = new RunAfter_C00_1();
 				objAfter.disSetAll(hmpPar);
 				super.dusRunAfter(objAfter);
+				objAfter = null;
 				
+				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "2");
+				objBefore = new RunBefore_C00_2();
+				objBefore.disSetAll(hmpPar);
+				super.disRunBefre(objBefore);
+				objBefore = null;
+				
+				objCmd = new RunCmd_C00_2();
+				objCmd.disSetAll(hmpPar);
+				super.disRunCmd(objCmd);
+				objCmd = null;
+				
+				objAfter = new RunAfter_C00_2();
+				objAfter.disSetAll(hmpPar);
+				super.dusRunAfter(objAfter);
+				objAfter = null;
+				
+				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "3");
+				objBefore = new RunBefore_C00_3();
+				objBefore.disSetAll(hmpPar);
+				super.disRunBefre(objBefore);
+				objBefore = null;
+				
+				objCmd = new RunCmd_C00_3();
+				objCmd.disSetAll(hmpPar);
+				super.disRunCmd(objCmd);
+				objCmd = null;
+				
+				objAfter = new RunAfter_C00_3();
+				objAfter.disSetAll(hmpPar);
+				super.dusRunAfter(objAfter);
+				objAfter = null;
 				
 			} else {
 				throw new Exception("hmpPar Error ! is null or is empty!");
@@ -93,54 +124,64 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 	}
 	
 	
-	private void disSetParinfos(HashMap map){
+	private void disSetParinfos(){
 		String strFname = " disSetPars : ";
 		try {
 			
-			if(map!=null && map.size()>0){
-				List<HashMap> altDataKeystone = disGetKeustone();
+			List<HashMap> altDataKeystone = disGetKeustone();
+			
+			if(altDataKeystone!=null && altDataKeystone.size()>0){
+				UUID objUuid = UUID.randomUUID();
+				HashMap<String, String> hmpAllInp = new HashMap<>();
+				hmpAllInp.put("^ansid^", "1");
+				hmpAllInp.put("^anscmmd^", "openstack");
 				
-				if(altDataKeystone!=null && altDataKeystone.size()>0){
-					UUID objUuid = UUID.randomUUID();
-//					HashMap<String, String> hmpAllInp = new HashMap<>();
-//					hmpAllInp.put("^anscmmd^", "openstack");
-//					hmpAllInp.put("^ansinfo^", "ansinfo......");
-//					
-//					hmpAllInp.put("^req_type^", "CREATE");
-//					hmpAllInp.put("^req_subtype^", "CREATE00");
-//					
-//					hmpAllInp.put("^customerids^", "20170724000");
-//					
-//					hmpAllInp.put("^pdom^", "Default");
-//					hmpAllInp.put("^udom^", "Default");
-//					hmpAllInp.put("^pname^", "admin");
-//					hmpAllInp.put("^uname^", "admin");
-//					hmpAllInp.put("^pass^", "admin");
-//					hmpAllInp.put("^authurl^", "http://test-controller:5000/v3");
-//					hmpAllInp.put("^ideapi^", "3");
-//					hmpAllInp.put("^imgapi^", "2");
-					
-					HashMap<String, Object> hmpAllInp = null;
-					hmpAllInp = hmpPar;
-					hmpPar = new HashMap<>();
-					
-					hmpPar.put(ProcessAttrs.strParmapKey_Inpars, hmpAllInp);
-					hmpPar.put("^anscmmd^", "openstack");
-					hmpPar.put("^ansinfo^", "ansinfo......");
-					hmpPar.put(ProcessAttrs.strInfoKey_Cpuuid, objUuid.toString().replaceAll("-", ""));
-					hmpPar.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "f");
-					hmpPar.put(ProcessAttrs.strParmapKey_Ppa_RunShCmmd, null);
-					hmpPar.put(ProcessAttrs.strParmapKey_Ppa_ShFileroot, 
-							"/home/anshells/" + DatePro.disGetYear4now()+DatePro.disGetWeek4now());
-					hmpPar.put(ProcessAttrs.strParmapKey_Ppa_ShFilename, 
-							"/" 
-							+ DatePro.disGetStrdate4NowObjSdf001() 
-							+ "_" + hmpAllInp.get("^req_type^").toString()
-							+ hmpAllInp.get("^req_subtype^").toString() );
+				hmpAllInp.put("^req_type^", "CREATE");
+				hmpAllInp.put("^req_subtype^", "CREATE00");
+				
+				hmpAllInp.put("^customerids^", "20170725000");
+				
+				hmpAllInp.put("^pdom^", "Default");
+				hmpAllInp.put("^udom^", "Default");
+				hmpAllInp.put("^pname^", "admin");
+				hmpAllInp.put("^uname^", "admin");
+				hmpAllInp.put("^pass^", "admin");
+				hmpAllInp.put("^authurl^", "http://test-controller:5000/v3");
+				hmpAllInp.put("^ideapi^", "3");
+				hmpAllInp.put("^imgapi^", "2");
+				
+				hmpAllInp.put("^shell_allpath^", null);
+				hmpAllInp.put("^imgids^", "20022a68-bc87-462d-ba6c-af6570ba839e");
+				hmpAllInp.put("^devname^", null);
+				hmpAllInp.put("^devids^", null);
+				hmpAllInp.put("^flvids^", "0");
+				hmpAllInp.put("^netwids^", "aedbece2-0b64-4879-94e5-461439cd6930");
+				hmpAllInp.put("^vmname^", null);
+				
+//					HashMap<String, Object> hmpAllInp = null;
+//					hmpAllInp = hmpPar;
+				hmpPar = new HashMap<>();
+				
+				hmpPar.put(ProcessAttrs.strParmapKey_Inpars, hmpAllInp);
+				hmpPar.put("^ansid^", hmpAllInp.get("^ansid^"));
+				hmpPar.put("^anscmmd^", hmpAllInp.get("^anscmmd^"));
+				hmpPar.put("^req_type^", hmpAllInp.get("^req_type^"));
+				hmpPar.put("^req_subtype^", hmpAllInp.get("^req_subtype^"));
+				hmpPar.put("^customerids^", hmpAllInp.get("^customerids^"));
+				
+				hmpPar.put(ProcessAttrs.strInfoKey_Cpuuid, objUuid.toString().replaceAll("-", ""));
+				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "f");
+				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_RunShCmmd, null);
+				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_ShFileroot, 
+						"/home/anshells/" + DatePro.disGetYear4now()+DatePro.disGetWeek4now());
+				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_ShFilename, 
+						"/" 
+						+ DatePro.disGetStrdate4NowObjSdf001() 
+						+ "_" + hmpAllInp.get("^req_type^").toString()
+						+ hmpAllInp.get("^req_subtype^").toString() );
 //							+ ".sh");
-				} else {
-					hmpPar = null;
-				}
+			} else {
+				hmpPar = null;
 			}
 		} catch(Exception ex) {
 			
@@ -204,46 +245,53 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 	private List<HashMap> disGetAnsible(){
 		String strFname = " disGetAnsible : ";
 		List<HashMap> altDataAnsible = null;
+		String strAnsids = null;
 		try {
-			Map<String, Object> mapParAnsible = new HashMap<>(); 
-//			mapParAnsible.put("id", "1"); 
-//			mapParAnsible.put("ip", "1"); 
-//			mapParAnsible.put("sshKey", "1"); 
-			String strParAnsible = JSON.toJSONString(mapParAnsible);
-			String strAnsible = HttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/ansible/getAnsible", strParAnsible);
-			
-			Map<String, Object> mapResAnsible = JSON.parseObject(strAnsible, HashMap.class);
-			if(mapResAnsible!=null && mapResAnsible.size()>0
-					&& mapResAnsible.containsKey("msg") && mapResAnsible.get("msg")!=null
-					&& mapResAnsible.containsKey("data") && mapResAnsible.get("data")!=null){
-				String strMsg = mapResAnsible.get("msg")==null?null:mapResAnsible.get("msg").toString();
-				if("ok".equals(strMsg)){
-					String strDataAnsible = mapResAnsible.get("data").toString();
-					if(strDataAnsible!=null && strDataAnsible.trim().length()>0){
-						altDataAnsible = JSON.parseArray(strDataAnsible, HashMap.class);
-						Object[] subKey = altDataAnsible.get(0).keySet().toArray();
-//						if(subKey!=null && subKey.length>0){
-//							for(HashMap map : altDataAnsible){
-//								System.out.print("Ansible ----");
-//								for(Object objkey : subKey){
-//									String strVal = map.get(objkey)==null? "":map.get(objkey).toString();
-//									System.out.print(objkey + ":" + strVal + ", ");
-//									/*
-//									 intId
-//									 strName
-//									 strIp
-//									 strLoginName
-//									 strPassword
-//									 strSshKey
-//									 */
+			if(hmpPar!=null
+					&& hmpPar.containsKey("^ansid^") 
+					&& hmpPar.get("^ansid^")!=null){
+				strAnsids = hmpPar.get("^ansid^").toString();
+			}
+			if(strAnsids!=null && strAnsids.trim().length()>0){
+				Map<String, Object> mapParAnsible = new HashMap<>(); 
+				mapParAnsible.put("intId", strAnsids); 
+//				mapParAnsible.put("ip", "1"); 
+//				mapParAnsible.put("sshKey", "1"); 
+				String strParAnsible = JSON.toJSONString(mapParAnsible);
+				String strAnsible = HttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/ansible/getAnsible", strParAnsible);
+				
+				Map<String, Object> mapResAnsible = JSON.parseObject(strAnsible, HashMap.class);
+				if(mapResAnsible!=null && mapResAnsible.size()>0
+						&& mapResAnsible.containsKey("msg") && mapResAnsible.get("msg")!=null
+						&& mapResAnsible.containsKey("data") && mapResAnsible.get("data")!=null){
+					String strMsg = mapResAnsible.get("msg")==null?null:mapResAnsible.get("msg").toString();
+					if("ok".equals(strMsg)){
+						String strDataAnsible = mapResAnsible.get("data").toString();
+						if(strDataAnsible!=null && strDataAnsible.trim().length()>0){
+							altDataAnsible = JSON.parseArray(strDataAnsible, HashMap.class);
+							Object[] subKey = altDataAnsible.get(0).keySet().toArray();
+//							if(subKey!=null && subKey.length>0){
+//								for(HashMap map : altDataAnsible){
+//									System.out.print("Ansible ----");
+//									for(Object objkey : subKey){
+//										String strVal = map.get(objkey)==null? "":map.get(objkey).toString();
+//										System.out.print(objkey + ":" + strVal + ", ");
+//										/*
+//										 intId
+//										 strName
+//										 strIp
+//										 strLoginName
+//										 strPassword
+//										 strSshKey
+//										 */
+//									}
+//									System.out.println("");
 //								}
-//								System.out.println("");
 //							}
-//						}
+						}
 					}
 				}
 			}
-			
 		} catch(Exception ex) {
 			
 		}

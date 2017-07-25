@@ -22,6 +22,7 @@ public class ProcessSql_Qz {
 			+ "  ,t01.shell_line " 
 			+ "  ,t01.states " 
 			+ "  ,t01.orders " 
+			+ "  ,t02.orders AS runorder " 
 			+ " FROM cmd_shell t01 LEFT JOIN cmd_info t02 on t01.cmdi_ids=t02.cmdi_ids " 
 			+ " WHERE 1=1 " 
 			+ " AND t01.cmdi_ids in( ^cmdi_ids^ )" 
