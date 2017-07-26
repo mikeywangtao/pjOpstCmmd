@@ -38,24 +38,24 @@ import org.apache.http.util.EntityUtils;
 public class HttpClientUtil {
 
 	// utf-8字符编码
-	public static final String CHARSET_UTF_8 = "utf-8";
+	public final String CHARSET_UTF_8 = "utf-8";
 
 	// HTTP内容类型。
-	public static final String CONTENT_TYPE_TEXT_HTML = "text/xml";
+	public final String CONTENT_TYPE_TEXT_HTML = "text/xml";
 
 	// HTTP内容类型。相当于form表单的形式，提交数据
-	public static final String CONTENT_TYPE_FORM_URL = "application/x-www-form-urlencoded";
+	public final String CONTENT_TYPE_FORM_URL = "application/x-www-form-urlencoded";
 
 	// HTTP内容类型。相当于form表单的形式，提交数据
-	public static final String CONTENT_TYPE_JSON_URL = "application/json;charset=utf-8";
+	public final String CONTENT_TYPE_JSON_URL = "application/json;charset=utf-8";
 
 	// 连接管理器
-	private static PoolingHttpClientConnectionManager pool;
+	private PoolingHttpClientConnectionManager pool;
 
 	// 请求配置
-	private static RequestConfig requestConfig;
+	private RequestConfig requestConfig;
 
-	static {
+	public HttpClientUtil() {
 
 		try {
 			// System.out.println("初始化HttpClientTest~~~开始");
@@ -92,7 +92,7 @@ public class HttpClientUtil {
 				.setConnectionRequestTimeout(50000).build();
 	}
 
-	public static CloseableHttpClient getHttpClient() {
+	public CloseableHttpClient getHttpClient() {
 		ConnectionConfig connectionConfig = ConnectionConfig.custom().setBufferSize(25536).build();
 		CloseableHttpClient httpClient = HttpClients.custom()
 				.setDefaultConnectionConfig(connectionConfig)
@@ -112,7 +112,7 @@ public class HttpClientUtil {
 	 * @param httpPost
 	 * @return
 	 */
-	private static String sendHttpPost(HttpPost httpPost) {
+	private String sendHttpPost(HttpPost httpPost) {
 
 		CloseableHttpClient httpClient = null;
 		CloseableHttpResponse response = null;
@@ -169,7 +169,7 @@ public class HttpClientUtil {
 	 * @param httpGet
 	 * @return
 	 */
-	private static String sendHttpGet(HttpGet httpGet) {
+	private String sendHttpGet(HttpGet httpGet) {
 
 		CloseableHttpClient httpClient = null;
 		CloseableHttpResponse response = null;
@@ -226,7 +226,7 @@ public class HttpClientUtil {
 	 * @param httpUrl
 	 *            地址
 	 */
-	public static String sendHttpPost(String httpUrl) {
+	public String sendHttpPost(String httpUrl) {
 		// 创建httpPost
 		HttpPost httpPost = new HttpPost(httpUrl);
 		return sendHttpPost(httpPost);
@@ -237,7 +237,7 @@ public class HttpClientUtil {
 	 * 
 	 * @param httpUrl
 	 */
-	public static String sendHttpGet(String httpUrl) {
+	public String sendHttpGet(String httpUrl) {
 		// 创建get请求
 		HttpGet httpGet = new HttpGet(httpUrl);
 		return sendHttpGet(httpGet);
@@ -283,7 +283,7 @@ public class HttpClientUtil {
 	 *            参数(格式:key1=value1&key2=value2)
 	 * 
 	 */
-	public static String sendHttpPost(String httpUrl, String params) {
+	public String sendHttpPost(String httpUrl, String params) {
 		HttpPost httpPost = new HttpPost(httpUrl);// 创建httpPost
 		try {
 			// 设置参数
@@ -304,7 +304,7 @@ public class HttpClientUtil {
 	 * @param maps
 	 *            参数
 	 */
-	public static String sendHttpPost(String httpUrl, Map<String, String> maps) {
+	public String sendHttpPost(String httpUrl, Map<String, String> maps) {
 		String parem = convertStringParamter(maps);
 		return sendHttpPost(httpUrl, parem);
 	}
@@ -318,7 +318,7 @@ public class HttpClientUtil {
 	 *            参数(格式 json)
 	 * 
 	 */
-	public static String sendHttpPostJson(String httpUrl, String paramsJson) {
+	public String sendHttpPostJson(String httpUrl, String paramsJson) {
 		HttpPost httpPost = new HttpPost(httpUrl);// 创建httpPost
 		try {
 			// 设置参数
@@ -342,7 +342,7 @@ public class HttpClientUtil {
 	 *            参数(格式 Xml)
 	 * 
 	 */
-	public static String sendHttpPostXml(String httpUrl, String paramsXml) {
+	public String sendHttpPostXml(String httpUrl, String paramsXml) {
 		HttpPost httpPost = new HttpPost(httpUrl);// 创建httpPost
 		try {
 			// 设置参数
@@ -364,7 +364,7 @@ public class HttpClientUtil {
 	 *            需要转化的键值对集合
 	 * @return 字符串
 	 */
-	public static String convertStringParamter(Map parameterMap) {
+	public String convertStringParamter(Map parameterMap) {
 		StringBuffer parameterBuffer = new StringBuffer();
 		if (parameterMap != null) {
 			Iterator iterator = parameterMap.keySet().iterator();
@@ -386,9 +386,9 @@ public class HttpClientUtil {
 		return parameterBuffer.toString();
 	}
 
-	public static void main(String[] args) throws Exception {
-
-//		System.out.println(sendHttpGet("http://www.baidu.com"));
-		System.out.println(sendHttpPostJson("http://127.0.0.1:8080/pjOpStCmmd/tstCtrl/dishtpcReq", "{'key':'val'}"));
-	}
+//	public static void main(String[] args) throws Exception {
+//
+////		System.out.println(sendHttpGet("http://www.baidu.com"));
+//		System.out.println(sendHttpPostJson("http://127.0.0.1:8080/pjOpStCmmd/tstCtrl/dishtpcReq", "{'key':'val'}"));
+//	}
 }

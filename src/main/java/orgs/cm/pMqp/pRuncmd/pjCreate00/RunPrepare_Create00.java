@@ -52,61 +52,7 @@ public class RunPrepare_Create00 extends AbsRunPrepare {
 	}
 	
 	private String strCmdiIds = null;
-	
-//	private void disSetShell(){
-//		String strFname = " disSetShell : ";
-//		ArrayList<String> altShell = null;
-//		try {
-//			if(hmpAll!=null
-//					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Inpars)
-//					&& hmpAll.get(ProcessAttrs.strParmapKey_Inpars)!=null
-//					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppalst)
-//					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppalst)!=null
-//					&& ((Map)hmpAll.get(ProcessAttrs.strParmapKey_Ppalst)).containsKey(ProcessAttrs.strParmapKey_Ppa_Cmdsh)
-//					&& ((Map)hmpAll.get(ProcessAttrs.strParmapKey_Ppalst)).get(ProcessAttrs.strParmapKey_Ppa_Cmdsh)!=null
-//					&& ((Map)hmpAll.get(ProcessAttrs.strParmapKey_Ppalst)).containsKey(ProcessAttrs.strParmapKey_Ppa_Cmdpar)
-//					&& ((Map)hmpAll.get(ProcessAttrs.strParmapKey_Ppalst)).get(ProcessAttrs.strParmapKey_Ppa_Cmdpar)!=null
-//					){
-//				HashMap<String, String> mapParam = (HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars);
-//				ArrayList<HashMap<String, String>> altCmdsh = 
-//						(ArrayList<HashMap<String, String>>)((Map)hmpAll.get(ProcessAttrs.strParmapKey_Ppalst)).get(ProcessAttrs.strParmapKey_Ppa_Cmdsh);
-//				ArrayList<HashMap<String, String>> altCmdpar = 
-//						(ArrayList<HashMap<String, String>>)((Map)hmpAll.get(ProcessAttrs.strParmapKey_Ppalst)).get(ProcessAttrs.strParmapKey_Ppa_Cmdpar);
-//				altShell = new ArrayList<>();
-//				for(int i=0; i<altCmdsh.size(); i++){
-//					HashMap<String, String> mapShellRow = altCmdsh.get(i);
-//					if(mapShellRow==null || mapShellRow.size()==0){
-//						continue;
-//					}
-//					String strShline = mapShellRow.get("shell_line");
-//					if(strShline==null ||(strShline!=null && strShline.trim().length()==0)){
-//						continue;
-//					}
-//					for(int j=0; j<altCmdpar.size(); j++){
-//						HashMap<String, String> mapCmsparam = altCmdpar.get(j);
-//						if(mapCmsparam==null || mapCmsparam.size()==0){
-//							continue;
-//						}
-//						String strSigParam = mapCmsparam.get("par_flg");
-//						if(strSigParam==null ||(strSigParam!=null && strSigParam.trim().length()==0)){
-//							continue;
-//						}
-//						if("^pdom^".equals(strSigParam)){
-//							System.out.println("");
-//						}
-////						strShline = strShline.replaceAll(strSigParam, mapParam.get(mapParam));
-//						strShline = strShline.replaceAll(strSigParam.replaceAll("\\^", "\\\\^"), mapParam.get(strSigParam));
-//					}
-//					altShell.add(strShline);
-//				}
-//			}
-//			if(altShell!=null && altShell.size()>0){
-//				hmpAll.put(ProcessAttrs.strParmapKey_Ppa_Cmdshr, altShell);
-//			}
-//		} catch(Exception ex) {
-//			disOutputLog(strFname, ex);
-//		}
-//	}
+
 	
 	private void disSearchCmdpar(String strSqlTempp, HashMap<String, Object> hmpCmdsp){
 		String strFname = " disSearchCmdsh : ";

@@ -42,12 +42,6 @@ public class RunBefore_C00_4 extends AbsRunBefore {
 					}
 				}
 			}
-//			if(hmpAll!=null && hmpAll.size()>0){
-//				AbsShellpro objShellpro = new StandardShellpro_C00(hmpAll);
-//				if(objShellpro.disShellpro()){
-//					hmpAll.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "t");
-//				}
-//			}
 		} catch(Exception ex) {
 			disOutputLog(strFname, ex);
 		}
@@ -79,8 +73,8 @@ public class RunBefore_C00_4 extends AbsRunBefore {
 				String strNowRunflg = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString();
 				String[] subCmmd = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunShCmmd).toString().split(",");
 				String[] subCmdids = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_Cmdids).toString().split(",");
-				if(subCmmd!=null && subCmmd.length==3
-						&& subCmdids!=null && subCmdids.length==3
+				if(subCmmd!=null && subCmmd.length==4 //命令数变化需要修改
+						&& subCmdids!=null && subCmdids.length==4 //命令数变化需要修改
 						&& strNowRunflg!=null && strNowRunflg.trim().length()>0){
 					if(strNowRunflg!=null && strNowRunflg.trim().length()>0){
 						strCmdids = subCmdids[Integer.parseInt(strNowRunflg)-1];

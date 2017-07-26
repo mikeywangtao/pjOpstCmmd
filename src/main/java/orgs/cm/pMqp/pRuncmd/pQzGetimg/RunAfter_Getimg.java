@@ -13,7 +13,6 @@ import com.alibaba.fastjson.JSON;
 import orgs.cm.pMqp.pComms.DatePro;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
 import orgs.cm.pMqp.pDbpro.AbsDbpro;
-import orgs.cm.pMqp.pDbpro.BaseDbpro;
 import orgs.cm.pMqp.pDbpro.DbInfotablePro4Cmmd;
 import orgs.cm.pMqp.pHttpc.HttpClientUtil;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunAfter;
@@ -64,7 +63,8 @@ public class RunAfter_Getimg extends AbsRunAfter {
 							strInfo = strCname + strFname + " 镜像 After RequestBody----" + strSetImg;
 							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 							hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
-							String strSetImgres = HttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/images/saveImages", strSetImg);
+							HttpClientUtil objHttpClientUtil = new HttpClientUtil();
+							String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/images/saveImages", strSetImg);
 							Map<String, Object> mapResAnsible = JSON.parseObject(strSetImgres, HashMap.class);
 							strInfo = strCname + strFname + " 镜像 After respones----" + mapResAnsible;
 							logger.info(strInfo);

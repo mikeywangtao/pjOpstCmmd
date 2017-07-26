@@ -51,17 +51,25 @@ public class RunAfter_C00_3 extends AbsRunAfter {
 				if(strAnsidf!=null && strAnsidf.trim().length()>0){
 					ResFormatpro_3 objResFormatpro = new ResFormatpro_3(
 							(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd), strAnsidf);
-					boolean booResCheck = objResFormatpro.disResCheck();
-					if(booResCheck){
-						hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "4");
-						hmpAll.put("^devids^", subFlg[1]);
-						((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).put("^devids^", subFlg[1]);????
-						strInfo = strCname + strFname + " VM创建 After ----booResCheck:true" + DatePro.disGetStrdate4NowObjSdf001();
-						altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
-						hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
+					String strFlg = objResFormatpro.disResCheck();
+					if(strFlg!=null && strFlg.trim().length()>0){
+						String[] subFlg = strFlg.split("}}}");
+						if(subFlg!=null && subFlg.length==2){
+							hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "4");
+							hmpAll.put("^vmids^", subFlg[1]);
+							((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).put("^vmids^", subFlg[1]);
+							strInfo = strCname + strFname + " VM创建 After ----booResCheck:true" + DatePro.disGetStrdate4NowObjSdf001();
+							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+							hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
+						} else {
+							hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, null);
+							strInfo = strCname + strFname + " VM创建 After ----disResCheck return error" + DatePro.disGetStrdate4NowObjSdf001();
+							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+							hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
+						}
 					} else {
 						hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, null);
-						strInfo = strCname + strFname + " VM创建 After ----booResCheck:false" + DatePro.disGetStrdate4NowObjSdf001();
+						strInfo = strCname + strFname + " VM创建 After ----disResCheck return null" + DatePro.disGetStrdate4NowObjSdf001();
 						altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 						hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 					}

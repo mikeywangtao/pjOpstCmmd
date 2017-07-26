@@ -1,5 +1,7 @@
 package orgs.cm.pMqp.pRuncmd.pjCreate00;
 
+import static org.hamcrest.CoreMatchers.containsString;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -25,9 +27,10 @@ public class ResFormatpro_3 {
 		this.strAnsId = intAnsidp;
 	}
 	
-	public boolean disResCheck(){
+	public String disResCheck(){
 		String strFname = "";
-		boolean booRe = false;
+		boolean booFlg = false;
+		String strRe = null;
 		try {
 			if(altRes!=null && altRes.size()>0){
 				for(LinkedHashMap<String, String> mapRow : altRes){
@@ -37,18 +40,26 @@ public class ResFormatpro_3 {
 								null : mapRow.get(ProcessAttrs.strInfoKey_Info).toString();
 						if(strInfo!=null && strInfo.trim().length()>0){
 							if(strInfo.indexOf("SUCCESS")>0){
-								booRe = true;
-								break;
+								booFlg = true;
+								continue;
+							}
+							if(booFlg && strInfo.indexOf("| ")>-1){
+								String[] subInfo = strInfo.split("\\|");
+								if(subInfo!=null && subInfo.length==4
+										&& !"Property".equals(subInfo[1].trim())
+										&& "id".equals(subInfo[1].trim())){
+									strRe = "t}}}" + subInfo[2].trim();
+								}
 							}
 						}
 					}
 				}
 			}
 		} catch(Exception ex) {
-			booRe = false;
+			strRe = null;
 			disOutputLog(strFname, ex);
 		}
-		return booRe;
+		return strRe;
 	}
 	
 	public ArrayList<LinkedHashMap<String, String>> disFormatpro(){

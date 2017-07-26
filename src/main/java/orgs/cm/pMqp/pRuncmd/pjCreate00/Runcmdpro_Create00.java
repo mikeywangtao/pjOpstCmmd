@@ -112,6 +112,7 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 				if(hmpPar.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg) 
 						&& hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
 						&& "4".equals(hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString().trim())){
+//					Thread.sleep(5000);
 					objBefore = new RunBefore_C00_4();
 					objBefore.disSetAll(hmpPar);
 					super.disRunBefre(objBefore);
@@ -158,6 +159,7 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 				hmpAllInp.put("^req_subtype^", "CREATE00");
 				
 				hmpAllInp.put("^customerids^", "20170725000");
+				hmpAllInp.put("^uksids^", "");
 				
 				hmpAllInp.put("^pdom^", "Default");
 				hmpAllInp.put("^udom^", "Default");
@@ -169,6 +171,12 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 				hmpAllInp.put("^imgapi^", "2");
 				
 				hmpAllInp.put("^shell_allpath^", null);
+				hmpAllInp.put("^intImaId^", "1");
+				hmpAllInp.put("^intTemId^", "2");
+				hmpAllInp.put("^intNwId^", "3");
+				hmpAllInp.put("^strVmUser^", "88");
+				hmpAllInp.put("^strVmPassword^", "77");
+				hmpAllInp.put("^strSshKey^", "66");
 				hmpAllInp.put("^imgids^", "20022a68-bc87-462d-ba6c-af6570ba839e");
 				hmpAllInp.put("^devname^", "dev-"+objUuid.toString().replaceAll("-", ""));
 				hmpAllInp.put("^devids^", null);
@@ -187,6 +195,7 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 				hmpPar.put("^req_type^", hmpAllInp.get("^req_type^"));
 				hmpPar.put("^req_subtype^", hmpAllInp.get("^req_subtype^"));
 				hmpPar.put("^customerids^", hmpAllInp.get("^customerids^"));
+				hmpPar.put("^uksids^", hmpAllInp.get("^uksids^"));
 				hmpPar.put("^devname^", "dev-"+objUuid.toString().replaceAll("-", ""));
 				hmpPar.put("^devids^", null);
 				hmpPar.put("^vmids^", null);
@@ -223,7 +232,8 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 //			mapParKeystone.put("imgapiv", "1"); 
 //			mapParKeystone.put("ansibleId", "1"); 
 			String strParKeystone = JSON.toJSONString(mapParKeystone);
-			String strKeystone = HttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/keystone/getKeystone", strParKeystone);
+			HttpClientUtil objHttpClientUtil = new HttpClientUtil();
+			String strKeystone = objHttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/keystone/getKeystone", strParKeystone);
 			
 			Map<String, Object> mapResKeystone = JSON.parseObject(strKeystone, HashMap.class);
 			if(mapResKeystone!=null && mapResKeystone.size()>0
@@ -280,7 +290,8 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 //				mapParAnsible.put("ip", "1"); 
 //				mapParAnsible.put("sshKey", "1"); 
 				String strParAnsible = JSON.toJSONString(mapParAnsible);
-				String strAnsible = HttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/ansible/getAnsible", strParAnsible);
+				HttpClientUtil objHttpClientUtil = new HttpClientUtil();
+				String strAnsible = objHttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/ansible/getAnsible", strParAnsible);
 				
 				Map<String, Object> mapResAnsible = JSON.parseObject(strAnsible, HashMap.class);
 				if(mapResAnsible!=null && mapResAnsible.size()>0

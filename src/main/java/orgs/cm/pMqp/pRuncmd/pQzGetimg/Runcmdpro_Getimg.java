@@ -138,7 +138,8 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 //			mapParKeystone.put("imgapiv", "1"); 
 //			mapParKeystone.put("ansibleId", "1"); 
 			String strParKeystone = JSON.toJSONString(mapParKeystone);
-			String strKeystone = HttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/keystone/getKeystone", strParKeystone);
+			HttpClientUtil objHttpClientUtil = new HttpClientUtil();
+			String strKeystone = objHttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/keystone/getKeystone", strParKeystone);
 			
 			Map<String, Object> mapResKeystone = JSON.parseObject(strKeystone, HashMap.class);
 			if(mapResKeystone!=null && mapResKeystone.size()>0
@@ -188,7 +189,8 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 //			mapParAnsible.put("ip", "1"); 
 //			mapParAnsible.put("sshKey", "1"); 
 			String strParAnsible = JSON.toJSONString(mapParAnsible);
-			String strAnsible = HttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/ansible/getAnsible", strParAnsible);
+			HttpClientUtil objHttpClientUtil = new HttpClientUtil();
+			String strAnsible = objHttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/ansible/getAnsible", strParAnsible);
 			
 			Map<String, Object> mapResAnsible = JSON.parseObject(strAnsible, HashMap.class);
 			if(mapResAnsible!=null && mapResAnsible.size()>0

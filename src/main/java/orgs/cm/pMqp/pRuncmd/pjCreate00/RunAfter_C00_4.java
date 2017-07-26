@@ -42,24 +42,64 @@ public class RunAfter_C00_4 extends AbsRunAfter {
 				logger.info(strCname + strFname + "  Start!");
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, null);
 				lhpInfo.put(ProcessAttrs.strInfoType_Info, ProcessAttrs.strInfoFlgKey_Aft);
-				strInfo = strCname + strFname + " 镜像 After Start----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " VM创建 After Start----" + DatePro.disGetStrdate4NowObjSdf001();
 				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 				
 				//格式化返回
 				String strAnsidf = hmpAll.get("^ansid^")==null? null:hmpAll.get("^ansid^").toString();
 				if(strAnsidf!=null && strAnsidf.trim().length()>0){
-					ResFormatpro_3 objResFormatpro = new ResFormatpro_3(
+					ResFormatpro_4 objResFormatpro = new ResFormatpro_4(
 							(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd), strAnsidf);
-					boolean booResCheck = objResFormatpro.disResCheck();
-					if(booResCheck){
-						hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "4");
-						strInfo = strCname + strFname + " VM创建 After ----booResCheck:true" + DatePro.disGetStrdate4NowObjSdf001();
+					LinkedHashMap<String, String> mapRes = objResFormatpro.disFormatpro();
+					if(mapRes!=null && mapRes.size()>0){
+						
+						mapRes.put("strVmName", mapRes.get("strName").toString());
+						mapRes.put("strVmIp", mapRes.get("strProviderNetwork").toString());
+						mapRes.put("ansid", hmpAll.get("^ansid^").toString());
+						mapRes.put("customerids", hmpAll.get("^customerids^").toString());
+						mapRes.put("uksids", hmpAll.get("^uksids^").toString());
+						mapRes.put("imgids", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^imgids^").toString());
+						mapRes.put("netwids", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^netwids^").toString());
+						mapRes.put("flvids", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^flvids^").toString());
+						mapRes.put("intImaId", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^intImaId^").toString());
+						mapRes.put("intTemId", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^intTemId^").toString());
+						mapRes.put("intNwId", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^intNwId^").toString());
+						mapRes.put("strVmUser", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^strVmUser^").toString());
+						mapRes.put("strVmPassword", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^strVmPassword^").toString());
+						mapRes.put("strSshKey", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^strSshKey^").toString());
+						
+						hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "999");
+						strInfo = strCname + strFname + " VM创建 After ----mapRes---- " + mapRes.toString();
 						altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 						hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
+						strInfo = strCname + strFname + " VM创建 After ----mapRes:true " + DatePro.disGetStrdate4NowObjSdf001();
+						altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+						hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
+						
+						String strReq = JSON.toJSONString(mapRes);
+						Map<String, Object> mapSetImg = new HashMap<>(); 
+						mapSetImg.put("msg", "ok");
+						mapSetImg.put("data", strReq);
+						String strSetImg = JSON.toJSONString(mapSetImg);
+						strInfo = strCname + strFname + " VM创建 After RequestBody----" + strSetImg;
+						altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+						hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
+						HttpClientUtil objHttpClientUtil = new HttpClientUtil();
+						String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/vm/saveVmInfo", strSetImg);
+						strInfo = strCname + strFname + " VM创建 After ----mapRes---- " + strSetImgres;
+						altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+						hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
+						Map<String, Object> mapResAnsible = JSON.parseObject(strSetImgres, HashMap.class);
+						strInfo = strCname + strFname + " VM创建 After respones----" + mapResAnsible;
+						altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+						hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
+						logger.info(strInfo);
+						
+
 					} else {
-						hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, null);
-						strInfo = strCname + strFname + " VM创建 After ----booResCheck:false" + DatePro.disGetStrdate4NowObjSdf001();
+						hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "000");
+						strInfo = strCname + strFname + " VM创建 After ----mapRes:false " + DatePro.disGetStrdate4NowObjSdf001();
 						altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
 						hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 					}
