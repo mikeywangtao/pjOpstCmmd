@@ -165,7 +165,7 @@ public class RunCmd_C00_2 extends AbsRunCmd {
 				}
 
 				while(super.strThrflg!=null){
-					if((new Date().getTime())-lonBasrDt<=15000){
+					if((new Date().getTime())-lonBasrDt<=10000){
 						Thread.sleep(1010);
 						if(super.strThrflg.equals("ERR")){
 							strInfo = strCname + strFname + " ERR 正常完成！";
