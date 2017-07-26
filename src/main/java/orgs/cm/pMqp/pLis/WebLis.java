@@ -60,11 +60,11 @@ public class WebLis implements ServletContextListener {
 			DbLis objDbLis = new DbLis();
 			objDbLis.disDbinit();
 //			
-//			ProLis objProLis = new ProLis();
-//			objProLis.disProInit();
+			ProLis objProLis = new ProLis();
+			objProLis.disProInit();
 //			
-//			MqLis objMqLis = new MqLis();
-//			objMqLis.disMqInit();
+			MqLis objMqLis = new MqLis();
+			objMqLis.disMqInit();
 				
 //			QzLis objQzLis = new QzLis();
 //			objQzLis.disQzInit();

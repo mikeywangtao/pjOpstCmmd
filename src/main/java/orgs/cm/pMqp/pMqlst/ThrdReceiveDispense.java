@@ -82,6 +82,10 @@ public class ThrdReceiveDispense extends Thread {
 				 * ks.OS_IDENTITY_API_VERSION
 				 * ks.OS_IMAGE_API_VERSION
 				 * */
+				/*
+				 * /queue/cms_test
+				 {"proflg":"cms_test"}
+				 */
 				if(mapJson!=null && mapJson.size()>0
 						&& mapJson.containsKey("proflg")){
 					Object objProflg = mapJson.get("proflg");

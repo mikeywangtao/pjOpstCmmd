@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
 import orgs.cm.pMqp.pRuncmd.comm.RuncmdproFactory;
 import orgs.cm.pMqp.pRuncmd.pQzGetimg.Runcmdpro_Getimg;
+import orgs.cm.pMqp.pRuncmd.pjCreate00.Runcmdpro_Create00;
 
 /**
  * 获取cmd处理逻辑，并使runcmd排队。
@@ -58,9 +59,11 @@ public class ThrdRuncmdPro extends AbsThrdRuncmdPro {
 				hmpInputPar.put("^ideapi^", "3");
 				hmpInputPar.put("^imgapi^", "2");
 				
-				AbsRuncmdPro objRuncmdPro  = new Runcmdpro_Getimg();
-				objRuncmdPro.disSetPars(hmpInputPar);
-				objRuncmdPro.disRuncmdPro();
+				AbsRuncmdPro objRcCreate00 = new Runcmdpro_Create00();
+				objRcCreate00.disRuncmdPro();
+//				AbsRuncmdPro objRuncmdPro  = new Runcmdpro_Getimg();
+//				objRuncmdPro.disSetPars(hmpInputPar);
+//				objRuncmdPro.disRuncmdPro();
 				
 				logger.info(strCname + strFname + " MsgInfo ----!" + mapMsg);
 				
