@@ -37,9 +37,10 @@ public class ProcessAttrs {
 	public static final String strInfoType_Info ="type"; //error? point? 
 	public static final String strInfoFlg_Info ="flg"; //attrInfo? runFlg? loopPoint? eTrace? exception?
 	public static final String strInfoSubflg_Info ="subflg"; //
-	public static final String strInfoKey_Rundt = "rundt";
+	public static final String strInfoKey_Rundt = "cmdrundt";
 	public static final String strInfoKey_Cpuuid = "cpuuid";
 	
+	public static final String strParmapKey_Infobase = "infobase";
 	public static final String strParmapKey_Param = "param";
 	public static final String strParmapKey_Cplst = "cplst";
 	public static final String strParmapKey_Ppalst = "ppalst";

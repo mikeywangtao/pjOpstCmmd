@@ -60,10 +60,8 @@ public class ThrdRuncmdPro extends AbsThrdRuncmdPro {
 				hmpInputPar.put("^imgapi^", "2");
 				
 				AbsRuncmdPro objRcCreate00 = new Runcmdpro_Create00();
+				objRcCreate00.disSetPars(new HashMap<>());
 				objRcCreate00.disRuncmdPro();
-//				AbsRuncmdPro objRuncmdPro  = new Runcmdpro_Getimg();
-//				objRuncmdPro.disSetPars(hmpInputPar);
-//				objRuncmdPro.disRuncmdPro();
 				
 				logger.info(strCname + strFname + " MsgInfo ----!" + mapMsg);
 				
