@@ -24,9 +24,19 @@ public class ProcessAttrs {
 	public static final String strInfoFlgKey_Bef ="bef";
 	public static final String strInfoFlgKey_Prep ="prep";
 	
-	public static final String strInfoKey_Info ="info";
-	public static final String strInfoType_Info ="type";
-	public static final String strInfoSubtype_Info ="subtype";
+	public static final String strInfoFlg_PRS = "point}}}runFlg}}}start";
+	public static final String strInfoFlg_PRE = "point}}}runFlg}}}end";
+	public static final String strInfoFlg_PRx = "point}}}runFlg}}}";
+	public static final String strInfoFlg_PAx = "point}}}attrInfo}}}";
+	public static final String strInfoFlg_PLx = "point}}}loopPoint}}}";
+	public static final String strInfoFlg_ETx = "error}}}eTrace}}}";
+	public static final String strInfoFlg_EEx = "error}}}exception}}}";
+	
+	
+	public static final String strInfoKey_Info ="info"; 
+	public static final String strInfoType_Info ="type"; //error? point? 
+	public static final String strInfoFlg_Info ="flg"; //attrInfo? runFlg? loopPoint? eTrace? exception?
+	public static final String strInfoSubflg_Info ="subflg"; //
 	public static final String strInfoKey_Rundt = "rundt";
 	public static final String strInfoKey_Cpuuid = "cpuuid";
 	

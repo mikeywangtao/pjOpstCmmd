@@ -67,7 +67,7 @@ public class RunCmd_C00_2 extends AbsRunCmd {
 			}
 			if(strstrCpuuid==null || (strstrCpuuid!=null && strstrCpuuid.trim().length()==0)){
 				strInfo = strCname + strFname + " CpUuid 异常!" ;
-				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+				altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
 				return;
 			}
 			if(hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_ShFilecflg)
@@ -75,7 +75,7 @@ public class RunCmd_C00_2 extends AbsRunCmd {
 					&& !("t".equals(hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFilecflg).toString()))
 					){
 				strInfo = strCname + strFname + " Shell File create 失败!" ;
-				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+				altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
 				return;
 			}
 			String strFileroot = null;
@@ -112,7 +112,7 @@ public class RunCmd_C00_2 extends AbsRunCmd {
 				StrCommand = StrCommand.replaceAll("\\^shell_allpath\\^", strFileroot+strFilename+strPostfix);
 			} else {
 				strInfo = strCname + strFname + " Shell cmmd 构建失败!" ;
-				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+				altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
 				return;
 			}
 			/* ------------------------------------------------------------------------------- */
@@ -143,9 +143,9 @@ public class RunCmd_C00_2 extends AbsRunCmd {
 			
 //			StrCommand = StrCommand.substring(0, StrCommand.length()-1);
 			strInfo = strCname + strFname + " 创建VM Start----" + DatePro.disGetStrdate4NowObjSdf001();
-			altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+			altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
 			strInfo = strCname + strFname + " 创建VM Cmmd----" + StrCommand;
-			altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+			altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
 			logger.info(strInfo);
 			logger.info(strInfo);
 			
@@ -169,30 +169,30 @@ public class RunCmd_C00_2 extends AbsRunCmd {
 						Thread.sleep(1010);
 						if(super.strThrflg.equals("ERR")){
 							strInfo = strCname + strFname + " ERR 正常完成！";
-							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+							altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
 							errorGobbler = null;
 							super.strThrflg = "";
 						} 
 						if(super.strThrflg.equals("STD")){
 							strInfo = strCname + strFname + " SDT 正常完成！";
-							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+							altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
 							outputGobbler = null;
 							super.strThrflg = "";
 						}
 						if(outputGobbler==null && errorGobbler==null){
 							strInfo = strCname + strFname + " ER SDT 监听完成！";
-							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+							altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
 							super.strThrflg = null;
 						}
 					} else {
 						if(outputGobbler!=null){
 							strInfo = strCname + strFname + " SDT 超时！";
-							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+							altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
 							outputGobbler = null;
 						}
 						if(errorGobbler!=null){
 							strInfo = strCname + strFname + " ERR 超时！";
-							altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+							altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
 							errorGobbler = null;
 						}
 						break;
@@ -200,7 +200,7 @@ public class RunCmd_C00_2 extends AbsRunCmd {
 				}
 				super.strThrflg = null;
 				strInfo = strCname + strFname + " 查看镜像 End----" + DatePro.disGetStrdate4NowObjSdf001();
-				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+				altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
 				hmpAll.put(ProcessAttrs.strParmapKey_Runlst, altRunc);
 				for(int i=0; i<altRunc.size(); i++){
 					System.out.println(altRunc.get(i));
@@ -217,12 +217,26 @@ public class RunCmd_C00_2 extends AbsRunCmd {
 	
 	private ArrayList<LinkedHashMap<String, String>> disSetInfo(String strInfop
 			, LinkedHashMap<String, String> lhpInfop
-			, ArrayList<LinkedHashMap<String, String>> altRuncp){
+			, ArrayList<LinkedHashMap<String, String>> altRuncp
+			, String strInfoTypepFlgp){
+		String strTypef = "";
+		String strFlgf = "";
+		String strSubflgf = "";
+		if(strInfoTypepFlgp!=null && strInfoTypepFlgp.trim().length()>0){
+			String[] subTypeFlg = strInfoTypepFlgp.split("}}}", -1);
+			if(subTypeFlg!=null && subTypeFlg.length>=2){
+				strTypef = subTypeFlg[0];
+				strFlgf = subTypeFlg[1];
+				strSubflgf = subTypeFlg[2];
+			}
+		}
 		LinkedHashMap<String, String> lhpInfof = null;
 		String strInfo = strInfop;
 		lhpInfof = (LinkedHashMap<String, String>)lhpInfop.clone();
 		lhpInfof.put(ProcessAttrs.strInfoKey_Info, strInfo);
-		lhpInfof.put(ProcessAttrs.strInfoSubtype_Info, "info");
+		lhpInfof.put(ProcessAttrs.strInfoType_Info, strTypef);
+		lhpInfof.put(ProcessAttrs.strInfoFlg_Info, strFlgf);
+		lhpInfof.put(ProcessAttrs.strInfoSubflg_Info, strSubflgf);
 		lhpInfof.put(ProcessAttrs.strInfoKey_Rundt, DatePro.disGetStrdate4NowObjSdf001());
 		altRuncp.add(lhpInfof);
 		return altRuncp;

@@ -1,6 +1,8 @@
 package orgs.cm.pMqp.pRuncmd.pjCreate00;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -29,15 +31,26 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 	private final Logger logger = LogManager.getLogger(strCname);
 	
 	private HashMap<String, Object> hmpPar;
+	private LinkedHashMap<String, String> lhpInfobase = new LinkedHashMap<String, String>();
+	private ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();	
 	
 	public void disRuncmdPro(){
 		String strFname = " disRuncmdPro : ";
+		
+		String strInfo = "";
 		AbsRunPrepare objPrepare = null;
 		AbsRunBefore objBefore = null;
 		AbsRunCmd objCmd = null;
 		AbsRunAfter objAfter = null;
 		
 		try {
+			
+			strInfo = strCname + strFname + " Start!" ;
+			altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRS);
+			
+			strInfo = strCname + strFname + " Input----" + hmpPar.toString();
+			altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PAx+" input map par ");
+			
 			disSetParinfos();
 			List<HashMap> altDataAnsible = disGetAnsible();
 			if(altDataAnsible!=null && altDataAnsible.size()==1){
@@ -50,6 +63,9 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 				if(hmpPar.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg) 
 						&& hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
 						&& "1".equals(hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString().trim())){
+					strInfo = strCname + strFname + " run cmmd 1 " + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg);
+					altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRx+" run cmmd 1 ");
+					
 					objBefore = new RunBefore_C00_1();
 					objBefore.disSetAll(hmpPar);
 					super.disRunBefre(objBefore);
@@ -69,6 +85,9 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 				if(hmpPar.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg) 
 						&& hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
 						&& "2".equals(hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString().trim())){
+					strInfo = strCname + strFname + " run cmmd 2 " + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg);
+					altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRx+" run cmmd 2 ");
+					
 					String strRunlopp = null;
 					do {
 						objBefore = new RunBefore_C00_2();
@@ -86,6 +105,9 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 						super.dusRunAfter(objAfter);
 						objAfter = null;
 						strRunlopp = hmpPar.get(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg).toString();
+						
+						strInfo = strCname + strFname + " loop (do while) : strRunlopp ----" + strRunlopp;
+						altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PLx+" loop (do while) ");
 					} while("t".equals(strRunlopp));
 
 				}
@@ -93,6 +115,9 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 				if(hmpPar.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg) 
 						&& hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
 						&& "3".equals(hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString().trim())){
+					strInfo = strCname + strFname + " run cmmd 3 " + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg);
+					altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRx+" run cmmd 3 ");
+					
 					objBefore = new RunBefore_C00_3();
 					objBefore.disSetAll(hmpPar);
 					super.disRunBefre(objBefore);
@@ -112,6 +137,9 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 				if(hmpPar.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg) 
 						&& hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
 						&& "4".equals(hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString().trim())){
+					strInfo = strCname + strFname + " run cmmd 4 " + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg);
+					altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRx+" run cmmd 4 ");
+					
 //					Thread.sleep(5000);
 					objBefore = new RunBefore_C00_4();
 					objBefore.disSetAll(hmpPar);
@@ -131,17 +159,27 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 			} else {
 				throw new Exception("hmpPar Error ! is null or is empty!");
 			}
+			strInfo = strCname + strFname + " End!" ;
+			altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRE);
+			
+			disSaveInfo();
 		} catch(Exception ex) {
-			long lonFlg = System.currentTimeMillis();
-			logger.error(strCname + strFname + ex + "||" + lonFlg);
-			StackTraceElement[] subSte = ex.getStackTrace();
-			for(int i=0; i<subSte.length; i++){
-				logger.error(
-						subSte[i].getClassName() + subSte[i].getMethodName() + ":" + subSte[i].getLineNumber() + "||" + lonFlg );
-			}
+			disOutputLog(strFname, ex);
 		}
 	}
 	
+	private void disSaveInfo(){
+		String strFname = " disSaveInfo : ";
+		try {
+			if(altRunc!=null && altRunc.size()>0){
+				for(LinkedHashMap<String, String> mapRow : altRunc){
+					System.out.println(mapRow);
+				}
+			}
+		} catch(Exception ex) {
+			disOutputLog(strFname, ex);
+		}
+	}
 	
 	private void disSetParinfos(){
 		String strFname = " disSetPars : ";
@@ -274,6 +312,7 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 		}
 		return altDataKeystone;
 	}
+	
 	private List<HashMap> disGetAnsible(){
 		String strFname = " disGetAnsible : ";
 		List<HashMap> altDataAnsible = null;
@@ -329,6 +368,43 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 			
 		}
 		return altDataAnsible;
+	}
+	
+	private ArrayList<LinkedHashMap<String, String>> disSetInfo(String strInfop
+			, LinkedHashMap<String, String> lhpInfop
+			, ArrayList<LinkedHashMap<String, String>> altRuncp
+			, String strInfoTypepFlgp){
+		String strTypef = "";
+		String strFlgf = "";
+		String strSubflgf = "";
+		if(strInfoTypepFlgp!=null && strInfoTypepFlgp.trim().length()>0){
+			String[] subTypeFlg = strInfoTypepFlgp.split("}}}", -1);
+			if(subTypeFlg!=null && subTypeFlg.length>=2){
+				strTypef = subTypeFlg[0];
+				strFlgf = subTypeFlg[1];
+				strSubflgf = subTypeFlg[2];
+			}
+		}
+		LinkedHashMap<String, String> lhpInfof = null;
+		String strInfo = strInfop;
+		lhpInfof = (LinkedHashMap<String, String>)lhpInfop.clone();
+		lhpInfof.put(ProcessAttrs.strInfoKey_Info, strInfo);
+		lhpInfof.put(ProcessAttrs.strInfoType_Info, strTypef);
+		lhpInfof.put(ProcessAttrs.strInfoFlg_Info, strFlgf);
+		lhpInfof.put(ProcessAttrs.strInfoSubflg_Info, strSubflgf);
+		lhpInfof.put(ProcessAttrs.strInfoKey_Rundt, DatePro.disGetStrdate4NowObjSdf001());
+		altRuncp.add(lhpInfof);
+		return altRuncp;
+	}
+	
+	private void disOutputLog(String strFnamep, Exception exp){
+		long lonFlg = System.currentTimeMillis();
+		logger.error(strCname + strFnamep + exp + "||" + lonFlg);
+		StackTraceElement[] subSte = exp.getStackTrace();
+		for(int i=0; i<subSte.length; i++){
+			logger.error(
+					subSte[i].getClassName() + subSte[i].getMethodName() + ":" + subSte[i].getLineNumber() + "||" + lonFlg );
+		}
 	}
 	
 	public void disSetPars(HashMap<String, Object> hmpParp){

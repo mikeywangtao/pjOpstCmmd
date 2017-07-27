@@ -12,6 +12,9 @@ import orgs.cm.pMqp.pRuncmd.comm.AbsRunBefore;
 import orgs.cm.pMqp.pShellpro.AbsShellpro;
 import orgs.cm.pMqp.pShellpro.StandardShellpro_C00;
 
+/**
+ * 创建vm命令1,创建shell文件。
+ * */
 public class RunBefore_C00_1 extends AbsRunBefore {
 
 	private final String strCname = RunBefore_C00_1.class.getName();

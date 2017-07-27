@@ -15,6 +15,9 @@ import orgs.cm.pMqp.pDbpro.DbproAttrs;
 import orgs.cm.pMqp.pDbpro.IBaseDbpro;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunPrepare;
 
+/**
+ * create00准备
+ * */
 public class RunPrepare_Create00 extends AbsRunPrepare {
 
 	private final String strCname = RunPrepare_Create00.class.getName();
@@ -42,7 +45,6 @@ public class RunPrepare_Create00 extends AbsRunPrepare {
 				hmpAll.put(ProcessAttrs.strParmapKey_Ppalst, hmpCmds);
 				hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "1");
 				hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg, null);
-//				disSetShell();
 			}
 		} catch(Exception ex) {
 			hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, null);
@@ -51,9 +53,12 @@ public class RunPrepare_Create00 extends AbsRunPrepare {
 		return hmpAll;
 	}
 	
+	/**  cmmd的ids */
 	private String strCmdiIds = null;
 
-	
+	/**
+	 * 查询cmmd的参数
+	 * */
 	private void disSearchCmdpar(String strSqlTempp, HashMap<String, Object> hmpCmdsp){
 		String strFname = " disSearchCmdsh : ";
 		String strSqlf = strSqlTempp;
@@ -68,6 +73,9 @@ public class RunPrepare_Create00 extends AbsRunPrepare {
 		}
 	}
 	
+	/**
+	 * 查询cmmd的shell
+	 * */
 	private void disSearchCmdsh(String strSqlTempp, HashMap<String, Object> hmpCmdsp){
 		String strFname = " disSearchCmdsh : ";
 		String strSqlf = strSqlTempp;
@@ -84,6 +92,9 @@ public class RunPrepare_Create00 extends AbsRunPrepare {
 		}
 	}
 	
+	/**
+	 * 查询cmmd的info信息
+	 * */
 	private void disSearchCmdi(String strSqlTempp, HashMap<String, Object> hmpCmdsp){
 		String strFname = " disSearchCmdi : ";
 		String strSqlf = strSqlTempp;

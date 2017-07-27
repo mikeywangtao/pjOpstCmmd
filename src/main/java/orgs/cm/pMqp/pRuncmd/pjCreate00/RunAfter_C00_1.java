@@ -17,6 +17,9 @@ import orgs.cm.pMqp.pDbpro.DbInfotablePro4Cmmd;
 import orgs.cm.pMqp.pHttpc.HttpClientUtil;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunAfter;
 
+/**
+ * 创建vm命令1，命令运行后的处理
+ * */
 public class RunAfter_C00_1 extends AbsRunAfter {
 
 
@@ -43,7 +46,7 @@ public class RunAfter_C00_1 extends AbsRunAfter {
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, null);
 				lhpInfo.put(ProcessAttrs.strInfoType_Info, ProcessAttrs.strInfoFlgKey_Aft);
 				strInfo = strCname + strFname + " VM创建 After ----strParmapKey_Ppa_NowRunflg:2" + DatePro.disGetStrdate4NowObjSdf001();
-				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+				altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 				
 				if(hmpAll.containsKey(ProcessAttrs.strInfoFlgKey_Resstd)
@@ -56,7 +59,7 @@ public class RunAfter_C00_1 extends AbsRunAfter {
 						&& hmpAll.get(ProcessAttrs.strInfoFlgKey_Reserr)!=null){
 					hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, null);
 					strInfo = strCname + strFname + " VM创建 After ----strParmapKey_Ppa_NowRunflg:Error" + DatePro.disGetStrdate4NowObjSdf001();
-					altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+					altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
 					hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 				}
 			
@@ -71,7 +74,7 @@ public class RunAfter_C00_1 extends AbsRunAfter {
 				}
 				
 				strInfo = strCname + strFname + " VM创建 After End----" + DatePro.disGetStrdate4NowObjSdf001();
-				altRunc = disSetInfo(strInfo, lhpInfo, altRunc);
+				altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 			}
 		} catch(Exception ex) {
@@ -95,12 +98,26 @@ public class RunAfter_C00_1 extends AbsRunAfter {
 	
 	private ArrayList<LinkedHashMap<String, String>> disSetInfo(String strInfop
 			, LinkedHashMap<String, String> lhpInfop
-			, ArrayList<LinkedHashMap<String, String>> altRuncp){
+			, ArrayList<LinkedHashMap<String, String>> altRuncp
+			, String strInfoTypepFlgp){
+		String strTypef = "";
+		String strFlgf = "";
+		String strSubflgf = "";
+		if(strInfoTypepFlgp!=null && strInfoTypepFlgp.trim().length()>0){
+			String[] subTypeFlg = strInfoTypepFlgp.split("}}}", -1);
+			if(subTypeFlg!=null && subTypeFlg.length>=2){
+				strTypef = subTypeFlg[0];
+				strFlgf = subTypeFlg[1];
+				strSubflgf = subTypeFlg[2];
+			}
+		}
 		LinkedHashMap<String, String> lhpInfof = null;
 		String strInfo = strInfop;
 		lhpInfof = (LinkedHashMap<String, String>)lhpInfop.clone();
 		lhpInfof.put(ProcessAttrs.strInfoKey_Info, strInfo);
-		lhpInfof.put(ProcessAttrs.strInfoSubtype_Info, "info");
+		lhpInfof.put(ProcessAttrs.strInfoType_Info, strTypef);
+		lhpInfof.put(ProcessAttrs.strInfoFlg_Info, strFlgf);
+		lhpInfof.put(ProcessAttrs.strInfoSubflg_Info, strSubflgf);
 		lhpInfof.put(ProcessAttrs.strInfoKey_Rundt, DatePro.disGetStrdate4NowObjSdf001());
 		altRuncp.add(lhpInfof);
 		return altRuncp;
