@@ -107,12 +107,25 @@ public class CmdStreamGobbler extends Thread {
 	private ArrayList<LinkedHashMap<String, String>> disSetInfo(String strInfop
 			, LinkedHashMap<String, String> lhpInfop
 			, ArrayList<LinkedHashMap<String, String>> altRuncp
-			, String strSubflgp){
+			, String strInfoTypepFlgp){
+		String strTypef = "";
+		String strFlgf = "";
+		String strSubflgf = "";
+		if(strInfoTypepFlgp!=null && strInfoTypepFlgp.trim().length()>0){
+			String[] subTypeFlg = strInfoTypepFlgp.split("}}}", -1);
+			if(subTypeFlg!=null && subTypeFlg.length>=2){
+				strTypef = subTypeFlg[0];
+				strFlgf = subTypeFlg[1];
+				strSubflgf = subTypeFlg[2];
+			}
+		}
 		LinkedHashMap<String, String> lhpInfof = null;
 		String strInfo = strInfop;
 		lhpInfof = (LinkedHashMap<String, String>)lhpInfop.clone();
 		lhpInfof.put(ProcessAttrs.strInfoKey_Info, strInfo);
-		lhpInfof.put(ProcessAttrs.strInfoSubtype_Info, strSubflgp);
+		lhpInfof.put(ProcessAttrs.strInfoType_Info, strTypef);
+		lhpInfof.put(ProcessAttrs.strInfoFlg_Info, strFlgf);
+		lhpInfof.put(ProcessAttrs.strInfoSubflg_Info, strSubflgf);
 		lhpInfof.put(ProcessAttrs.strInfoKey_Rundt, DatePro.disGetStrdate4NowObjSdf001());
 		altRuncp.add(lhpInfof);
 		return altRuncp;
