@@ -25,7 +25,7 @@ import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
  * 创建 Vm 虚拟机。
  * 创建一个。
  * */
-public class Runcmdpro_Create00 extends AbsRuncmdPro {
+public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 
 	private final String strCname = Runcmdpro_Create00.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
@@ -33,6 +33,10 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 	private HashMap<String, Object> hmpPar = new HashMap<>();
 	private LinkedHashMap<String, String> lhpInfobase = new LinkedHashMap<String, String>();
 	private ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();	
+	
+	public void run(){
+		disRuncmdPro();
+	}
 	
 	public void disRuncmdPro(){
 		String strFname = " disRuncmdPro : ";
@@ -228,43 +232,60 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro {
 			List<HashMap> altDataKeystone = disGetKeustone();
 			
 			if(altDataKeystone!=null && altDataKeystone.size()>0){
+/*
+
+ */
+//				UUID objUuid = UUID.randomUUID();
+//				HashMap<String, String> hmpAllInp = new HashMap<>();
+//				hmpAllInp.put("^ansid^", "1");
+//				hmpAllInp.put("^anscmmd^", "openstack");
+//				
+//				hmpAllInp.put("^req_type^", "CREATE");
+//				hmpAllInp.put("^req_subtype^", "CREATE00");
+//				
+//				hmpAllInp.put("^customerids^", "20170725000");
+//				hmpAllInp.put("^uksids^", "");
+//				
+//				hmpAllInp.put("^pdom^", "Default");
+//				hmpAllInp.put("^udom^", "Default");
+//				hmpAllInp.put("^pname^", "admin");
+//				hmpAllInp.put("^uname^", "admin");
+//				hmpAllInp.put("^pass^", "admin");
+//				hmpAllInp.put("^authurl^", "http://test-controller:5000/v3"); 
+//				hmpAllInp.put("^ideapi^", "3");
+//				hmpAllInp.put("^imgapi^", "2");
+//				
+//				hmpAllInp.put("^shell_allpath^", null);
+//				hmpAllInp.put("^intImaId^", "1");
+//				hmpAllInp.put("^intTemId^", "2");
+//				hmpAllInp.put("^intNwId^", "3");
+//				hmpAllInp.put("^strVmUser^", "88");
+//				hmpAllInp.put("^strVmPassword^", "77");
+//				hmpAllInp.put("^strSshKey^", "66");
+//				hmpAllInp.put("^imgids^", "20022a68-bc87-462d-ba6c-af6570ba839e");
+//				hmpAllInp.put("^devname^", "dev-"+objUuid.toString().replaceAll("-", ""));
+//				hmpAllInp.put("^devids^", null);
+//				hmpAllInp.put("^flvids^", "0");
+//				hmpAllInp.put("^netwids^", "aedbece2-0b64-4879-94e5-461439cd6930");
+//				hmpAllInp.put("^vmname^", "vm-"+objUuid.toString().replaceAll("-", ""));
+//				hmpAllInp.put("^vmids^", null);
+				
 				UUID objUuid = UUID.randomUUID();
-				HashMap<String, String> hmpAllInp = new HashMap<>();
-				hmpAllInp.put("^ansid^", "1");
-				hmpAllInp.put("^anscmmd^", "openstack");
-				
-				hmpAllInp.put("^req_type^", "CREATE");
-				hmpAllInp.put("^req_subtype^", "CREATE00");
-				
-				hmpAllInp.put("^customerids^", "20170725000");
-				hmpAllInp.put("^uksids^", "");
-				
-				hmpAllInp.put("^pdom^", "Default");
-				hmpAllInp.put("^udom^", "Default");
-				hmpAllInp.put("^pname^", "admin");
-				hmpAllInp.put("^uname^", "admin");
-				hmpAllInp.put("^pass^", "admin");
-				hmpAllInp.put("^authurl^", "http://test-controller:5000/v3");
-				hmpAllInp.put("^ideapi^", "3");
-				hmpAllInp.put("^imgapi^", "2");
-				
-				hmpAllInp.put("^shell_allpath^", null);
-				hmpAllInp.put("^intImaId^", "1");
-				hmpAllInp.put("^intTemId^", "2");
-				hmpAllInp.put("^intNwId^", "3");
-				hmpAllInp.put("^strVmUser^", "88");
-				hmpAllInp.put("^strVmPassword^", "77");
-				hmpAllInp.put("^strSshKey^", "66");
-				hmpAllInp.put("^imgids^", "20022a68-bc87-462d-ba6c-af6570ba839e");
+				HashMap<String, Object> hmpAllInp = null;
+				hmpAllInp = hmpPar;
 				hmpAllInp.put("^devname^", "dev-"+objUuid.toString().replaceAll("-", ""));
 				hmpAllInp.put("^devids^", null);
-				hmpAllInp.put("^flvids^", "0");
-				hmpAllInp.put("^netwids^", "aedbece2-0b64-4879-94e5-461439cd6930");
-				hmpAllInp.put("^vmname^", "vm-"+objUuid.toString().replaceAll("-", ""));
 				hmpAllInp.put("^vmids^", null);
-				
-//					HashMap<String, Object> hmpAllInp = null;
-//					hmpAllInp = hmpPar;
+				hmpAllInp.put("^shell_allpath^", "");
+				if(!hmpAllInp.containsKey("^vmname^")
+						|| hmpAllInp.get("^vmname^")==null
+						|| (hmpAllInp.get("^vmname^")!=null 
+							&& hmpAllInp.get("^vmname^").toString().trim().length()==0)
+						|| (hmpAllInp.get("^vmname^")!=null 
+							&& hmpAllInp.get("^vmname^").toString().trim().length()>0) 
+							&& "None".equals(hmpAllInp.get("^vmname^").toString())){
+					hmpAllInp.put("^vmname^", "vm-"+objUuid.toString().replaceAll("-", ""));
+				}
 				hmpPar = new HashMap<>();
 				
 				hmpPar.put(ProcessAttrs.strParmapKey_Inpars, hmpAllInp);

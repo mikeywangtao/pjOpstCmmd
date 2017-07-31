@@ -87,14 +87,15 @@ public class ThrdReceiveDispense extends Thread {
 				 {"proflg":"cms_test"}
 				 */
 				if(mapJson!=null && mapJson.size()>0
-						&& mapJson.containsKey("proflg")){
-					Object objProflg = mapJson.get("proflg");
+						&& mapJson.containsKey("^req_type^")){
+					Object objProflg = mapJson.get("^req_type^");
 					strProflg = objProflg==null? null:objProflg.toString();
 					if(strProflg!=null && strProflg.trim().length()>0
 							&& ThrdRunManage.chmthdrMang_RuncmdPro.containsKey(strProflg)){
 						ThrdRuncmdPro objThrdRuncmdPro = new ThrdRuncmdPro();
 						objThrdRuncmdPro.setMsg(mapJson);
 						ThrdRunManage.chmthdrMang_RuncmdPro.get(strProflg.toUpperCase()).putThread2Mlt((Runnable)objThrdRuncmdPro);
+						
 					} else {
 						logger.error(strCname + strFname + " proflg Error!" + strMsg);
 						logger.info(strCname + strFname + " proflg Error!" + strMsg);

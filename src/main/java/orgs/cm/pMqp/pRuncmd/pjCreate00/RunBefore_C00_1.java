@@ -111,6 +111,9 @@ public class RunBefore_C00_1 extends AbsRunBefore {
 							if(strSigParam==null ||(strSigParam!=null && strSigParam.trim().length()==0)){
 								continue;
 							}
+							System.out.println("strShline ----" + strShline);;
+							System.out.println("strSigParam ----" + strSigParam);;
+							System.out.println("mapParam.get(strSigParam) ----" + mapParam.get(strSigParam));;
 							strShline = strShline.replaceAll(strSigParam.replaceAll("\\^", "\\\\^"), mapParam.get(strSigParam));
 						}
 						strShline = strCmdshids + "}}}" + strShline; 
