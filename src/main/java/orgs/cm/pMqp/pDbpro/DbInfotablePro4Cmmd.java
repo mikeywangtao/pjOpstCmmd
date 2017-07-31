@@ -17,16 +17,9 @@ public class DbInfotablePro4Cmmd {
 	private static final Logger logger = LogManager.getLogger(strCname);
 	
 	private static Statement objStmt = null;
-//	private static final String strDbflg = "Cmdpool";
 	private static String strBusname = null;
 	private static String strYear = null;
 	private static String strWeeknum = null;
-	
-//	private DbInfotablePro(){}
-//	public DbInfotablePro(String strBusnamep){
-//		strBusname = strBusnamep;
-//		super.disGetStmt(strDbflg);
-//	}
 	
 	public static synchronized void disInfotablePro(String strBusnamep){
 		String strFname = " disInfotablePro : ";
