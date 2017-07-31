@@ -74,15 +74,16 @@ public class RunAfter_Getimg extends AbsRunAfter {
 					}
 				}
 				
-				String strPackage = this.getClass().getPackage().getName();
-				String[] subTmp = strPackage.split("\\.");
-				if(subTmp!=null && subTmp.length>1){
-					strPackage = subTmp[subTmp.length-1];
-				}
-				if(strPackage.indexOf(".")==-1){
-					strPackage = strPackage.toLowerCase();
-					DbInfotablePro4Cmmd.disInfotablePro(strPackage);
-				}
+//				String strPackage = this.getClass().getPackage().getName();
+//				String[] subTmp = strPackage.split("\\.");
+//				if(subTmp!=null && subTmp.length>1){
+//					strPackage = subTmp[subTmp.length-1];
+//				}
+//				if(strPackage.indexOf(".")==-1){
+//					strPackage = strPackage.toLowerCase();
+//					DbInfotablePro4Cmmd.disInfotablePro(strPackage);
+//				}
+				DbInfotablePro4Cmmd.disInfotablePro(disGetBusname());
 				
 				strInfo = strCname + strFname + " 镜像 After End----" + DatePro.disGetStrdate4NowObjSdf001();
 				altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
@@ -95,6 +96,27 @@ public class RunAfter_Getimg extends AbsRunAfter {
 		return hmpAll;
 	}
 
+	private String disGetBusname(){
+		String strFname = " disGetBusname : ";
+		String strRe = "";
+		try {
+			String strPackage = this.getClass().getPackage().getName();
+			String[] subTmp = strPackage.split("\\.");
+			if(subTmp!=null && subTmp.length>1){
+				strPackage = subTmp[subTmp.length-1];
+			}
+			if(strPackage.indexOf(".")==-1){
+				strPackage = strPackage.toLowerCase();
+//				DbInfotablePro4Cmmd.disInfotablePro(strPackage);
+			}
+			strRe = strPackage;
+		} catch(Exception ex) {
+			strRe = "";
+			disOutputLog(strFname, ex);
+		}
+		return strRe;
+	}
+	
 	private String disCreateJson(ArrayList<LinkedHashMap<String, String>> altResfp){
 		String strFname = " disCreateJson : ";
 		String strRe = null;

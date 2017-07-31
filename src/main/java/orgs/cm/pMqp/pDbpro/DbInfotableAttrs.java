@@ -20,7 +20,7 @@ public class DbInfotableAttrs {
 			+ " create table tYYYYXX_cmdCCCCCC_cpoutput "
 			+ " ( "
 			+ "    cp_ids               varchar(32) not null, "
-			+ "    cpcls                varchar(32) comment 'contrl/process 控制类名称', "
+			+ "    cpcls                varchar(256) comment 'contrl/process 控制类名称', "
 			+ "    customer             varchar(32) comment '命令发起请求客户（或Qz）', "
 			+ "    ansible_ids          varchar(32) comment '客户命令指向ansible，来源于auth。', "
 			+ "    ansible_info         text comment '客户命令指向ansible，详细信息json格式，来源于auth。', "

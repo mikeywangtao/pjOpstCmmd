@@ -14,6 +14,10 @@ import com.alibaba.fastjson.JSON;
 
 import orgs.cm.pMqp.pComms.DatePro;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
+import orgs.cm.pMqp.pDbpro.DbInfoSaveAttrs;
+import orgs.cm.pMqp.pDbpro.DbInfoSavepro;
+import orgs.cm.pMqp.pDbpro.DbInfotablePro4Cmmd;
+import orgs.cm.pMqp.pDbpro.DbproAttrs;
 import orgs.cm.pMqp.pHttpc.HttpClientUtil;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunAfter;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunBefore;
@@ -53,9 +57,9 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 			
 			strInfo = strCname + strFname + " Start!" ;
 			altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRS);
-			
 			strInfo = strCname + strFname + "000 Input----" + hmpPar.toString();
 			altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PAx+" input map par ");
+			disSaveInfo(DbInfoSaveAttrs.strSaveFlg_Cp);
 
 			List<HashMap> altDataAnsible = disGetAnsible();
 			if(altDataAnsible!=null && altDataAnsible.size()==1){
@@ -180,23 +184,63 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 		} catch(Exception ex) {
 			disOutputLog(strFname, ex);
 		} finally {
-			disSaveInfo();
+			disSaveInfo(DbInfoSaveAttrs.strSaveFlg_Run);
 		}
 	}
 	
-	private void disSaveInfo(){
+	private void disSaveInfo(String strFlgp){
 		String strFname = " disSaveInfo : ";
 		try {
-			if(altRunc!=null && altRunc.size()>0){
+			if(strFlgp!=null && strFlgp.trim().length()>0
+					&& altRunc!=null && altRunc.size()>0){
 				for(LinkedHashMap<String, String> mapRow : altRunc){
 					System.out.println(mapRow);
 				}
+				DbInfotablePro4Cmmd.disInfotablePro(disGetBusname());
+				DbInfoSavepro objDbInfoSavepro = new DbInfoSavepro(DbproAttrs.strDbflg_Cmd, disGetBusname());
+				if(DbInfoSaveAttrs.strSaveFlg_Cp.equals(strFlgp.trim())){
+					int intNum = objDbInfoSavepro.disSaveCpinfo(altRunc);
+					if(intNum==1){
+						logger.info(strCname + strFname + " Cp完整存储!");
+					} else {
+						logger.info(strCname + strFname + " Cp存储异常!");
+					}
+				}
+				if(DbInfoSaveAttrs.strSaveFlg_Run.equals(strFlgp.trim())){
+					int intNum = objDbInfoSavepro.disSaveRuninfo(altRunc);
+					if(intNum==altRunc.size()){
+						logger.info(strCname + strFname + " Run完整存储!");
+					} else {
+						logger.info(strCname + strFname + " Run存储异常!");
+					}
+				}
+
 			}
 		} catch(Exception ex) {
 			disOutputLog(strFname, ex);
 		}
 	}
 	
+	private String disGetBusname(){
+		String strFname = " disGetBusname : ";
+		String strRe = "";
+		try {
+			String strPackage = this.getClass().getPackage().getName();
+			String[] subTmp = strPackage.split("\\.");
+			if(subTmp!=null && subTmp.length>1){
+				strPackage = subTmp[subTmp.length-1];
+			}
+			if(strPackage.indexOf(".")==-1){
+				strPackage = strPackage.toLowerCase();
+//				DbInfotablePro4Cmmd.disInfotablePro(strPackage);
+			}
+			strRe = strPackage;
+		} catch(Exception ex) {
+			strRe = "";
+			disOutputLog(strFname, ex);
+		}
+		return strRe;
+	}
 	/**
 	 * 运行日志基本信息构建
 	 * */
@@ -211,7 +255,7 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 			lhpInfobase.put("ansible_info", hmpPar.get("^anscmmd^").toString());
 			lhpInfobase.put("cmd_tpye", hmpPar.get("^req_type^").toString());
 			lhpInfobase.put("cmd_subtype", hmpPar.get("^req_subtype^").toString());
-			lhpInfobase.put("cmd_request", null);
+			lhpInfobase.put("cmd_request", hmpPar.get(ProcessAttrs.strParmapKey_Inpars).toString());
 			lhpInfobase.put("cmd_inputdt", DatePro.disGetStrdate4NowObjSdf001());
 			lhpInfobase.put("cpuuid", hmpPar.get(ProcessAttrs.strInfoKey_Cpuuid).toString());
 			lhpInfobase.put("cmdrundt", DatePro.disGetStrdate4NowObjSdf001());
@@ -233,42 +277,42 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 			
 			if(altDataKeystone!=null && altDataKeystone.size()>0){
 /*
-
+{^pname^=admin, 
+^ansid^=1, 
+msgId=2017073116040150856914, 
+^intImaId^=12, 
+^strSshKey^=1, 
+^uname^=admin, 
+^strVmUser^=1, 
+^shell_allpath^=, 
+^intNwId^=1, 
+^netwids^=aedbece2-0b64-4879-94e5-461439cd6930, 
+usr_name=username, 
+^authurl^=http://test-controller:5000/v3, 
+^flvids^=0, 
+^imgapi^=2, 
+^uksids^=1, 
+sysflg=cms, 
+^vmids^=, 
+^ideapi^=3, 
+^intTemId^=0, 
+^pdom^=Default, 
+^pass^=admin, 
+^customerids^=1, 
+^imgids^=20022a68-bc87-462d-ba6c-af6570ba839e, 
+serverTarget=test, 
+login_name=wode, 
+^udom^=Default, 
+^anscmmd^=openstack, 
+^vmname^=vv, 
+^req_type^=CREATE, 
+^devids^=, 
+^req_subtype^=CREATE00, 
+^strVmPassword^=1}
  */
 //				UUID objUuid = UUID.randomUUID();
 //				HashMap<String, String> hmpAllInp = new HashMap<>();
 //				hmpAllInp.put("^ansid^", "1");
-//				hmpAllInp.put("^anscmmd^", "openstack");
-//				
-//				hmpAllInp.put("^req_type^", "CREATE");
-//				hmpAllInp.put("^req_subtype^", "CREATE00");
-//				
-//				hmpAllInp.put("^customerids^", "20170725000");
-//				hmpAllInp.put("^uksids^", "");
-//				
-//				hmpAllInp.put("^pdom^", "Default");
-//				hmpAllInp.put("^udom^", "Default");
-//				hmpAllInp.put("^pname^", "admin");
-//				hmpAllInp.put("^uname^", "admin");
-//				hmpAllInp.put("^pass^", "admin");
-//				hmpAllInp.put("^authurl^", "http://test-controller:5000/v3"); 
-//				hmpAllInp.put("^ideapi^", "3");
-//				hmpAllInp.put("^imgapi^", "2");
-//				
-//				hmpAllInp.put("^shell_allpath^", null);
-//				hmpAllInp.put("^intImaId^", "1");
-//				hmpAllInp.put("^intTemId^", "2");
-//				hmpAllInp.put("^intNwId^", "3");
-//				hmpAllInp.put("^strVmUser^", "88");
-//				hmpAllInp.put("^strVmPassword^", "77");
-//				hmpAllInp.put("^strSshKey^", "66");
-//				hmpAllInp.put("^imgids^", "20022a68-bc87-462d-ba6c-af6570ba839e");
-//				hmpAllInp.put("^devname^", "dev-"+objUuid.toString().replaceAll("-", ""));
-//				hmpAllInp.put("^devids^", null);
-//				hmpAllInp.put("^flvids^", "0");
-//				hmpAllInp.put("^netwids^", "aedbece2-0b64-4879-94e5-461439cd6930");
-//				hmpAllInp.put("^vmname^", "vm-"+objUuid.toString().replaceAll("-", ""));
-//				hmpAllInp.put("^vmids^", null);
 				
 				UUID objUuid = UUID.randomUUID();
 				HashMap<String, Object> hmpAllInp = null;
