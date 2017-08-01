@@ -50,18 +50,18 @@ public class RunFinally_Create00 extends AbsRunFinally{
 				strInfo = strCname + strFname + " VM创建 Finally Ok----" + DatePro.disGetStrdate4NowObjSdf001();
 				altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRx + " Finally Ok ");
 				
-//				ArrayList<String> altMsg = null;
-//				if(hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_RunResLst)
-//					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst)!=null){
-//					altMsg = ((ArrayList<String>)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst));
-//					if(altMsg!=null && altMsg.size()>0){
-//						strMsgs = JSON.toJSONString(altMsg);
-//					}
-//				}
 				strMsgs =  hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst).toString();
 				strCpids = hmpAll.get("cp_ids").toString();
+				
+				HashMap<String, String> mapReq = new HashMap<>();
+				mapReq.put("msgs", strMsgs);
+				mapReq.put("finallydt", strFinallydt);
+				mapReq.put("state", "ok");
+				mapReq.put("cpids", strCpids);
+
 				String strSetImg = "";
-				strSetImg = "{'msgs':'"+strMsgs+"', 'finallydt':'"+strFinallydt+"', 'state':'ok', 'cpids':'"+strCpids+"'}";
+				strSetImg = JSON.toJSONString(mapReq);
+//				strSetImg = "{'msgs':'"+strMsgs+"', 'finallydt':'"+strFinallydt+"', 'state':'ok', 'cpids':'"+strCpids+"'}";
 				strInfo = strCname + strFname + " VM创建 Finally Ok request----" + strSetImg;
 				altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PAx + " request ");
 				HttpClientUtil objHttpClientUtil = new HttpClientUtil();
@@ -74,17 +74,18 @@ public class RunFinally_Create00 extends AbsRunFinally{
 				strInfo = strCname + strFname + " VM创建 Finally Ng----" + DatePro.disGetStrdate4NowObjSdf001();
 				altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRx + " Finally Ng ");
 				
-//				ArrayList<String> altMsg = null;
-//				if(hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_RunResLst)
-//					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst)!=null){
-//					altMsg = ((ArrayList<String>)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst));
-//					if(altMsg!=null && altMsg.size()>0){
-//						strMsgs = JSON.toJSONString(altMsg);
-//					}
-//				}
 				strMsgs =  hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst).toString();
+				strCpids = hmpAll.get("cp_ids").toString();
+				
+				HashMap<String, String> mapReq = new HashMap<>();
+				mapReq.put("msgs", strMsgs);
+				mapReq.put("finallydt", strFinallydt);
+				mapReq.put("state", "ng");
+				mapReq.put("cpids", strCpids);
+				
 				String strSetImg = "";
-				strSetImg = "{'msgs':'"+strMsgs+"', 'finallydt':'"+strFinallydt+"', 'state':'ng', 'cpids':'"+strCpids+"'}";
+				strSetImg = JSON.toJSONString(mapReq);
+//				strSetImg = "{'msgs':'"+strMsgs+"', 'finallydt':'"+strFinallydt+"', 'state':'ng', 'cpids':'"+strCpids+"'}";
 				strInfo = strCname + strFname + " VM创建 Finally Ng request----" + strSetImg;
 				altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PAx + " request ");
 				HttpClientUtil objHttpClientUtil = new HttpClientUtil();
