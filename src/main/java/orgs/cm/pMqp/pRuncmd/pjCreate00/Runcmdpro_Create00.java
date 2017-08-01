@@ -193,9 +193,9 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 		try {
 			if(strFlgp!=null && strFlgp.trim().length()>0
 					&& altRunc!=null && altRunc.size()>0){
-				for(LinkedHashMap<String, String> mapRow : altRunc){
-					System.out.println(mapRow);
-				}
+//				for(LinkedHashMap<String, String> mapRow : altRunc){
+//					System.out.println(mapRow);
+//				}
 				DbInfotablePro4Cmmd.disInfotablePro(disGetBusname());
 				DbInfoSavepro objDbInfoSavepro = new DbInfoSavepro(DbproAttrs.strDbflg_Cmd, disGetBusname());
 				if(DbInfoSaveAttrs.strSaveFlg_Cp.equals(strFlgp.trim())){
@@ -232,7 +232,6 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 			}
 			if(strPackage.indexOf(".")==-1){
 				strPackage = strPackage.toLowerCase();
-//				DbInfotablePro4Cmmd.disInfotablePro(strPackage);
 			}
 			strRe = strPackage;
 		} catch(Exception ex) {

@@ -102,7 +102,8 @@ subflg=start}
 							strSqlCheck = strSqlCheck.replaceAll("\\^cmd_request\\^", mapRow.get("cmd_request"));
 							strSqlCheck = strSqlCheck.replaceAll("\\^cmd_inputdt\\^", mapRow.get("cmd_inputdt"));
 							strSqlCheck = strSqlCheck.replaceAll("\\^ceratedt\\^", DatePro.disGetStrdate4NowObjSdf001());
-							strSqlCheck = strSqlCheck.replaceAll("\\^cmdrundt\\^", mapRow.get("cmdrundt"));
+							strSqlCheck = strSqlCheck.replaceAll("\\^cmdrundt\\^", mapRow.get(ProcessAttrs.strInfoKey_Rundt));
+							logger.info(strCname + strFname + " SQL ----" + strSqlCheck);
 						}
 						if(objStmt!=null 
 								&& strSqlCheck!=null && strSqlCheck.trim().length()>0){
@@ -177,7 +178,8 @@ subflg=start}
 								strSqlCheck = strSqlCheck.replaceAll("\\^info\\^", mapRow.get("info"));
 								strSqlCheck = strSqlCheck.replaceAll("\\^cpuuid\\^", mapRow.get("cpuuid"));
 								strSqlCheck = strSqlCheck.replaceAll("\\^createdt\\^", DatePro.disGetStrdate4NowObjSdf001());
-								strSqlCheck = strSqlCheck.replaceAll("\\^cmdrundt\\^", mapRow.get("cmd_inputdt"));
+								strSqlCheck = strSqlCheck.replaceAll("\\^cmdrundt\\^", mapRow.get(ProcessAttrs.strInfoKey_Rundt));
+								logger.info(strCname + strFname + " SQL ----" + strSqlCheck);
 							}
 							if(objStmt!=null 
 									&& strSqlCheck!=null && strSqlCheck.trim().length()>0){

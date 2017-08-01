@@ -29,6 +29,8 @@ public class ProcessAttrs {
 	public static final String strInfoFlg_PRx = "point}}}runFlg}}}";
 	public static final String strInfoFlg_PAx = "point}}}attrInfo}}}";
 	public static final String strInfoFlg_PLx = "point}}}loopPoint}}}";
+	public static final String strInfoFlg_Elx = "error}}}logicReturn}}}";
+	public static final String strInfoFlg_Ebx = "error}}}busReturn}}}";
 	public static final String strInfoFlg_ETx = "error}}}eTrace}}}";
 	public static final String strInfoFlg_EEx = "error}}}exception}}}";
 	
