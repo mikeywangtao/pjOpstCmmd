@@ -23,6 +23,7 @@ import orgs.cm.pMqp.pHttpc.HttpClientUtil;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunAfter;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunBefore;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunCmd;
+import orgs.cm.pMqp.pRuncmd.comm.AbsRunFinally;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunPrepare;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
 
@@ -185,6 +186,9 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 		} catch(Exception ex) {
 			disOutputLog(strFname, ex);
 		} finally {
+			AbsRunFinally objRunFinally = new RunFinally_Create00();
+			objRunFinally.disSetAll(hmpPar);
+			objRunFinally.disRunFinally();
 			disSaveInfo(DbInfoSaveAttrs.strSaveFlg_Run);
 		}
 	}
@@ -212,6 +216,7 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 			lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Pro);
 			
 			hmpPar.put(ProcessAttrs.strParmapKey_Infobase, lhpInfobase);
+			hmpPar.put("cp_ids",lhpInfobase.get("cp_ids"));
 		} catch(Exception ex) {
 			disOutputLog(strFname, ex);
 		}
@@ -305,6 +310,8 @@ login_name=wode,
 						+ "_" + hmpAllInp.get("^req_type^").toString()
 						+ hmpAllInp.get("^req_subtype^").toString() );
 //							+ ".sh");
+				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, new ArrayList<String>());
+				
 			} else {
 				hmpPar = null;
 			}
@@ -489,9 +496,9 @@ login_name=wode,
 		if(strInfoTypepFlgp!=null && strInfoTypepFlgp.trim().length()>0){
 			String[] subTypeFlg = strInfoTypepFlgp.split("}}}", -1);
 			if(subTypeFlg!=null && subTypeFlg.length>=2){
-				strTypef = subTypeFlg[0];
-				strFlgf = subTypeFlg[1];
-				strSubflgf = subTypeFlg[2];
+				strTypef = subTypeFlg[0].trim();
+				strFlgf = subTypeFlg[1].trim();
+				strSubflgf = subTypeFlg[2].trim();
 			}
 		}
 		LinkedHashMap<String, String> lhpInfof = null;

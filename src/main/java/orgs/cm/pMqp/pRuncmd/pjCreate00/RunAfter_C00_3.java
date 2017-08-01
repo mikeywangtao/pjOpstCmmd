@@ -84,12 +84,14 @@ public class RunAfter_C00_3 extends AbsRunAfter {
 				
 				DbInfotablePro4Cmmd.disInfotablePro(disGetBusname());
 				
+				((ArrayList<String>)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst)).add(strCname + strFname + " Run03after ok ----end ");
 				strInfo = strCname + strFname + " VM创建 After03 End----" + DatePro.disGetStrdate4NowObjSdf001();
 				altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRE);
 //				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 //				hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunNext, "next");
 			}
 		} catch(Exception ex) {
+			((ArrayList<String>)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst)).add(strCname + strFname + ex);
 			disOutputLog(strFname, ex);
 		} finally{
 			disSaveInfo(DbInfoSaveAttrs.strSaveFlg_Run);
@@ -164,9 +166,9 @@ public class RunAfter_C00_3 extends AbsRunAfter {
 		if(strInfoTypepFlgp!=null && strInfoTypepFlgp.trim().length()>0){
 			String[] subTypeFlg = strInfoTypepFlgp.split("}}}", -1);
 			if(subTypeFlg!=null && subTypeFlg.length>=2){
-				strTypef = subTypeFlg[0];
-				strFlgf = subTypeFlg[1];
-				strSubflgf = subTypeFlg[2];
+				strTypef = subTypeFlg[0].trim();
+				strFlgf = subTypeFlg[1].trim();
+				strSubflgf = subTypeFlg[2].trim();
 			}
 		}
 		LinkedHashMap<String, String> lhpInfof = null;

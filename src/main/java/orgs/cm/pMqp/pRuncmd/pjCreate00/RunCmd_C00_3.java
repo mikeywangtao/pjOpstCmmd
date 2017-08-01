@@ -265,9 +265,9 @@ public class RunCmd_C00_3 extends AbsRunCmd {
 		if(strInfoTypepFlgp!=null && strInfoTypepFlgp.trim().length()>0){
 			String[] subTypeFlg = strInfoTypepFlgp.split("}}}", -1);
 			if(subTypeFlg!=null && subTypeFlg.length>=2){
-				strTypef = subTypeFlg[0];
-				strFlgf = subTypeFlg[1];
-				strSubflgf = subTypeFlg[2];
+				strTypef = subTypeFlg[0].trim();
+				strFlgf = subTypeFlg[1].trim();
+				strSubflgf = subTypeFlg[2].trim();
 			}
 		}
 		LinkedHashMap<String, String> lhpInfof = null;

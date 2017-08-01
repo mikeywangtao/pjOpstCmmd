@@ -3,7 +3,6 @@ package orgs.cm.pMqp.pRuncmd.pjCreate00;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,83 +11,92 @@ import com.alibaba.fastjson.JSON;
 
 import orgs.cm.pMqp.pComms.DatePro;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
-import orgs.cm.pMqp.pDbpro.AbsDbpro;
 import orgs.cm.pMqp.pDbpro.DbInfoSaveAttrs;
 import orgs.cm.pMqp.pDbpro.DbInfoSavepro;
 import orgs.cm.pMqp.pDbpro.DbInfotablePro4Cmmd;
 import orgs.cm.pMqp.pDbpro.DbproAttrs;
 import orgs.cm.pMqp.pHttpc.HttpClientUtil;
-import orgs.cm.pMqp.pRuncmd.comm.AbsRunAfter;
+import orgs.cm.pMqp.pRuncmd.comm.AbsRunFinally;
 
-/**
- * 创建vm命令1，命令运行后的处理
- * */
-public class RunAfter_C00_1 extends AbsRunAfter {
+public class RunFinally_Create00 extends AbsRunFinally{
 
-
-	private AbsDbpro objDbpro = null;
-	private HashMap<String, Object> hmpAll;
-	private final String strCname = RunAfter_C00_1.class.getName();
+	private final String strCname = RunFinally_Create00.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
 	private LinkedHashMap<String, String> lhpInfobase = new LinkedHashMap<String, String>();
 	private ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();	
-
+	
+	private HashMap<String, Object> hmpAll;
 	public void disSetAll(HashMap<String, Object> hmpAllp){
-		this.hmpAll = hmpAllp;
+		hmpAll = hmpAllp;
 	}
-	@Override
-	public HashMap<String, Object> disRunAfter() {
-		String strFname = " disRunAfter : ";
-		String strInfo = null;
-//		LinkedHashMap<String, String> lhpInfo = new LinkedHashMap<String, String>();
-//		ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();	
+	
+	public HashMap<String, Object> disRunFinally() {
+		String strFname = " disRunFinally : ";
+		String strInfo = "";
 		
+		String strMsgs = "";
+		String strCpids = "";
+		String strFinallydt = DatePro.disGetStrdate4NowObjSdf001();
 		try {
-			if(hmpAll!=null && hmpAll.size()>0
-					&& hmpAll.containsKey("^ansid^")
-					&& hmpAll.get("^ansid^")!=null){
-				logger.info(strCname + strFname + "  Start!");
-				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, null);
-				lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
-				lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Aft);
-				strInfo = strCname + strFname + " VM创建 After01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
-				altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRS);
-//				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
-				
-				if(hmpAll.containsKey(ProcessAttrs.strInfoFlgKey_Resstd)
-						&& hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd)!=null
-						&& hmpAll.containsKey(ProcessAttrs.strInfoFlgKey_Reserr)
-						&& hmpAll.get(ProcessAttrs.strInfoFlgKey_Reserr)==null){
-					hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "2");
-					strInfo = strCname + strFname + " VM创建 After01 ----strParmapKey_Ppa_NowRunflg OK 2" + DatePro.disGetStrdate4NowObjSdf001();
-					altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_Elx + " strParmapKey_Ppa_NowRunflg OK 2 " );
-					hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
-				}
-				if(hmpAll.containsKey(ProcessAttrs.strInfoFlgKey_Reserr)
-						&& hmpAll.get(ProcessAttrs.strInfoFlgKey_Reserr)!=null){
-					hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, null);
-					strInfo = strCname + strFname + " VM创建 After01 ----strParmapKey_Ppa_NowRunflg Error" + DatePro.disGetStrdate4NowObjSdf001();
-					altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_Elx + " strParmapKey_Ppa_NowRunflg Error " );
-					hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
-				}
+			lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
+			lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Finly);
+			strInfo = strCname + strFname + " VM创建 Finally Start----" + DatePro.disGetStrdate4NowObjSdf001();
+			altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRS);
 			
-				DbInfotablePro4Cmmd.disInfotablePro(disGetBusname());
+			if(hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg) 
+					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
+					&& "end".equals(hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString().trim())){
+				strInfo = strCname + strFname + " VM创建 Finally Ok----" + DatePro.disGetStrdate4NowObjSdf001();
+				altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRx + " Finally Ok ");
 				
-				((ArrayList<String>)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst)).add(strCname + strFname + " Run01after ok ----end ");
-				strInfo = strCname + strFname + " VM创建 After01 End----" + DatePro.disGetStrdate4NowObjSdf001();
-				altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRE);
-				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
+				ArrayList<String> altMsg = null;
+				if(hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_RunResLst)
+					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst)!=null){
+					altMsg = ((ArrayList<String>)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst));
+					if(altMsg!=null && altMsg.size()>0){
+						strMsgs = JSON.toJSONString(altMsg);
+					}
+				}
+				
+				strCpids = hmpAll.get("cp_ids").toString();
+				String strSetImg = "";
+				strSetImg = "{'msgs':'"+strMsgs+"', 'finallydt':'"+strFinallydt+"', 'state':'ok', 'cpids':'"+strCpids+"'}";
+				HttpClientUtil objHttpClientUtil = new HttpClientUtil();
+				String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://10.167.212.101:8000/vm/info/", strSetImg);
+				strInfo = strCname + strFname + " VM创建 Finally ----mapRes---- " + strSetImgres;
+				
+			} else {
+				lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
+				lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Finly);
+				strInfo = strCname + strFname + " VM创建 Finally Ng----" + DatePro.disGetStrdate4NowObjSdf001();
+				altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRx + " Finally Ng ");
+				
+				ArrayList<String> altMsg = null;
+				if(hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_RunResLst)
+					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst)!=null){
+					altMsg = ((ArrayList<String>)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst));
+					if(altMsg!=null && altMsg.size()>0){
+						strMsgs = JSON.toJSONString(altMsg);
+					}
+				}
+				
+				String strSetImg = "";
+				strSetImg = "{'msgs':'"+strMsgs+"', 'finallydt':'"+strFinallydt+"', 'state':'ng', 'cpids':'"+strCpids+"'}";
+				HttpClientUtil objHttpClientUtil = new HttpClientUtil();
+				String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://10.167.212.101:8000/vm/info/", strSetImg);
+				strInfo = strCname + strFname + " VM创建 Finally ----mapRes---- " + strSetImgres;
+				
 			}
+			strInfo = strCname + strFname + " VM创建 Finally End----" + DatePro.disGetStrdate4NowObjSdf001();
+			altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRE);
 		} catch(Exception ex) {
-			((ArrayList<String>)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst)).add(strCname + strFname + ex);
 			disOutputLog(strFname, ex);
 		} finally{
 			disSaveInfo(DbInfoSaveAttrs.strSaveFlg_Run);
 		}
-		
 		return hmpAll;
-	}
+	} 
 
 	private void disSaveInfo(String strFlgp){
 		String strFname = " disSaveInfo : ";
@@ -103,9 +111,9 @@ public class RunAfter_C00_1 extends AbsRunAfter {
 				if(DbInfoSaveAttrs.strSaveFlg_Run.equals(strFlgp.trim())){
 					int intNum = objDbInfoSavepro.disSaveRuninfo(altRunc);
 					if(intNum==altRunc.size()){
-						logger.info(strCname + strFname + " After完整存储!");
+						logger.info(strCname + strFname + " Finally完整存储!");
 					} else {
-						logger.info(strCname + strFname + " After存储异常!");
+						logger.info(strCname + strFname + " Finally存储异常!");
 					}
 				}
 			}
@@ -124,23 +132,10 @@ public class RunAfter_C00_1 extends AbsRunAfter {
 			}
 			if(strPackage.indexOf(".")==-1){
 				strPackage = strPackage.toLowerCase();
-//				DbInfotablePro4Cmmd.disInfotablePro(strPackage);
 			}
 			strRe = strPackage;
 		} catch(Exception ex) {
 			strRe = "";
-			disOutputLog(strFname, ex);
-		}
-		return strRe;
-	}
-	
-	private String disCreateJson(ArrayList<LinkedHashMap<String, String>> altResfp){
-		String strFname = " disCreateJson : ";
-		String strRe = null;
-		try {
-			strRe = JSON.toJSONString(altResfp);
-		} catch(Exception ex) {
-			strRe = null;
 			disOutputLog(strFname, ex);
 		}
 		return strRe;
@@ -182,5 +177,4 @@ public class RunAfter_C00_1 extends AbsRunAfter {
 					subSte[i].getClassName() + subSte[i].getMethodName() + ":" + subSte[i].getLineNumber() + "||" + lonFlg );
 		}
 	}
-
 }

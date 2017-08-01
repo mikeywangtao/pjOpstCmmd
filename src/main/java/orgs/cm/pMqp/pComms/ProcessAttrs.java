@@ -24,6 +24,7 @@ public class ProcessAttrs {
 	public static final String strInfoFlgKey_Bef ="bef";
 	public static final String strInfoFlgKey_Prep ="prep";
 	public static final String strInfoFlgKey_Pro ="pro";
+	public static final String strInfoFlgKey_Finly ="finly";
 	
 	public static final String strInfoFlg_PRS = "point}}}runFlg}}}start";
 	public static final String strInfoFlg_PRE = "point}}}runFlg}}}end";
@@ -68,4 +69,5 @@ public class ProcessAttrs {
 	public static final String strParmapKey_Ppa_NowRunflg = "strNowRunflg";
 	public static final String strParmapKey_Ppa_NowPostfix = "strNowPostfix";
 	public static final String strParmapKey_Ppa_RunLoopFlg = "strRunLoopFlg";
+	public static final String strParmapKey_Ppa_RunResLst = "strRunResLst";
 }

@@ -18,7 +18,7 @@ public class DatePro {
 	private static final Logger logger = LogManager.getLogger(strCname);
 	
 	private static SimpleDateFormat objSdf000 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-	private static SimpleDateFormat objSdf001 = new SimpleDateFormat("yyyyMMddHHmmssS");
+	private static SimpleDateFormat objSdf001 = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 	
 	private static void disOutputLog(String strFnamep, Exception exp){
 		long lonFlg = System.currentTimeMillis();
