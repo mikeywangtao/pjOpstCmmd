@@ -111,7 +111,7 @@ public class DbInfotableAttrs {
 			+ "    cp_ids               varchar(32), "
 			+ "    infotype             varchar(32) comment '输出信息类型：error / info', "
 			+ "    infoflg              varchar(32) comment '信息大类标记。大类：cp-控制执行；runc-命令运行；shell-脚本内信息；reserr-运行脚本返回异常；resstd-运行脚本标准返回；af-运行脚本后；bef-运行脚本前；prep-命令准备；', "
-			+ "    infosubflg           varchar(32) comment '信息小类标记。', "
+			+ "    infosubflg           varchar(64) comment '信息小类标记。', "
 			+ "    info                 text comment '输出信息，json格式。', "
 			+ "    cpuuid               varchar(32) comment '单次uuid', "
 			+ "    createdt             varchar(32) comment '数据库内行记录插入时间', "

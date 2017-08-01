@@ -41,6 +41,7 @@ public class RunBefore_C00_4 extends AbsRunBefore {
 					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
 					){
 				lhpInfobase = lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
+				lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Bef);
 				strInfo = strCname + strFname + " 创建VM Before04 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 				altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRS );
 				
@@ -212,7 +213,7 @@ public class RunBefore_C00_4 extends AbsRunBefore {
 		LinkedHashMap<String, String> lhpInfof = null;
 		String strInfo = strInfop;
 		lhpInfof = (LinkedHashMap<String, String>)lhpInfop.clone();
-		lhpInfof.put(ProcessAttrs.strInfoKey_Info, strInfo);
+		lhpInfof.put(ProcessAttrs.strInfoKey_Info, strInfo.replaceAll("'", "\""));
 		lhpInfof.put(ProcessAttrs.strInfoType_Info, strTypef);
 		lhpInfof.put(ProcessAttrs.strInfoFlg_Info, strFlgf);
 		lhpInfof.put(ProcessAttrs.strInfoSubflg_Info, strSubflgf);

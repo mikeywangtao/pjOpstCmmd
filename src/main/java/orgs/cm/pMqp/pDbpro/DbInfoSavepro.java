@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import orgs.cm.pMqp.pComms.DatePro;
+import orgs.cm.pMqp.pComms.IdsPro;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
 import orgs.cm.pMqp.pDblst.DbContManage;
 
@@ -88,9 +89,9 @@ flg=runFlg,
 subflg=start}
 
 							 */
-							strSqlCheck = strSqlCheck.replace("YYYY", strYear);
-							strSqlCheck = strSqlCheck.replace("XX", strWeeknum);
-							strSqlCheck = strSqlCheck.replace("CCCCCC", strBusname);
+							strSqlCheck = strSqlCheck.replaceAll("YYYY", strYear);
+							strSqlCheck = strSqlCheck.replaceAll("XX", strWeeknum);
+							strSqlCheck = strSqlCheck.replaceAll("CCCCCC", strBusname);
 							strSqlCheck = strSqlCheck.replaceAll("\\^cp_ids\\^", mapRow.get("cp_ids"));
 							strSqlCheck = strSqlCheck.replaceAll("\\^cpcls\\^", mapRow.get("cpcls"));
 							strSqlCheck = strSqlCheck.replaceAll("\\^customer\\^", mapRow.get("customer"));
@@ -117,6 +118,8 @@ subflg=start}
 		} catch(Exception ex) {
 			intNum = 0;
 			disOutputLog(strFname, ex);
+		} finally{
+			disStmtdel();
 		}
 		return intNum;
 	}
@@ -132,11 +135,12 @@ subflg=start}
 						&& strWeeknum!=null && strWeeknum.trim().length()>0
 						&& strBusname!=null && strBusname.trim().length()>0){
 					for(LinkedHashMap<String, String> mapRow : altRuncp){
-						String strSqlCheck = DbInfoSaveAttrs.strSqltemp_Se_SaveRuninfo;
-						if(strSqlCheck!=null && strSqlCheck.trim().length()>0
-								&& mapRow!=null && mapRow.size()>0){
+						String strSqlCheck = null;
+						if(mapRow!=null && mapRow.size()>0){
 							if(mapRow.containsKey("cp_ids")
-									&& mapRow.containsKey("type")
+//									&& mapRow.containsKey("type")
+									&& mapRow.containsKey(ProcessAttrs.strInfoCType_Info)
+									&& mapRow.containsKey(ProcessAttrs.strInfoType_Info)
 									&& mapRow.containsKey("flg")
 									&& mapRow.containsKey("subflg")
 									&& mapRow.containsKey("info")
@@ -167,12 +171,13 @@ type=point,
 flg=runFlg, 
 subflg=start}
 								 */
-								strSqlCheck = strSqlCheck.replace("YYYY", strYear);
-								strSqlCheck = strSqlCheck.replace("XX", strWeeknum);
-								strSqlCheck = strSqlCheck.replace("CCCCCC", strBusname);
-								strSqlCheck = strSqlCheck.replaceAll("\\^run_ids\\^", DatePro.disGetStrdate4NowObjSdf001());
+								strSqlCheck = DbInfoSaveAttrs.strSqltemp_Se_SaveRuninfo;
+								strSqlCheck = strSqlCheck.replaceAll("YYYY", strYear);
+								strSqlCheck = strSqlCheck.replaceAll("XX", strWeeknum);
+								strSqlCheck = strSqlCheck.replaceAll("CCCCCC", strBusname);
+								strSqlCheck = strSqlCheck.replaceAll("\\^run_ids\\^", IdsPro.disGetIds());//DatePro.disGetStrdate4NowObjSdf001());
 								strSqlCheck = strSqlCheck.replaceAll("\\^cp_ids\\^", mapRow.get("cp_ids"));
-								strSqlCheck = strSqlCheck.replaceAll("\\^infotype\\^", mapRow.get("type"));
+								strSqlCheck = strSqlCheck.replaceAll("\\^infotype\\^", mapRow.get(ProcessAttrs.strInfoCType_Info) + " " + mapRow.get(ProcessAttrs.strInfoType_Info));
 								strSqlCheck = strSqlCheck.replaceAll("\\^infoflg\\^", mapRow.get("flg"));
 								strSqlCheck = strSqlCheck.replaceAll("\\^infosubflg\\^", mapRow.get("subflg"));
 								strSqlCheck = strSqlCheck.replaceAll("\\^info\\^", mapRow.get("info"));
@@ -194,6 +199,8 @@ subflg=start}
 		} catch(Exception ex) {
 			intNum = 0;
 			disOutputLog(strFname, ex);
+		} finally{
+			disStmtdel();
 		}
 		return intNum;
 	}
@@ -236,6 +243,23 @@ subflg=start}
 			logger.error(subSte[i].getClassName() + subSte[i].getMethodName() + ":" + subSte[i].getLineNumber() + "||" + lonFlg );
 			strInfo = subSte[i].getClassName() + subSte[i].getMethodName() + ":" + subSte[i].getLineNumber() + "||" + lonFlg ;
 			altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_ETx + " --" + i);
+		}
+	}
+	private void disStmtdel(){
+		String strFname = " disStmtdel : ";
+		try {
+			if(objStmt!=null && !objStmt.isClosed()){
+				objStmt.close();
+				objStmt = null;
+			}
+		} catch(Exception ex) {
+			long lonFlg = System.currentTimeMillis();
+			logger.error(strCname + strFname + ex + "||" + lonFlg);
+			StackTraceElement[] subSte = ex.getStackTrace();
+			for(int i=0; i<subSte.length; i++){
+				logger.error(
+						subSte[i].getClassName() + subSte[i].getMethodName() + ":" + subSte[i].getLineNumber() + "||" + lonFlg );
+			}
 		}
 	}
 }

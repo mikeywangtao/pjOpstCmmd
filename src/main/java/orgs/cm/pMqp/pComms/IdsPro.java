@@ -8,7 +8,7 @@ public class IdsPro {
 	private static final Logger logger = LogManager.getLogger(strCname);
 	
 	/** 获取格式为:yyyyMMddHHmmssSXXXX的字符串。 */
-	public synchronized String disGetIds(){
+	public static synchronized String disGetIds(){
 		return DatePro.disGetStrdate4NowObjSdf001() + SeqPro.getNum();
 	}
 }

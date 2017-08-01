@@ -46,6 +46,7 @@ public class RunPrepare_Create00 extends AbsRunPrepare {
 			if(hmpAll!=null && hmpAll.size()>0
 					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Inpars)){
 				lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
+				lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Prep);
 				strInfo = strCname + strFname + " Start!" ;
 				altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRS);
 				
@@ -216,7 +217,7 @@ public class RunPrepare_Create00 extends AbsRunPrepare {
 		LinkedHashMap<String, String> lhpInfof = null;
 		String strInfo = strInfop;
 		lhpInfof = (LinkedHashMap<String, String>)lhpInfop.clone();
-		lhpInfof.put(ProcessAttrs.strInfoKey_Info, strInfo);
+		lhpInfof.put(ProcessAttrs.strInfoKey_Info, strInfo.replaceAll("'", "\""));
 		lhpInfof.put(ProcessAttrs.strInfoType_Info, strTypef);
 		lhpInfof.put(ProcessAttrs.strInfoFlg_Info, strFlgf);
 		lhpInfof.put(ProcessAttrs.strInfoSubflg_Info, strSubflgf);

@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import com.alibaba.fastjson.JSON;
 
 import orgs.cm.pMqp.pComms.DatePro;
+import orgs.cm.pMqp.pComms.IdsPro;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
 import orgs.cm.pMqp.pDbpro.DbInfoSaveAttrs;
 import orgs.cm.pMqp.pDbpro.DbInfoSavepro;
@@ -187,59 +188,9 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 			disSaveInfo(DbInfoSaveAttrs.strSaveFlg_Run);
 		}
 	}
-	
-	private void disSaveInfo(String strFlgp){
-		String strFname = " disSaveInfo : ";
-		try {
-			if(strFlgp!=null && strFlgp.trim().length()>0
-					&& altRunc!=null && altRunc.size()>0){
-//				for(LinkedHashMap<String, String> mapRow : altRunc){
-//					System.out.println(mapRow);
-//				}
-				DbInfotablePro4Cmmd.disInfotablePro(disGetBusname());
-				DbInfoSavepro objDbInfoSavepro = new DbInfoSavepro(DbproAttrs.strDbflg_Cmd, disGetBusname());
-				if(DbInfoSaveAttrs.strSaveFlg_Cp.equals(strFlgp.trim())){
-					int intNum = objDbInfoSavepro.disSaveCpinfo(altRunc);
-					if(intNum==1){
-						logger.info(strCname + strFname + " Cp完整存储!");
-					} else {
-						logger.info(strCname + strFname + " Cp存储异常!");
-					}
-				}
-				if(DbInfoSaveAttrs.strSaveFlg_Run.equals(strFlgp.trim())){
-					int intNum = objDbInfoSavepro.disSaveRuninfo(altRunc);
-					if(intNum==altRunc.size()){
-						logger.info(strCname + strFname + " Run完整存储!");
-					} else {
-						logger.info(strCname + strFname + " Run存储异常!");
-					}
-				}
 
-			}
-		} catch(Exception ex) {
-			disOutputLog(strFname, ex);
-		}
-	}
 	
-	private String disGetBusname(){
-		String strFname = " disGetBusname : ";
-		String strRe = "";
-		try {
-			String strPackage = this.getClass().getPackage().getName();
-			String[] subTmp = strPackage.split("\\.");
-			if(subTmp!=null && subTmp.length>1){
-				strPackage = subTmp[subTmp.length-1];
-			}
-			if(strPackage.indexOf(".")==-1){
-				strPackage = strPackage.toLowerCase();
-			}
-			strRe = strPackage;
-		} catch(Exception ex) {
-			strRe = "";
-			disOutputLog(strFname, ex);
-		}
-		return strRe;
-	}
+
 	/**
 	 * 运行日志基本信息构建
 	 * */
@@ -247,7 +198,7 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 		String strFname = " disSetInfobase : ";
 		
 		try {
-			lhpInfobase.put("cp_ids",DatePro.disGetStrdate4NowObjSdf001());
+			lhpInfobase.put("cp_ids",IdsPro.disGetIds()); //DatePro.disGetStrdate4NowObjSdf001());
 			lhpInfobase.put("cpcls", strCname);
 			lhpInfobase.put("customer", hmpPar.get("^customerids^").toString());
 			lhpInfobase.put("ansible_ids", hmpPar.get("^ansid^").toString());
@@ -258,6 +209,7 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 			lhpInfobase.put("cmd_inputdt", DatePro.disGetStrdate4NowObjSdf001());
 			lhpInfobase.put("cpuuid", hmpPar.get(ProcessAttrs.strInfoKey_Cpuuid).toString());
 			lhpInfobase.put("cmdrundt", DatePro.disGetStrdate4NowObjSdf001());
+			lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Pro);
 			
 			hmpPar.put(ProcessAttrs.strParmapKey_Infobase, lhpInfobase);
 		} catch(Exception ex) {
@@ -474,6 +426,59 @@ login_name=wode,
 		return altDataAnsible;
 	}
 	
+	
+	private void disSaveInfo(String strFlgp){
+		String strFname = " disSaveInfo : ";
+		try {
+			if(strFlgp!=null && strFlgp.trim().length()>0
+					&& altRunc!=null && altRunc.size()>0){
+//				for(LinkedHashMap<String, String> mapRow : altRunc){
+//					System.out.println(mapRow);
+//				}
+				DbInfotablePro4Cmmd.disInfotablePro(disGetBusname());
+				DbInfoSavepro objDbInfoSavepro = new DbInfoSavepro(DbproAttrs.strDbflg_Cmd, disGetBusname());
+				if(DbInfoSaveAttrs.strSaveFlg_Cp.equals(strFlgp.trim())){
+					int intNum = objDbInfoSavepro.disSaveCpinfo(altRunc);
+					if(intNum==1){
+						logger.info(strCname + strFname + " Cp完整存储!");
+					} else {
+						logger.info(strCname + strFname + " Cp存储异常!");
+					}
+				}
+				if(DbInfoSaveAttrs.strSaveFlg_Run.equals(strFlgp.trim())){
+					int intNum = objDbInfoSavepro.disSaveRuninfo(altRunc);
+					if(intNum==altRunc.size()){
+						logger.info(strCname + strFname + " Run完整存储!");
+					} else {
+						logger.info(strCname + strFname + " Run存储异常!");
+					}
+				}
+
+			}
+		} catch(Exception ex) {
+			disOutputLog(strFname, ex);
+		}
+	}
+	private String disGetBusname(){
+		String strFname = " disGetBusname : ";
+		String strRe = "";
+		try {
+			String strPackage = this.getClass().getPackage().getName();
+			String[] subTmp = strPackage.split("\\.");
+			if(subTmp!=null && subTmp.length>1){
+				strPackage = subTmp[subTmp.length-1];
+			}
+			if(strPackage.indexOf(".")==-1){
+				strPackage = strPackage.toLowerCase();
+			}
+			strRe = strPackage;
+		} catch(Exception ex) {
+			strRe = "";
+			disOutputLog(strFname, ex);
+		}
+		return strRe;
+	}	
+
 	private ArrayList<LinkedHashMap<String, String>> disSetInfo(String strInfop
 			, LinkedHashMap<String, String> lhpInfop
 			, ArrayList<LinkedHashMap<String, String>> altRuncp
@@ -492,7 +497,7 @@ login_name=wode,
 		LinkedHashMap<String, String> lhpInfof = null;
 		String strInfo = strInfop;
 		lhpInfof = (LinkedHashMap<String, String>)lhpInfop.clone();
-		lhpInfof.put(ProcessAttrs.strInfoKey_Info, strInfo);
+		lhpInfof.put(ProcessAttrs.strInfoKey_Info, strInfo.replaceAll("'", "\""));
 		lhpInfof.put(ProcessAttrs.strInfoType_Info, strTypef);
 		lhpInfof.put(ProcessAttrs.strInfoFlg_Info, strFlgf);
 		lhpInfof.put(ProcessAttrs.strInfoSubflg_Info, strSubflgf);
@@ -500,7 +505,6 @@ login_name=wode,
 		altRuncp.add(lhpInfof);
 		return altRuncp;
 	}
-	
 	private void disOutputLog(String strFnamep, Exception exp){
 		String strInfo = "";
 		long lonFlg = System.currentTimeMillis();
@@ -514,7 +518,6 @@ login_name=wode,
 			altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_ETx + " --" + i);
 		}
 	}
-	
 	public void disSetPars(HashMap<String, Object> hmpParp){
 		String strFname = " disRuncmdPro : ";
 		this.hmpPar = hmpParp;

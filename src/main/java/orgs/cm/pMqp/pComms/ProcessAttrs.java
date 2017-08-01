@@ -23,6 +23,7 @@ public class ProcessAttrs {
 	public static final String strInfoFlgKey_Aft ="aft";
 	public static final String strInfoFlgKey_Bef ="bef";
 	public static final String strInfoFlgKey_Prep ="prep";
+	public static final String strInfoFlgKey_Pro ="pro";
 	
 	public static final String strInfoFlg_PRS = "point}}}runFlg}}}start";
 	public static final String strInfoFlg_PRE = "point}}}runFlg}}}end";
@@ -36,6 +37,7 @@ public class ProcessAttrs {
 	
 	
 	public static final String strInfoKey_Info ="info"; 
+	public static final String strInfoCType_Info ="ctype";
 	public static final String strInfoType_Info ="type"; //error? point? 
 	public static final String strInfoFlg_Info ="flg"; //attrInfo? runFlg? loopPoint? eTrace? exception?
 	public static final String strInfoSubflg_Info ="subflg"; //
