@@ -310,7 +310,7 @@ login_name=wode,
 						+ "_" + hmpAllInp.get("^req_type^").toString()
 						+ hmpAllInp.get("^req_subtype^").toString() );
 //							+ ".sh");
-				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, new ArrayList<String>());
+				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, "");
 				
 			} else {
 				hmpPar = null;

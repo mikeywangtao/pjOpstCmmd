@@ -93,13 +93,16 @@ public class RunAfter_C00_2 extends AbsRunAfter {
 			
 				DbInfotablePro4Cmmd.disInfotablePro(disGetBusname());
 				
-				((ArrayList<String>)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst)).add(strCname + strFname + " Run02after ok ----end ");
-				strInfo = strCname + strFname + " VM创建 After02 End----" + DatePro.disGetStrdate4NowObjSdf001();
+				String strRes = ((String)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst));
+				strRes = strRes +  "," + strCname + strFname+ " Run02after ok ----end " ;
+				hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, strRes);				strInfo = strCname + strFname + " VM创建 After02 End----" + DatePro.disGetStrdate4NowObjSdf001();
 				altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRE);
 //				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 			}
 		} catch(Exception ex) {
-			((ArrayList<String>)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst)).add(strCname + strFname + ex);
+			String strRes = ((String)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst));
+			strRes = strRes +  "," + strCname + strFname+ " Run02after Ex " + ex ;
+			hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, strRes);
 			disOutputLog(strFname, ex);
 		} finally{
 			disSaveInfo(DbInfoSaveAttrs.strSaveFlg_Run);

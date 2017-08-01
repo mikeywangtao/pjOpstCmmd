@@ -75,12 +75,16 @@ public class RunAfter_C00_1 extends AbsRunAfter {
 			
 				DbInfotablePro4Cmmd.disInfotablePro(disGetBusname());
 				
-				((ArrayList<String>)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst)).add(strCname + strFname + " Run01after ok ----end ");
-				strInfo = strCname + strFname + " VM创建 After01 End----" + DatePro.disGetStrdate4NowObjSdf001();
+				String strRes = ((String)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst));
+				strRes = strRes +  "," + strCname + strFname+ " Run01after ok ----end " ;
+				hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, strRes);				strInfo = strCname + strFname + " VM创建 After01 End----" + DatePro.disGetStrdate4NowObjSdf001();
 				altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRE);
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 			}
 		} catch(Exception ex) {
+			String strRes = ((String)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst));
+			strRes = strRes +  "," + strCname + strFname+ " Run01after Ex " + ex ;
+			hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, strRes);
 			((ArrayList<String>)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst)).add(strCname + strFname + ex);
 			disOutputLog(strFname, ex);
 		} finally{
