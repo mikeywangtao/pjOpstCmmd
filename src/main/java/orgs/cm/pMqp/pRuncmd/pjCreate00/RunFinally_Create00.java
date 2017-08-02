@@ -37,6 +37,8 @@ public class RunFinally_Create00 extends AbsRunFinally{
 		
 		String strMsgs = "";
 		String strCpids = "";
+		String strVmIp = "";
+		String strVmName = "";
 		String strFinallydt = DatePro.disGetStrdate4NowObjSdf001();
 		try {
 			lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
@@ -52,12 +54,15 @@ public class RunFinally_Create00 extends AbsRunFinally{
 				
 				strMsgs =  hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst).toString();
 				strCpids = hmpAll.get("cp_ids").toString();
-				
+				strVmIp = hmpAll.get("strVmIp").toString();
+				strVmName = hmpAll.get("strVmName").toString();
 				HashMap<String, String> mapReq = new HashMap<>();
 				mapReq.put("msgs", strMsgs);
 				mapReq.put("finallydt", strFinallydt);
 				mapReq.put("state", "ok");
 				mapReq.put("cpids", strCpids);
+				mapReq.put("vmname", strVmName);
+				mapReq.put("vmip", strVmIp);
 
 				String strSetImg = "";
 				strSetImg = JSON.toJSONString(mapReq);
@@ -75,13 +80,14 @@ public class RunFinally_Create00 extends AbsRunFinally{
 				altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRx + " Finally Ng ");
 				
 				strMsgs =  hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst).toString();
-				strCpids = hmpAll.get("cp_ids").toString();
 				
 				HashMap<String, String> mapReq = new HashMap<>();
 				mapReq.put("msgs", strMsgs);
 				mapReq.put("finallydt", strFinallydt);
 				mapReq.put("state", "ng");
-				mapReq.put("cpids", strCpids);
+				mapReq.put("cpids", "");
+				mapReq.put("vmname", "");
+				mapReq.put("vmip", "");
 				
 				String strSetImg = "";
 				strSetImg = JSON.toJSONString(mapReq);
