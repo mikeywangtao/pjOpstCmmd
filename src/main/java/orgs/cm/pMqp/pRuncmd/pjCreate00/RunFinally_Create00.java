@@ -39,6 +39,7 @@ public class RunFinally_Create00 extends AbsRunFinally{
 		String strCpids = "";
 		String strVmIp = "";
 		String strVmName = "";
+		String cutmids = "";
 		String strFinallydt = DatePro.disGetStrdate4NowObjSdf001();
 		try {
 			lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
@@ -56,6 +57,7 @@ public class RunFinally_Create00 extends AbsRunFinally{
 				strCpids = hmpAll.get("cp_ids").toString();
 				strVmIp = hmpAll.get("strVmIp").toString();
 				strVmName = hmpAll.get("strVmName").toString();
+				cutmids = hmpAll.get("^customerids^").toString();
 				HashMap<String, String> mapReq = new HashMap<>();
 				mapReq.put("msgs", strMsgs);
 				mapReq.put("finallydt", strFinallydt);
@@ -63,6 +65,7 @@ public class RunFinally_Create00 extends AbsRunFinally{
 				mapReq.put("cpids", strCpids);
 				mapReq.put("vmname", strVmName);
 				mapReq.put("vmip", strVmIp);
+				mapReq.put("cutmids", cutmids);
 
 				String strSetImg = "";
 				strSetImg = JSON.toJSONString(mapReq);
@@ -79,6 +82,7 @@ public class RunFinally_Create00 extends AbsRunFinally{
 				strInfo = strCname + strFname + " VM创建 Finally Ng----" + DatePro.disGetStrdate4NowObjSdf001();
 				altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRx + " Finally Ng ");
 				
+				cutmids = hmpAll.get("^customerids^").toString();
 				strMsgs =  hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst).toString();
 				
 				HashMap<String, String> mapReq = new HashMap<>();
@@ -88,6 +92,7 @@ public class RunFinally_Create00 extends AbsRunFinally{
 				mapReq.put("cpids", "");
 				mapReq.put("vmname", "");
 				mapReq.put("vmip", "");
+				mapReq.put("cutmids", cutmids);
 				
 				String strSetImg = "";
 				strSetImg = JSON.toJSONString(mapReq);

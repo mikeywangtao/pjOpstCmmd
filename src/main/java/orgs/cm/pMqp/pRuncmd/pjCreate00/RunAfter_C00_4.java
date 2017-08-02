@@ -80,6 +80,8 @@ public class RunAfter_C00_4 extends AbsRunAfter {
 						mapRes.put("strVmPassword", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^strVmPassword^").toString());
 						mapRes.put("strSshKey", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^strSshKey^").toString());
 						
+						hmpAll.put("strVmName", mapRes.get("strVmName"));
+						hmpAll.put("strVmIp", mapRes.get("strVmIp"));
 						hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "999");
 						strInfo = strCname + strFname + " VM创建 After04 ----mapRes---- " + mapRes.toString();
 						altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PAx + " mapRes Info ");
@@ -111,6 +113,8 @@ public class RunAfter_C00_4 extends AbsRunAfter {
 						
 
 					} else {
+						hmpAll.put("strVmName", "");
+						hmpAll.put("strVmIp", "");
 						hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "000");
 						strInfo = strCname + strFname + " VM创建 After04 ----mapRes false " + DatePro.disGetStrdate4NowObjSdf001();
 						altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_Elx + " mapRes false ");
