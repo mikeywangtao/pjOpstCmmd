@@ -57,7 +57,9 @@ public class RunAfter_C00_3 extends AbsRunAfter {
 				String strAnsidf = hmpAll.get("^ansid^")==null? null:hmpAll.get("^ansid^").toString();
 				if(strAnsidf!=null && strAnsidf.trim().length()>0){
 					ResFormatpro_3 objResFormatpro = new ResFormatpro_3(
-							(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd), strAnsidf);
+							hmpAll, 
+							(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd), 
+							strAnsidf);
 					String strFlg = objResFormatpro.disResCheck();
 					if(strFlg!=null && strFlg.trim().length()>0){
 						String[] subFlg = strFlg.split("}}}");

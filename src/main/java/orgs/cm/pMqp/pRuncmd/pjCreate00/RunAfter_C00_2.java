@@ -61,7 +61,7 @@ public class RunAfter_C00_2 extends AbsRunAfter {
 					if(strDevname!=null && strDevname.trim().length()>0){
 						ArrayList<LinkedHashMap<String, String>> altStd = 
 								(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd);
-						ResFormatpro_2 objResFormatpro_2 = new ResFormatpro_2(altStd, strDevname);
+						ResFormatpro_2 objResFormatpro_2 = new ResFormatpro_2(hmpAll, altStd, strDevname);
 						String strFlg = objResFormatpro_2.disGetFlg();
 						String[] subFlg = strFlg.split("}}}");
 						if(subFlg!=null && subFlg.length==2){
