@@ -109,6 +109,9 @@ public class RunFinally_Create00 extends AbsRunFinally{
 		} catch(Exception ex) {
 			disOutputLog(strFname, ex);
 		} finally{
+			String strRes = ((String)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst));
+			strRes = strRes +  "," + strCname + strFname+ " RunFinally ok ----end " ;
+			hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, strRes);
 			disSaveInfo(DbInfoSaveAttrs.strSaveFlg_Run);
 		}
 		return hmpAll;
