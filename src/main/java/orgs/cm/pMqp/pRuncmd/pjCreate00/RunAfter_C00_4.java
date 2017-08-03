@@ -99,7 +99,7 @@ public class RunAfter_C00_4 extends AbsRunAfter {
 						altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRx + " after RequestBody ");
 						hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 						HttpClientUtil objHttpClientUtil = new HttpClientUtil();
-						String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/vm/saveVmInfo", strSetImg);
+						String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/vm/saveVmInfo", strSetImg);
 						strInfo = strCname + strFname + " VM创建 After04 ----mapRes---- " + strSetImgres;
 						strInfo = strInfo.replaceAll("'", "\"");
 						altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRx + " mapRes ");

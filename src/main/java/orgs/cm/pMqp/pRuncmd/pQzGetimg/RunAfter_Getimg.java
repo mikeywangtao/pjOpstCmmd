@@ -64,7 +64,7 @@ public class RunAfter_Getimg extends AbsRunAfter {
 							altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
 							hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 							HttpClientUtil objHttpClientUtil = new HttpClientUtil();
-							String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/images/saveImages", strSetImg);
+							String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/images/saveImages", strSetImg);
 							Map<String, Object> mapResAnsible = JSON.parseObject(strSetImgres, HashMap.class);
 							strInfo = strCname + strFname + " 镜像 After respones----" + mapResAnsible;
 							logger.info(strInfo);

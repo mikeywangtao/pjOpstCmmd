@@ -139,7 +139,7 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 //			mapParKeystone.put("ansibleId", "1"); 
 			String strParKeystone = JSON.toJSONString(mapParKeystone);
 			HttpClientUtil objHttpClientUtil = new HttpClientUtil();
-			String strKeystone = objHttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/keystone/getKeystone", strParKeystone);
+			String strKeystone = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/keystone/getKeystone", strParKeystone);
 			
 			Map<String, Object> mapResKeystone = JSON.parseObject(strKeystone, HashMap.class);
 			if(mapResKeystone!=null && mapResKeystone.size()>0
@@ -190,7 +190,7 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 //			mapParAnsible.put("sshKey", "1"); 
 			String strParAnsible = JSON.toJSONString(mapParAnsible);
 			HttpClientUtil objHttpClientUtil = new HttpClientUtil();
-			String strAnsible = objHttpClientUtil.sendHttpPostJson("http://10.167.212.104:8080/pjOpStAuth/web/ansible/getAnsible", strParAnsible);
+			String strAnsible = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/ansible/getAnsible", strParAnsible);
 			
 			Map<String, Object> mapResAnsible = JSON.parseObject(strAnsible, HashMap.class);
 			if(mapResAnsible!=null && mapResAnsible.size()>0

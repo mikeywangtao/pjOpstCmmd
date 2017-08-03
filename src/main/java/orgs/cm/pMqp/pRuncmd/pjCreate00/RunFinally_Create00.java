@@ -73,7 +73,7 @@ public class RunFinally_Create00 extends AbsRunFinally{
 				strInfo = strCname + strFname + " VM创建 Finally Ok request----" + strSetImg;
 				altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PAx + " request ");
 				HttpClientUtil objHttpClientUtil = new HttpClientUtil();
-				String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://10.167.212.101:8000/vm/info/", strSetImg);
+				String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:8000/vm/info/", strSetImg);
 				strInfo = strCname + strFname + " VM创建 Finally ----mapRes---- " + strSetImgres;
 				
 			} else {
