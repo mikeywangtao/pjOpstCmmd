@@ -64,6 +64,8 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 			disSaveInfo(DbInfoSaveAttrs.strSaveFlg_Cp);
 
 			List<HashMap> altDataAnsible = disGetAnsible();
+			strInfo = strCname + strFname + "000 altDataAnsible----" + altDataAnsible;
+			altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PAx+" altDataAnsible ");
 			if(altDataAnsible!=null && altDataAnsible.size()==1){
 				HashMap map = altDataAnsible.get(0);
 				
