@@ -25,6 +25,9 @@ public class ProcessAttrs {
 	public static final String strInfoFlgKey_Prep ="prep";
 	public static final String strInfoFlgKey_Pro ="pro";
 	public static final String strInfoFlgKey_Finly ="finly";
+	public static final String strInfoFlgKey_OAnsi ="OAnsi";
+	public static final String strInfoFlgKey_OKst ="OKst";
+	public static final String strInfoFlgKey_OSaveruninfo ="OSrinfo";
 	
 	public static final String strInfoFlg_PRS = "point}}}runFlg}}}start";
 	public static final String strInfoFlg_PRE = "point}}}runFlg}}}end";

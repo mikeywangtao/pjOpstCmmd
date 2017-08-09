@@ -42,6 +42,7 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 //				for(HashMap map : altDataAnsible){
 					HashMap map = altDataAnsible.get(0);
 					disSetParinfos(map);
+					
 					objPrepare = new RunPrepare_Getimg();
 					objPrepare.disSetAll(hmpPar);
 					super.disRunPrepare(objPrepare);

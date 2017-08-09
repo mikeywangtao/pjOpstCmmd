@@ -2,24 +2,18 @@ package orgs.cm.pMqp.pRuncmd.pjCreate00;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.alibaba.fastjson.JSON;
-
+import orgs.cm.pMqp.pComms.ClsBaseAttrs;
 import orgs.cm.pMqp.pComms.DatePro;
 import orgs.cm.pMqp.pComms.IdsPro;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
 import orgs.cm.pMqp.pDbpro.DbInfoSaveAttrs;
-import orgs.cm.pMqp.pDbpro.DbInfoSavepro;
-import orgs.cm.pMqp.pDbpro.DbInfotablePro4Cmmd;
-import orgs.cm.pMqp.pDbpro.DbproAttrs;
-import orgs.cm.pMqp.pHttpc.HttpClientUtil;
+import orgs.cm.pMqp.pDbpro.SaveInfoPro;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunAfter;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunBefore;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunCmd;
@@ -37,8 +31,11 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 	private final Logger logger = LogManager.getLogger(strCname);
 	
 	private HashMap<String, Object> hmpPar = new HashMap<>();
-	private LinkedHashMap<String, String> lhpInfobase = new LinkedHashMap<String, String>();
-	private ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();	
+//	private OutputLogPro objOutputLogPro = new OutputLogPro(strCname);
+//	private SetInfoPro objSetInfoPro = new SetInfoPro(strCname);
+//	private LinkedHashMap<String, String> lhpInfobase = new LinkedHashMap<String, String>();
+//	private ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();	
+	private ClsBaseAttrs objBa = null;
 	
 	public void run(){
 		disRuncmdPro();
@@ -53,24 +50,35 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 		AbsRunCmd objCmd = null;
 		AbsRunAfter objAfter = null;
 		
+		SaveInfoPro objSaveInfoPro = null;
+		
 		try {
+			objBa = new ClsBaseAttrs(strCname);
 			disSetParinfos();
 			disSetInfobase();
 			
+			
+			/* 过程信息存储 */
+			objSaveInfoPro = new SaveInfoPro(strCname, objBa);
+			
 			strInfo = strCname + strFname + " Start!" ;
-			altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRS);
+			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
 			strInfo = strCname + strFname + "000 Input----" + hmpPar.toString();
-			altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PAx+" input map par ");
-			disSaveInfo(DbInfoSaveAttrs.strSaveFlg_Cp);
-
-			List<HashMap> altDataAnsible = disGetAnsible();
+			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PAx+" input map par ");
+			objSaveInfoPro.disSaveInfo_Cp(DbInfoSaveAttrs.strSaveFlg_Cp);
+			List<HashMap> altDataAnsible = new ArrayList<>();
+//			AnsiblePro objAnsiblePro = new AnsiblePro(this.strCname, hmpPar);
+//			List<HashMap> altDataAnsible = objAnsiblePro.disGetAnsible();
+//			List<HashMap> altDataAnsible = disGetAnsible();
 			strInfo = strCname + strFname + "000 altDataAnsible----" + altDataAnsible;
-			altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PAx+" altDataAnsible ");
-			if(altDataAnsible!=null && altDataAnsible.size()==1){
-				HashMap map = altDataAnsible.get(0);
+			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PAx+" altDataAnsible ");
+			if(hmpPar!=null 
+					&& objBa!=null){
+//				HashMap map = altDataAnsible.get(0);
 				
 				objPrepare = new RunPrepare_Create00();
-				objPrepare.disSetAll(hmpPar);
+				objPrepare.disSetHmpall(hmpPar);
+				objPrepare.disSetClsBaseAttrs(objBa);
 				super.disRunPrepare(objPrepare);
 				
 				if(hmpPar.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg) 
@@ -79,10 +87,11 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 					strInfo = strCname + strFname + 
 							ProcessAttrs.strParmapKey_Ppa_NowRunflg + ":" + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg) +
 							" run cmmd 1 " + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg);
-					altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRx+" run cmmd 1 ");
+					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx+" run cmmd 1 ");
 					
 					objBefore = new RunBefore_C00_1();
-					objBefore.disSetAll(hmpPar);
+					objBefore.disSetHmpall(hmpPar);
+					objBefore.disSetClsBaseAttrs(objBa);
 					super.disRunBefre(objBefore);
 					objBefore = null;
 					
@@ -103,12 +112,13 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 					strInfo = strCname + strFname + 
 							ProcessAttrs.strParmapKey_Ppa_NowRunflg + ":" + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg) +
 							" run cmmd 2 " + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg);
-					altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRx+" run cmmd 2 ");
+					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx+" run cmmd 2 ");
 					
 					String strRunlopp = null;
 					do {
 						objBefore = new RunBefore_C00_2();
-						objBefore.disSetAll(hmpPar);
+						objBefore.disSetHmpall(hmpPar);
+						objBefore.disSetClsBaseAttrs(objBa);
 						super.disRunBefre(objBefore);
 						objBefore = null;
 						
@@ -126,7 +136,7 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 						strInfo = strCname + strFname + 
 								ProcessAttrs.strParmapKey_Ppa_NowRunflg + ":" + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg) +
 								" loop (do while) : strRunlopp ----" + strRunlopp;
-						altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PLx+" loop (do while) ");
+						objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PLx+" loop (do while) ");
 					} while("t".equals(strRunlopp));
 
 				}
@@ -137,10 +147,11 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 					strInfo = strCname + strFname + 
 							ProcessAttrs.strParmapKey_Ppa_NowRunflg + ":" + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg) +
 							" run cmmd 3 " + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg);
-					altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRx+" run cmmd 3 ");
+					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx+" run cmmd 3 ");
 					
 					objBefore = new RunBefore_C00_3();
-					objBefore.disSetAll(hmpPar);
+					objBefore.disSetHmpall(hmpPar);
+					objBefore.disSetClsBaseAttrs(objBa);
 					super.disRunBefre(objBefore);
 					objBefore = null;
 					
@@ -161,11 +172,13 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 					strInfo = strCname + strFname + 
 							ProcessAttrs.strParmapKey_Ppa_NowRunflg + ":" + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg) +
 							" run cmmd 4 " + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg);
-					altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRx+" run cmmd 4 ");
+					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx+" run cmmd 4 ");
 					
 //					Thread.sleep(5000);
 					objBefore = new RunBefore_C00_4();
-					objBefore.disSetAll(hmpPar);
+//					objBefore.disSetAll(hmpPar);
+					objBefore.disSetHmpall(hmpPar);
+					objBefore.disSetClsBaseAttrs(objBa);
 					super.disRunBefre(objBefore);
 					objBefore = null;
 					
@@ -183,15 +196,23 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 				throw new Exception("hmpPar Error ! is null or is empty!");
 			}
 			strInfo = strCname + strFname + "999 End!" ;
-			altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRE);
+			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 			
 		} catch(Exception ex) {
-			disOutputLog(strFname, ex);
+			objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
 		} finally {
-			AbsRunFinally objRunFinally = new RunFinally_Create00();
-			objRunFinally.disSetAll(hmpPar);
-			objRunFinally.disRunFinally();
-			disSaveInfo(DbInfoSaveAttrs.strSaveFlg_Run);
+			if(objBa!=null && objSaveInfoPro!=null){
+				AbsRunFinally objRunFinally = new RunFinally_Create00();
+				objRunFinally.disSetHmpall(hmpPar);
+				objRunFinally.disSetClsBaseAttrs(objBa);
+				objRunFinally.disRunFinally();
+				objSaveInfoPro.disSaveInfo_Cp(DbInfoSaveAttrs.strSaveFlg_Run);
+			}
+//			AbsRunFinally objRunFinally = new RunFinally_Create00();
+//			objRunFinally.disSetHmpall(hmpPar);
+//			objRunFinally.disSetClsBaseAttrs(objBa);
+//			objRunFinally.disRunFinally();
+//			objSaveInfoPro.disSaveInfo_Cp(DbInfoSaveAttrs.strSaveFlg_Run);
 		}
 	}
 
@@ -204,23 +225,24 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 		String strFname = " disSetInfobase : ";
 		
 		try {
-			lhpInfobase.put("cp_ids",IdsPro.disGetIds()); //DatePro.disGetStrdate4NowObjSdf001());
-			lhpInfobase.put("cpcls", strCname);
-			lhpInfobase.put("customer", hmpPar.get("^customerids^").toString());
-			lhpInfobase.put("ansible_ids", hmpPar.get("^ansid^").toString());
-			lhpInfobase.put("ansible_info", hmpPar.get("^anscmmd^").toString());
-			lhpInfobase.put("cmd_tpye", hmpPar.get("^req_type^").toString());
-			lhpInfobase.put("cmd_subtype", hmpPar.get("^req_subtype^").toString());
-			lhpInfobase.put("cmd_request", hmpPar.get(ProcessAttrs.strParmapKey_Inpars).toString());
-			lhpInfobase.put("cmd_inputdt", DatePro.disGetStrdate4NowObjSdf001());
-			lhpInfobase.put("cpuuid", hmpPar.get(ProcessAttrs.strInfoKey_Cpuuid).toString());
-			lhpInfobase.put("cmdrundt", DatePro.disGetStrdate4NowObjSdf001());
-			lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Pro);
+//			objBa.lhpInfobase = new LinkedHashMap<>();
+			objBa.lhpInfobase.put("cp_ids",IdsPro.disGetIds()); //DatePro.disGetStrdate4NowObjSdf001());
+			objBa.lhpInfobase.put("cpcls", strCname);
+			objBa.lhpInfobase.put("customer", hmpPar.get("^customerids^").toString());
+			objBa.lhpInfobase.put("ansible_ids", hmpPar.get("^ansid^").toString());
+			objBa.lhpInfobase.put("ansible_info", hmpPar.get("^anscmmd^").toString());
+			objBa.lhpInfobase.put("cmd_tpye", hmpPar.get("^req_type^").toString());
+			objBa.lhpInfobase.put("cmd_subtype", hmpPar.get("^req_subtype^").toString());
+			objBa.lhpInfobase.put("cmd_request", hmpPar.get(ProcessAttrs.strParmapKey_Inpars).toString());
+			objBa.lhpInfobase.put("cmd_inputdt", DatePro.disGetStrdate4NowObjSdf001());
+			objBa.lhpInfobase.put("cpuuid", hmpPar.get(ProcessAttrs.strInfoKey_Cpuuid).toString());
+			objBa.lhpInfobase.put("cmdrundt", DatePro.disGetStrdate4NowObjSdf001());
+			objBa.lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Pro);
 			
-			hmpPar.put(ProcessAttrs.strParmapKey_Infobase, lhpInfobase);
-			hmpPar.put("cp_ids",lhpInfobase.get("cp_ids"));
+			hmpPar.put(ProcessAttrs.strParmapKey_Infobase, objBa.lhpInfobase);
+			hmpPar.put("cp_ids",objBa.lhpInfobase.get("cp_ids"));
 		} catch(Exception ex) {
-			disOutputLog(strFname, ex);
+			objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
 		}
 	}
 	
@@ -229,11 +251,13 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 	 * */
 	private void disSetParinfos(){
 		String strFname = " disSetPars : ";
+		List<HashMap> altDataKeystone = new ArrayList<>();
 		try {
+//			List<HashMap> altDataKeystone = disGetKeustone();	
+//			KeystonePro objKeystonePro = new KeystonePro(this.strCname, hmpPar);
+//			altDataKeystone = objKeystonePro.disGetKeustone();
 			
-			List<HashMap> altDataKeystone = disGetKeustone();
-			
-			if(altDataKeystone!=null && altDataKeystone.size()>0){
+			if(altDataKeystone!=null){
 /*
 {^pname^=admin, 
 ^ansid^=1, 
@@ -318,215 +342,10 @@ login_name=wode,
 				hmpPar = null;
 			}
 		} catch(Exception ex) {
-			
+			objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
 		}
 	}
 	
-	private List<HashMap> disGetKeustone(){
-		String strFname = "";
-		List<HashMap> altDataKeystone = null;
-		try {
-			
-			Map<String, Object> mapParKeystone = new HashMap<>(); 
-//			mapParKeystone.put("ksId", "1"); 
-//			mapParKeystone.put("dom", "1"); 
-//			mapParKeystone.put("project", "1"); 
-//			mapParKeystone.put("ideenity", "1"); 
-//			mapParKeystone.put("imgapiv", "1"); 
-//			mapParKeystone.put("ansibleId", "1"); 
-			String strParKeystone = JSON.toJSONString(mapParKeystone);
-			HttpClientUtil objHttpClientUtil = new HttpClientUtil();
-			String strKeystone = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/keystone/getKeystone", strParKeystone);
-			
-			Map<String, Object> mapResKeystone = JSON.parseObject(strKeystone, HashMap.class);
-			if(mapResKeystone!=null && mapResKeystone.size()>0
-					&& mapResKeystone.containsKey("msg") && mapResKeystone.get("msg")!=null
-					&& mapResKeystone.containsKey("data") && mapResKeystone.get("data")!=null){
-				String strMsg = mapResKeystone.get("msg")==null?null:mapResKeystone.get("msg").toString();
-				if("ok".equals(strMsg)){
-					String strDataKeystone = mapResKeystone.get("data").toString();
-					if(strDataKeystone!=null && strDataKeystone.trim().length()>0){
-						altDataKeystone = JSON.parseArray(strDataKeystone, HashMap.class);
-//						Object[] subKey = altDataKeystone.get(0).keySet().toArray();
-//						if(subKey!=null && subKey.length>0){
-//							for(HashMap map : altDataKeystone){
-//								System.out.print("Keystone ----");
-//								for(Object objkey : subKey){
-//									String strVal = map.get(objkey)==null? "":map.get(objkey).toString();
-//									System.out.print(objkey + ":" + strVal + ", ");
-//									/*
-//									 * strPDom
-//									 * strUDom
-//									 * strProject
-//									 * strUserName
-//									 * strPassword
-//									 * strAuthUrl
-//									 * strIdeenity
-//									 * strImgapiv
-//									 * **intAnsibleId
-//									 */
-//								}
-//								System.out.println("");
-//							}
-//						}
-					}
-				}
-			}
-		} catch(Exception ex) {
-			
-		}
-		return altDataKeystone;
-	}
-	
-	private List<HashMap> disGetAnsible(){
-		String strFname = " disGetAnsible : ";
-		List<HashMap> altDataAnsible = null;
-		String strAnsids = null;
-		try {
-			if(hmpPar!=null
-					&& hmpPar.containsKey("^ansid^") 
-					&& hmpPar.get("^ansid^")!=null){
-				strAnsids = hmpPar.get("^ansid^").toString();
-			}
-			if(strAnsids!=null && strAnsids.trim().length()>0){
-				Map<String, Object> mapParAnsible = new HashMap<>(); 
-				mapParAnsible.put("intId", strAnsids); 
-//				mapParAnsible.put("ip", "1"); 
-//				mapParAnsible.put("sshKey", "1"); 
-				String strParAnsible = JSON.toJSONString(mapParAnsible);
-				HttpClientUtil objHttpClientUtil = new HttpClientUtil();
-				String strAnsible = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/ansible/getAnsible", strParAnsible);
-				
-				Map<String, Object> mapResAnsible = JSON.parseObject(strAnsible, HashMap.class);
-				if(mapResAnsible!=null && mapResAnsible.size()>0
-						&& mapResAnsible.containsKey("msg") && mapResAnsible.get("msg")!=null
-						&& mapResAnsible.containsKey("data") && mapResAnsible.get("data")!=null){
-					String strMsg = mapResAnsible.get("msg")==null?null:mapResAnsible.get("msg").toString();
-					if("ok".equals(strMsg)){
-						String strDataAnsible = mapResAnsible.get("data").toString();
-						if(strDataAnsible!=null && strDataAnsible.trim().length()>0){
-							altDataAnsible = JSON.parseArray(strDataAnsible, HashMap.class);
-							Object[] subKey = altDataAnsible.get(0).keySet().toArray();
-//							if(subKey!=null && subKey.length>0){
-//								for(HashMap map : altDataAnsible){
-//									System.out.print("Ansible ----");
-//									for(Object objkey : subKey){
-//										String strVal = map.get(objkey)==null? "":map.get(objkey).toString();
-//										System.out.print(objkey + ":" + strVal + ", ");
-//										/*
-//										 intId
-//										 strName
-//										 strIp
-//										 strLoginName
-//										 strPassword
-//										 strSshKey
-//										 */
-//									}
-//									System.out.println("");
-//								}
-//							}
-						}
-					}
-				}
-			}
-		} catch(Exception ex) {
-			
-		}
-		return altDataAnsible;
-	}
-	
-	
-	private void disSaveInfo(String strFlgp){
-		String strFname = " disSaveInfo : ";
-		try {
-			if(strFlgp!=null && strFlgp.trim().length()>0
-					&& altRunc!=null && altRunc.size()>0){
-//				for(LinkedHashMap<String, String> mapRow : altRunc){
-//					System.out.println(mapRow);
-//				}
-				DbInfotablePro4Cmmd.disInfotablePro(disGetBusname());
-				DbInfoSavepro objDbInfoSavepro = new DbInfoSavepro(DbproAttrs.strDbflg_Cmd, disGetBusname());
-				if(DbInfoSaveAttrs.strSaveFlg_Cp.equals(strFlgp.trim())){
-					int intNum = objDbInfoSavepro.disSaveCpinfo(altRunc);
-					if(intNum==1){
-						logger.info(strCname + strFname + " Cp完整存储!");
-					} else {
-						logger.info(strCname + strFname + " Cp存储异常!");
-					}
-				}
-				if(DbInfoSaveAttrs.strSaveFlg_Run.equals(strFlgp.trim())){
-					int intNum = objDbInfoSavepro.disSaveRuninfo(altRunc);
-					if(intNum==altRunc.size()){
-						logger.info(strCname + strFname + " Run完整存储!");
-					} else {
-						logger.info(strCname + strFname + " Run存储异常!");
-					}
-				}
-
-			}
-		} catch(Exception ex) {
-			disOutputLog(strFname, ex);
-		}
-	}
-	private String disGetBusname(){
-		String strFname = " disGetBusname : ";
-		String strRe = "";
-		try {
-			String strPackage = this.getClass().getPackage().getName();
-			String[] subTmp = strPackage.split("\\.");
-			if(subTmp!=null && subTmp.length>1){
-				strPackage = subTmp[subTmp.length-1];
-			}
-			if(strPackage.indexOf(".")==-1){
-				strPackage = strPackage.toLowerCase();
-			}
-			strRe = strPackage;
-		} catch(Exception ex) {
-			strRe = "";
-			disOutputLog(strFname, ex);
-		}
-		return strRe;
-	}	
-
-	private ArrayList<LinkedHashMap<String, String>> disSetInfo(String strInfop
-			, LinkedHashMap<String, String> lhpInfop
-			, ArrayList<LinkedHashMap<String, String>> altRuncp
-			, String strInfoTypepFlgp){
-		String strTypef = "";
-		String strFlgf = "";
-		String strSubflgf = "";
-		if(strInfoTypepFlgp!=null && strInfoTypepFlgp.trim().length()>0){
-			String[] subTypeFlg = strInfoTypepFlgp.split("}}}", -1);
-			if(subTypeFlg!=null && subTypeFlg.length>=2){
-				strTypef = subTypeFlg[0].trim();
-				strFlgf = subTypeFlg[1].trim();
-				strSubflgf = subTypeFlg[2].trim();
-			}
-		}
-		LinkedHashMap<String, String> lhpInfof = null;
-		String strInfo = strInfop;
-		lhpInfof = (LinkedHashMap<String, String>)lhpInfop.clone();
-		lhpInfof.put(ProcessAttrs.strInfoKey_Info, strInfo.replaceAll("'", "\""));
-		lhpInfof.put(ProcessAttrs.strInfoType_Info, strTypef);
-		lhpInfof.put(ProcessAttrs.strInfoFlg_Info, strFlgf);
-		lhpInfof.put(ProcessAttrs.strInfoSubflg_Info, strSubflgf);
-		lhpInfof.put(ProcessAttrs.strInfoKey_Rundt, DatePro.disGetStrdate4NowObjSdf001());
-		altRuncp.add(lhpInfof);
-		return altRuncp;
-	}
-	private void disOutputLog(String strFnamep, Exception exp){
-		String strInfo = "";
-		long lonFlg = System.currentTimeMillis();
-		logger.error(strCname + strFnamep + exp + "||" + lonFlg);
-		strInfo = strCname + strFnamep + exp + "||" + lonFlg ;
-		altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_EEx + " P00000");
-		StackTraceElement[] subSte = exp.getStackTrace();
-		for(int i=0; i<subSte.length; i++){
-			logger.error(subSte[i].getClassName() + subSte[i].getMethodName() + ":" + subSte[i].getLineNumber() + "||" + lonFlg );
-			strInfo = subSte[i].getClassName() + subSte[i].getMethodName() + ":" + subSte[i].getLineNumber() + "||" + lonFlg ;
-			altRunc = disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_ETx + " --" + i);
-		}
-	}
 	public void disSetPars(HashMap<String, Object> hmpParp){
 		String strFname = " disRuncmdPro : ";
 		this.hmpPar = hmpParp;
