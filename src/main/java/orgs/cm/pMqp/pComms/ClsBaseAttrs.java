@@ -25,7 +25,7 @@ public class ClsBaseAttrs {
 //		objSaveInfoPro = new SaveInfoPro(strCnamep);
 		objOutputLogPro = new OutputLogPro(strCnamep);
 		objSetInfoPro = new SetInfoPro(strCnamep);
-		disClear_lhpInfobase();
+//		disClear_lhpInfobase();
 		disClear_altRunc();
 	}
 	

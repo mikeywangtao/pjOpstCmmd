@@ -58,7 +58,7 @@ public class RunCmd_C00_2 extends AbsRunCmd {
 	}
 	public void disSetClsBaseAttrs(ClsBaseAttrs objBap){
 		objBa = objBap;
-		objBa.disClear_lhpInfobase();
+//		objBa.disClear_lhpInfobase();
 		objBa.disClear_altRunc();
 	}
 	private void disRuncmd(){

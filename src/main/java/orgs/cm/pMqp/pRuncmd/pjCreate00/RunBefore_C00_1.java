@@ -38,7 +38,7 @@ public class RunBefore_C00_1 extends AbsRunBefore {
 	}
 	public void disSetClsBaseAttrs(ClsBaseAttrs objBap){
 		objBa = objBap;
-		objBa.disClear_lhpInfobase();
+//		objBa.disClear_lhpInfobase();
 		objBa.disClear_altRunc();
 	}
 	@Override
