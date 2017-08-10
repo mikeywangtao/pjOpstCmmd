@@ -34,6 +34,8 @@ public class RunFinally_Create00 extends AbsRunFinally{
 	}
 	public void disSetClsBaseAttrs(ClsBaseAttrs objBap){
 		objBa = objBap;
+		objBa.disClear_lhpInfobase();
+		objBa.disClear_altRunc();
 	}
 	
 	public HashMap<String, Object> disRunFinally() {

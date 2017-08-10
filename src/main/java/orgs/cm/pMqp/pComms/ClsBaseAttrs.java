@@ -25,5 +25,22 @@ public class ClsBaseAttrs {
 //		objSaveInfoPro = new SaveInfoPro(strCnamep);
 		objOutputLogPro = new OutputLogPro(strCnamep);
 		objSetInfoPro = new SetInfoPro(strCnamep);
+		disClear_lhpInfobase();
+		disClear_altRunc();
+	}
+	
+	public void disClear_altRunc(){
+		if(altRunc!=null){
+			altRunc.clear();
+		} else {
+			altRunc = new ArrayList<LinkedHashMap<String, String>>(); 
+		}
+	}
+	public void disClear_lhpInfobase(){
+		if(lhpInfobase!=null){
+			lhpInfobase.clear();
+		} else {
+			lhpInfobase = new LinkedHashMap<>();
+		}
 	}
 }

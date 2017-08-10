@@ -40,6 +40,8 @@ public class RunPrepare_Create00 extends AbsRunPrepare {
 	}
 	public void disSetClsBaseAttrs(ClsBaseAttrs objBap){
 		objBa = objBap;
+		objBa.disClear_lhpInfobase();
+		objBa.disClear_altRunc();
 	}
 	@Override
 	public HashMap<String, Object> disRunPrepare() {

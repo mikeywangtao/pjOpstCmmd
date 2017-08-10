@@ -96,7 +96,8 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 					objBefore = null;
 					
 					objCmd = new RunCmd_C00_1();
-					objCmd.disSetAll(hmpPar);
+					objCmd.disSetHmpall(hmpPar);
+					objCmd.disSetClsBaseAttrs(objBa);
 					super.disRunCmd(objCmd);
 					objCmd = null;
 					
@@ -123,7 +124,8 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 						objBefore = null;
 						
 						objCmd = new RunCmd_C00_2();
-						objCmd.disSetAll(hmpPar);
+						objCmd.disSetHmpall(hmpPar);
+						objCmd.disSetClsBaseAttrs(objBa);
 						super.disRunCmd(objCmd);
 						objCmd = null;
 						
@@ -156,7 +158,8 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 					objBefore = null;
 					
 					objCmd = new RunCmd_C00_3();
-					objCmd.disSetAll(hmpPar);
+					objCmd.disSetHmpall(hmpPar);
+					objCmd.disSetClsBaseAttrs(objBa);
 					super.disRunCmd(objCmd);
 					objCmd = null;
 					
@@ -183,7 +186,8 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 					objBefore = null;
 					
 					objCmd = new RunCmd_C00_4();
-					objCmd.disSetAll(hmpPar);
+					objCmd.disSetHmpall(hmpPar);
+					objCmd.disSetClsBaseAttrs(objBa);
 					super.disRunCmd(objCmd);
 					objCmd = null;
 					
