@@ -206,7 +206,9 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 			
 		} catch(Exception ex) {
-			objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
 		} finally {
 			if(objBa!=null && objSaveInfoPro!=null){
 				AbsRunFinally objRunFinally = new RunFinally_Create00();

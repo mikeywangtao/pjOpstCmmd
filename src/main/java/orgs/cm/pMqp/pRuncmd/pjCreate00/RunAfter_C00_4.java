@@ -157,7 +157,9 @@ public class RunAfter_C00_4 extends AbsRunAfter {
 			String strRes = ((String)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst));
 			strRes = strRes +  "," + strCname + strFname+ " Run04after Ex " + ex ;
 			hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, strRes);
-			objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);//disOutputLog(strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
 		} finally{
 			if(objSaveInfoPro!=null){
 				objSaveInfoPro.disSaveInfo_Run(DbInfoSaveAttrs.strSaveFlg_Run);

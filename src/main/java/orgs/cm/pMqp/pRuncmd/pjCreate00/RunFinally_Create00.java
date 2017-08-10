@@ -120,7 +120,9 @@ public class RunFinally_Create00 extends AbsRunFinally{
 			strInfo = strCname + strFname + " VM创建 Finally End----" + DatePro.disGetStrdate4NowObjSdf001();
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 		} catch(Exception ex) {
-			objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);//disOutputLog(strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
 		} finally{
 			String strRes = ((String)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst));
 			strRes = strRes +  "," + strCname + strFname+ " RunFinally ok ----end " ;

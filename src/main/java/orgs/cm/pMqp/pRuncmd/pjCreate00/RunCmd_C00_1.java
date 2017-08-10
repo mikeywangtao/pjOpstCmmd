@@ -284,7 +284,9 @@ public class RunCmd_C00_1 extends AbsRunCmd {
 //				System.out.println(hmpAll);
 			}
 		} catch(Exception ex) {
-			objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);//disOutputLog(strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
 		}  finally{
 			process = null;
 			if(objSaveInfoPro!=null){

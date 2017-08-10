@@ -9,9 +9,12 @@ import java.util.LinkedHashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import orgs.cm.pMqp.pComms.ClsBaseAttrs;
 import orgs.cm.pMqp.pComms.CmdStreamGobbler;
 import orgs.cm.pMqp.pComms.DatePro;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
+import orgs.cm.pMqp.pDbpro.DbInfoSaveAttrs;
+import orgs.cm.pMqp.pDbpro.SaveInfoPro;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunCmd;
 
 public class RunCmd_Getimg extends AbsRunCmd {
@@ -19,6 +22,8 @@ public class RunCmd_Getimg extends AbsRunCmd {
 	
 	private final String strCname = RunCmd_Getimg.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
+	
+	private ClsBaseAttrs objBa = null; 
 	
 	public void setRuncres(String strflgp, ArrayList<LinkedHashMap<String, String>> altRunc){
 		if(strflgp!=null && strflgp.trim().length()>0){
@@ -38,9 +43,17 @@ public class RunCmd_Getimg extends AbsRunCmd {
 		disRuncmd();
 		return hmpAll;
 	}
-	public void disSetAll(HashMap<String, Object> hmpAllp){
-		this.hmpAll = hmpAllp;
+	public void disSetHmpall(HashMap<String, Object> hmpAllp){
+		hmpAll = hmpAllp;
 	}
+	public void disSetClsBaseAttrs(ClsBaseAttrs objBap){
+		objBa = objBap;
+//		objBa.disClear_lhpInfobase();
+		objBa.disClear_altRunc();
+	}
+//	public void disSetAll(HashMap<String, Object> hmpAllp){
+//		this.hmpAll = hmpAllp;
+//	}
 	private void disRuncmd(){
 		String strFname = " disRuncmd : ";
 		long lonBasrDt = new Date().getTime();
@@ -50,14 +63,24 @@ public class RunCmd_Getimg extends AbsRunCmd {
 		String strInfo = "";
 		String strstrCpuuid = null;
 		
-		LinkedHashMap<String, String> lhpInfo = new LinkedHashMap<String, String>();
-		ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();		
+		SaveInfoPro objSaveInfoPro = null;
+		
+//		LinkedHashMap<String, String> lhpInfo = new LinkedHashMap<String, String>();
+//		ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();		
 		try {
+			if(objBa==null || hmpAll==null){
+				return ;
+			}
+			objSaveInfoPro = new SaveInfoPro(strCname, objBa);
+			
 			logger.info(strCname + strFname + "  Start!");
+			strInfo = strCname + strFname + " 查看镜像 Runcmd01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
+			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS );
+			
 			hmpAll.put(ProcessAttrs.strParmapKey_Runlst, null);
 			hmpAll.put(ProcessAttrs.strInfoFlgKey_Reserr, null);
 			hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstd, null);
-			lhpInfo.put(ProcessAttrs.strInfoType_Info, ProcessAttrs.strInfoFlgKey_Runc);
+			objBa.lhpInfobase.put(ProcessAttrs.strInfoType_Info, ProcessAttrs.strInfoFlgKey_Runc);
 
 			if(hmpAll!=null 
 					&& hmpAll.containsKey(ProcessAttrs.strInfoKey_Cpuuid)
@@ -67,7 +90,7 @@ public class RunCmd_Getimg extends AbsRunCmd {
 			}
 			if(strstrCpuuid==null || (strstrCpuuid!=null && strstrCpuuid.trim().length()==0)){
 				strInfo = strCname + strFname + " CpUuid 异常!" ;
-				altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
+				objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 				return;
 			}
 			if(hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_ShFilecflg)
@@ -75,7 +98,7 @@ public class RunCmd_Getimg extends AbsRunCmd {
 					&& !("t".equals(hmpAll.get(ProcessAttrs.strParmapKey_Ppa_ShFilecflg).toString()))
 					){
 				strInfo = strCname + strFname + " Shell File create 失败!" ;
-				altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
+				objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 				return;
 			}
 			String strFileroot = null;
@@ -102,7 +125,7 @@ public class RunCmd_Getimg extends AbsRunCmd {
 				StrCommand = StrCommand.replaceAll("\\^shell_allpath\\^", strFileroot+strFilename);
 			} else {
 				strInfo = strCname + strFname + " Shell cmmd 构建失败!" ;
-				altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
+				objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 				return;
 			}
 			/* ------------------------------------------------------------------------------- */
@@ -127,9 +150,9 @@ STD line: } */
 			StrCommand = StrCommand.replaceAll(",", "");
 			SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
 			strInfo = strCname + strFname + " 查看镜像 Start----" + DatePro.disGetStrdate4NowObjSdf001();
-			altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
+			objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 			strInfo = strCname + strFname + " 查看镜像 Cmmd----" + StrCommand;
-			altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
+			objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 			logger.info(strInfo);
 			logger.info(strInfo);
 			
@@ -153,31 +176,31 @@ STD line: } */
 						Thread.sleep(1010);
 						if(super.strThrflg.equals("ERR")){
 							strInfo = strCname + strFname + " ERR 正常完成！";
-							altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
+							objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 							errorGobbler = null;
 							super.strThrflg = "";
 						} 
 						if(super.strThrflg.equals("STD")){
 							strInfo = strCname + strFname + " SDT 正常完成！";
-							altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
+							objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 							outputGobbler = null;
 							super.strThrflg = "";
 						}
 						if(outputGobbler==null && errorGobbler==null){
 							strInfo = strCname + strFname + " ER SDT 监听完成！";
-							altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
+							objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 							super.strThrflg = null;
 						}
 					} else {
 						if(outputGobbler!=null){
 							strInfo = strCname + strFname + " SDT 超时！";
-							altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
+							objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 //							outputGobbler.setStop();
 							outputGobbler = null;
 						}
 						if(errorGobbler!=null){
 							strInfo = strCname + strFname + " ERR 超时！";
-							altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
+							objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 //							errorGobbler.setStop();
 							errorGobbler = null;
 						}
@@ -185,18 +208,23 @@ STD line: } */
 					}
 				}
 				super.strThrflg = null;
-				strInfo = strCname + strFname + " 查看镜像 End----" + DatePro.disGetStrdate4NowObjSdf001();
-				altRunc = disSetInfo(strInfo, lhpInfo, altRunc, null);
-				hmpAll.put(ProcessAttrs.strParmapKey_Runlst, altRunc);
-				for(int i=0; i<altRunc.size(); i++){
-					System.out.println(altRunc.get(i));
-				}
-				System.out.println(hmpAll);
+				strInfo = strCname + strFname + " 查看镜像 Runcmd01 End----" + DatePro.disGetStrdate4NowObjSdf001();
+				objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
+				hmpAll.put(ProcessAttrs.strParmapKey_Runlst, objBa.altRunc);
+//				for(int i=0; i<objBa.altRunc.size(); i++){
+//					System.out.println(objBa.altRunc.get(i));
+//				}
+//				System.out.println(hmpAll);
 			}
 		} catch(Exception ex) {
-			disOutputLog(strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);//disOutputLog(strFname, ex);
+			}
 		}  finally{
 			process = null;
+			if(objSaveInfoPro!=null){
+				objSaveInfoPro.disSaveInfo_Run(DbInfoSaveAttrs.strSaveFlg_Run);
+			}
 		}
 
 	}

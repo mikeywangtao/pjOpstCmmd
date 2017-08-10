@@ -8,11 +8,14 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import orgs.cm.pMqp.pComms.ClsBaseAttrs;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
 import orgs.cm.pMqp.pComms.ProcessSql_Qz;
 import orgs.cm.pMqp.pDbpro.BaseDbpro;
+import orgs.cm.pMqp.pDbpro.DbInfoSaveAttrs;
 import orgs.cm.pMqp.pDbpro.DbproAttrs;
 import orgs.cm.pMqp.pDbpro.IBaseDbpro;
+import orgs.cm.pMqp.pDbpro.SaveInfoPro;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunPrepare;
 
 public class RunPrepare_Getimg extends AbsRunPrepare {
@@ -24,20 +27,37 @@ public class RunPrepare_Getimg extends AbsRunPrepare {
 	private IBaseDbpro objDbpro = null;
 	private HashMap<String, Object> hmpAll;
 	
+	private ClsBaseAttrs objBa = null; 
 	private String strCmdiIds = null;
 	
-	public void disSetAll(HashMap<String, Object> hmpAllp){
+//	public void disSetAll(HashMap<String, Object> hmpAllp){
+//		hmpAll = hmpAllp;
+//	}
+	public void disSetHmpall(HashMap<String, Object> hmpAllp){
 		hmpAll = hmpAllp;
+	}
+	public void disSetClsBaseAttrs(ClsBaseAttrs objBap){
+		objBa = objBap;
+//		objBa.disClear_lhpInfobase();
+		objBa.disClear_altRunc();
 	}
 	@Override
 	public HashMap<String, Object> disRunPrepare() {
 		String strFname = " disRunPrepare : ";
-		
+		String strInfo = "";
+		SaveInfoPro objSaveInfoPro = null;
 		HashMap<String, Object> hmpCmds = new HashMap<>();
 		
 		try {
 			if(hmpAll!=null && hmpAll.size()>0){
 				objDbpro = new BaseDbpro(DbproAttrs.strDbflg_Cmd);
+				if(objBa==null){
+					return null;
+				}
+				objSaveInfoPro = new SaveInfoPro(strCname, objBa);
+				
+				strInfo = strCname + strFname + " RunPrepare Getimg Start!" ;
+				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
 				
 				disSearchCmdi(ProcessSql_Qz.strQzSql_Search_Cmdi, hmpCmds);
 				disSearchCmdsh(ProcessSql_Qz.strQzSql_Search_Cmdsh, hmpCmds);
@@ -46,15 +66,26 @@ public class RunPrepare_Getimg extends AbsRunPrepare {
 				hmpAll.put(ProcessAttrs.strParmapKey_Ppalst, hmpCmds);
 				
 				disSetShell();
+				
+				strInfo = strCname + strFname + " RunPrepare Getimg End!" ;
+				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 			}
 		} catch(Exception ex) {
-			disOutputLog(strFname, ex);
+//			disOutputLog(strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
+		} finally {
+			if(objSaveInfoPro!=null){
+				objSaveInfoPro.disSaveInfo_Run(DbInfoSaveAttrs.strSaveFlg_Run);
+			}
 		}
 		return hmpAll;
 	}
 	
 	private void disSetShell(){
 		String strFname = " disSetShell : ";
+		String strInfo = "";
 		ArrayList<String> altShell = null;
 		try {
 			if(hmpAll!=null
@@ -67,6 +98,9 @@ public class RunPrepare_Getimg extends AbsRunPrepare {
 					&& ((Map)hmpAll.get(ProcessAttrs.strParmapKey_Ppalst)).containsKey(ProcessAttrs.strParmapKey_Ppa_Cmdpar)
 					&& ((Map)hmpAll.get(ProcessAttrs.strParmapKey_Ppalst)).get(ProcessAttrs.strParmapKey_Ppa_Cmdpar)!=null
 					){
+				strInfo = strCname + strFname + " RunPrepare Getimg Start!" ;
+				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
+				
 				HashMap<String, String> mapParam = (HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars);
 				ArrayList<HashMap<String, String>> altCmdsh = 
 						(ArrayList<HashMap<String, String>>)((Map)hmpAll.get(ProcessAttrs.strParmapKey_Ppalst)).get(ProcessAttrs.strParmapKey_Ppa_Cmdsh);
@@ -98,33 +132,49 @@ public class RunPrepare_Getimg extends AbsRunPrepare {
 					strShline = strCmdshids + "}}}" + strShline; 
 					altShell.add(strShline);
 				}
+				strInfo = strCname + strFname + " RunPrepare Getimg End!" ;
+				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 			}
 			if(altShell!=null && altShell.size()>0){
 				hmpAll.put(ProcessAttrs.strParmapKey_Ppa_Cmdshr, altShell);
 			}
 		} catch(Exception ex) {
-			disOutputLog(strFname, ex);
+//			disOutputLog(strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
 		}
 	}
 	
 	private void disSearchCmdpar(String strSqlTempp, HashMap<String, Object> hmpCmdsp){
 		String strFname = " disSearchCmdsh : ";
+		String strInfo = "";
 		String strSqlf = strSqlTempp;
 		try {
+			strInfo = strCname + strFname + " RunPrepare Getimg Start!" ;
+			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
 			if(strSqlf!=null && strSqlf.trim().length()>0
 					&& hmpCmdsp !=null){
 				strSqlf = strSqlf.replaceAll("\\^cmdi_ids\\^", strCmdiIds);
 				hmpCmdsp.put(ProcessAttrs.strParmapKey_Ppa_Cmdpar, objDbpro.disSearch(strSqlf));
 			}
+			strInfo = strCname + strFname + " RunPrepare Getimg End!" ;
+			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 		} catch(Exception ex) {
-			disOutputLog(strFname, ex);
+//			disOutputLog(strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
 		}
 	}
 	
 	private void disSearchCmdsh(String strSqlTempp, HashMap<String, Object> hmpCmdsp){
 		String strFname = " disSearchCmdsh : ";
+		String strInfo = "";
 		String strSqlf = strSqlTempp;
 		try {
+			strInfo = strCname + strFname + " RunPrepare Getimg Start!" ;
+			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
 			if(strSqlf!=null && strSqlf.trim().length()>0
 					&& strCmdiIds!=null && strCmdiIds.trim().length()>0
 					&& hmpCmdsp !=null
@@ -132,15 +182,23 @@ public class RunPrepare_Getimg extends AbsRunPrepare {
 				strSqlf = strSqlf.replaceAll("\\^cmdi_ids\\^", strCmdiIds);
 				hmpCmdsp.put(ProcessAttrs.strParmapKey_Ppa_Cmdsh, objDbpro.disSearch(strSqlf));
 			}
+			strInfo = strCname + strFname + " RunPrepare Getimg End!" ;
+			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 		} catch(Exception ex) {
-			disOutputLog(strFname, ex);
+//			disOutputLog(strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
 		}
 	}
 	
 	private void disSearchCmdi(String strSqlTempp, HashMap<String, Object> hmpCmdsp){
 		String strFname = " disSearchCmdi : ";
+		String strInfo = "";
 		String strSqlf = strSqlTempp;
 		try {
+			strInfo = strCname + strFname + " RunPrepare Getimg Start!" ;
+			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
 			if(strSqlf!=null && strSqlf.trim().length()>0
 					&& hmpCmdsp !=null){
 				//定时任务采用固定值查询
@@ -163,19 +221,24 @@ public class RunPrepare_Getimg extends AbsRunPrepare {
 					}
 				}
 			}
+			strInfo = strCname + strFname + " RunPrepare Getimg End!" ;
+			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 		} catch(Exception ex) {
 			strCmdiIds = null;
-			disOutputLog(strFname, ex);
+//			disOutputLog(strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
 		}
 	}
 	
-	private void disOutputLog(String strFnamep, Exception exp){
-		long lonFlg = System.currentTimeMillis();
-		logger.error(strCname + strFnamep + exp + "||" + lonFlg);
-		StackTraceElement[] subSte = exp.getStackTrace();
-		for(int i=0; i<subSte.length; i++){
-			logger.error(
-					subSte[i].getClassName() + subSte[i].getMethodName() + ":" + subSte[i].getLineNumber() + "||" + lonFlg );
-		}
-	}
+//	private void disOutputLog(String strFnamep, Exception exp){
+//		long lonFlg = System.currentTimeMillis();
+//		logger.error(strCname + strFnamep + exp + "||" + lonFlg);
+//		StackTraceElement[] subSte = exp.getStackTrace();
+//		for(int i=0; i<subSte.length; i++){
+//			logger.error(
+//					subSte[i].getClassName() + subSte[i].getMethodName() + ":" + subSte[i].getLineNumber() + "||" + lonFlg );
+//		}
+//	}
 }

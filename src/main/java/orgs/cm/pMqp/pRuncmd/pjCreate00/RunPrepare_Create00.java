@@ -79,7 +79,9 @@ public class RunPrepare_Create00 extends AbsRunPrepare {
 			}
 		} catch(Exception ex) {
 			hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, null);
-			objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
 		} finally{
 			if(objSaveInfoPro!=null){
 				objSaveInfoPro.disSaveInfo_Run(DbInfoSaveAttrs.strSaveFlg_Run);
@@ -106,7 +108,9 @@ public class RunPrepare_Create00 extends AbsRunPrepare {
 				hmpCmdsp.put(ProcessAttrs.strParmapKey_Ppa_Cmdpar, objDbpro.disSearch(strSqlf));
 			}
 		} catch(Exception ex) {
-			objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
 		}
 	}
 	
@@ -125,7 +129,9 @@ public class RunPrepare_Create00 extends AbsRunPrepare {
 				hmpCmdsp.put(ProcessAttrs.strParmapKey_Ppa_Cmdsh, objDbpro.disSearch(strSqlf));
 			}
 		} catch(Exception ex) {
-			objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
 		}
 	}
 	
@@ -169,7 +175,9 @@ public class RunPrepare_Create00 extends AbsRunPrepare {
 			}
 		} catch(Exception ex) {
 			strCmdiIds = null;
-			objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
 		}
 	}
 	

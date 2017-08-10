@@ -134,11 +134,11 @@ public class TstServ {
 		*/
 
 
-//		AbsRuncmdPro objRcGetimg = new Runcmdpro_Getimg();
-//		objRcGetimg.disRuncmdPro();
+		AbsRuncmdPro objRcGetimg = new Runcmdpro_Getimg();
+		objRcGetimg.disRuncmdPro();
 		
-		AbsRuncmdPro objRcCreate00 = new Runcmdpro_Create00();
-		objRcCreate00.disRuncmdPro();
+//		AbsRuncmdPro objRcCreate00 = new Runcmdpro_Create00();
+//		objRcCreate00.disRuncmdPro();
 		
 //		try {
 //			for(int i=0; i<2000; i++){
