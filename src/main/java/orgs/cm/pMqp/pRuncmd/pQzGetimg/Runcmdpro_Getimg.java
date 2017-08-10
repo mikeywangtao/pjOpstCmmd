@@ -2,14 +2,12 @@ package orgs.cm.pMqp.pRuncmd.pQzGetimg;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.alibaba.fastjson.JSON;
 
 import orgs.cm.pMqp.pComms.ClsBaseAttrs;
 import orgs.cm.pMqp.pComms.DatePro;
@@ -17,15 +15,12 @@ import orgs.cm.pMqp.pComms.IdsPro;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
 import orgs.cm.pMqp.pDbpro.DbInfoSaveAttrs;
 import orgs.cm.pMqp.pDbpro.SaveInfoPro;
-import orgs.cm.pMqp.pHttpc.HttpClientUtil;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunAfter;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunBefore;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunCmd;
-import orgs.cm.pMqp.pRuncmd.comm.AbsRunFinally;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunPrepare;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
 import orgs.cm.pMqp.pRuncmd.pAnsible.AnsiblePro;
-import orgs.cm.pMqp.pRuncmd.pjCreate00.RunFinally_Create00;
 
 public class Runcmdpro_Getimg extends AbsRuncmdPro {
 
@@ -52,7 +47,7 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 			disSetInfobase();
 			
 			AnsiblePro objAnsiblePro = new AnsiblePro(strCname, hmpPar);
-			altDataAnsible = objAnsiblePro.disGetAnsible();
+			altDataAnsible = objAnsiblePro.disGetAnsible_All();
 //			List<HashMap> altDataAnsible = disGetAnsible();
 			if(altDataAnsible!=null && altDataAnsible.size()>0){
 //				for(HashMap map : altDataAnsible){
@@ -60,6 +55,7 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 //					disSetParinfos(map);
 					
 					objBa = new ClsBaseAttrs(strCname);
+					objBa.lhpInfobase = (LinkedHashMap<String, String>)hmpPar.get(ProcessAttrs.strInfoCType_Info);
 					objSaveInfoPro = new SaveInfoPro(strCname, objBa);
 					
 					objPrepare = new RunPrepare_Getimg();
@@ -110,24 +106,26 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 		
 		try {
 			UUID objUuid = UUID.randomUUID();
-//			objBa.lhpInfobase = new LinkedHashMap<>();
-			objBa.lhpInfobase.put("cp_ids",IdsPro.disGetIds()); //DatePro.disGetStrdate4NowObjSdf001());
-			objBa.lhpInfobase.put("cpcls", strCname);
-			objBa.lhpInfobase.put("customer", "QzRun"); //hmpPar.get("^customerids^").toString());
-			objBa.lhpInfobase.put("ansible_ids", "QzRun"); //hmpPar.get("^ansid^").toString());
-			objBa.lhpInfobase.put("ansible_info", "QzRun"); //hmpPar.get("^anscmmd^").toString());
-			objBa.lhpInfobase.put("cmd_tpye", "QzRun"); //hmpPar.get("^req_type^").toString());
-			objBa.lhpInfobase.put("cmd_subtype", "QzRun"); //hmpPar.get("^req_subtype^").toString());
-			objBa.lhpInfobase.put("cmd_request", "QzRun"); //hmpPar.get(ProcessAttrs.strParmapKey_Inpars).toString());
-			objBa.lhpInfobase.put("cmd_inputdt", DatePro.disGetStrdate4NowObjSdf001());
-			objBa.lhpInfobase.put("cpuuid", objUuid.toString().replaceAll("-", "")); //hmpPar.get(ProcessAttrs.strInfoKey_Cpuuid).toString());
-			objBa.lhpInfobase.put("cmdrundt", DatePro.disGetStrdate4NowObjSdf001());
-			objBa.lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Pro);
+			LinkedHashMap<String, String> lhpInfobase = new LinkedHashMap<>();
+			lhpInfobase.put("cp_ids",IdsPro.disGetIds()); //DatePro.disGetStrdate4NowObjSdf001());
+			lhpInfobase.put("cpcls", strCname);
+			lhpInfobase.put("customer", "QzRun"); //hmpPar.get("^customerids^").toString());
+			lhpInfobase.put("ansible_ids", "QzRun"); //hmpPar.get("^ansid^").toString());
+			lhpInfobase.put("ansible_info", "QzRun"); //hmpPar.get("^anscmmd^").toString());
+			lhpInfobase.put("cmd_tpye", "QzRun"); //hmpPar.get("^req_type^").toString());
+			lhpInfobase.put("cmd_subtype", "QzRun"); //hmpPar.get("^req_subtype^").toString());
+			lhpInfobase.put("cmd_request", "QzRun"); //hmpPar.get(ProcessAttrs.strParmapKey_Inpars).toString());
+			lhpInfobase.put("cmd_inputdt", DatePro.disGetStrdate4NowObjSdf001());
+			lhpInfobase.put("cpuuid", objUuid.toString().replaceAll("-", "")); //hmpPar.get(ProcessAttrs.strInfoKey_Cpuuid).toString());
+			lhpInfobase.put("cmdrundt", DatePro.disGetStrdate4NowObjSdf001());
+			lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Pro);
 			
-			hmpPar.put(ProcessAttrs.strParmapKey_Infobase, objBa.lhpInfobase);
-			hmpPar.put("cp_ids",objBa.lhpInfobase.get("cp_ids"));
+			hmpPar.put(ProcessAttrs.strParmapKey_Infobase, lhpInfobase);
+			hmpPar.put("cp_ids",lhpInfobase.get("cp_ids"));
 		} catch(Exception ex) {
-			objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
 		}
 	}
 	/**
@@ -194,7 +192,9 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 				hmpPar = null;
 			}
 		} catch(Exception ex) {
-			objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
 		}
 	}
 	

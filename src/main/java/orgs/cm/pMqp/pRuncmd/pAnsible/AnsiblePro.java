@@ -42,7 +42,7 @@ public class AnsiblePro {
 		return hmpPar;
 	}
 	
-	public List<HashMap> disGetAnsible(){
+	public List<HashMap> disGetAnsible_All(){
 		String strFname = " disGetAnsible : ";
 		String strInfo = "";
 		List<HashMap> altDataAnsible = null;
@@ -53,58 +53,100 @@ public class AnsiblePro {
 				strInfo = strCname + strFname + " Start!" ;
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS); //disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRS);
 			}
+
+			Map<String, Object> mapParAnsible = new HashMap<>(); 
+			String strParAnsible = JSON.toJSONString(mapParAnsible);
+			HttpClientUtil objHttpClientUtil = new HttpClientUtil();
+			String strAnsible = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/ansible/getAnsible", strParAnsible);
 			
-			if(hmpPar!=null
-					&& hmpPar.containsKey("^ansid^") 
-					&& hmpPar.get("^ansid^")!=null){
-				strAnsids = hmpPar.get("^ansid^").toString();
-			}
-			if(strAnsids!=null && strAnsids.trim().length()>0){
-				Map<String, Object> mapParAnsible = new HashMap<>(); 
-				mapParAnsible.put("intId", strAnsids); 
-//				mapParAnsible.put("ip", "1"); 
-//				mapParAnsible.put("sshKey", "1"); 
-				String strParAnsible = JSON.toJSONString(mapParAnsible);
-				HttpClientUtil objHttpClientUtil = new HttpClientUtil();
-				String strAnsible = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/ansible/getAnsible", strParAnsible);
-				
-				Map<String, Object> mapResAnsible = JSON.parseObject(strAnsible, HashMap.class);
-				if(mapResAnsible!=null && mapResAnsible.size()>0
-						&& mapResAnsible.containsKey("msg") && mapResAnsible.get("msg")!=null
-						&& mapResAnsible.containsKey("data") && mapResAnsible.get("data")!=null){
-					String strMsg = mapResAnsible.get("msg")==null?null:mapResAnsible.get("msg").toString();
-					if("ok".equals(strMsg)){
-						String strDataAnsible = mapResAnsible.get("data").toString();
-						if(strDataAnsible!=null && strDataAnsible.trim().length()>0){
-							altDataAnsible = JSON.parseArray(strDataAnsible, HashMap.class);
-							Object[] subKey = altDataAnsible.get(0).keySet().toArray();
-//							if(subKey!=null && subKey.length>0){
-//								for(HashMap map : altDataAnsible){
-//									System.out.print("Ansible ----");
-//									for(Object objkey : subKey){
-//										String strVal = map.get(objkey)==null? "":map.get(objkey).toString();
-//										System.out.print(objkey + ":" + strVal + ", ");
-//										/*
-//										 intId
-//										 strName
-//										 strIp
-//										 strLoginName
-//										 strPassword
-//										 strSshKey
-//										 */
-//									}
-//									System.out.println("");
-//								}
-//							}
-						}
+			Map<String, Object> mapResAnsible = JSON.parseObject(strAnsible, HashMap.class);
+			if(mapResAnsible!=null && mapResAnsible.size()>0
+					&& mapResAnsible.containsKey("msg") && mapResAnsible.get("msg")!=null
+					&& mapResAnsible.containsKey("data") && mapResAnsible.get("data")!=null){
+				String strMsg = mapResAnsible.get("msg")==null?null:mapResAnsible.get("msg").toString();
+				if("ok".equals(strMsg)){
+					String strDataAnsible = mapResAnsible.get("data").toString();
+					if(strDataAnsible!=null && strDataAnsible.trim().length()>0){
+						altDataAnsible = JSON.parseArray(strDataAnsible, HashMap.class);
+						Object[] subKey = altDataAnsible.get(0).keySet().toArray();
 					}
 				}
 			}
 			strInfo = strCname + strFname + " End!" ;
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE); 
 		} catch(Exception ex) {
-			objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
 		}
 		return altDataAnsible;
 	}
+	
+//	public List<HashMap> disGetAnsible(){
+//		String strFname = " disGetAnsible : ";
+//		String strInfo = "";
+//		List<HashMap> altDataAnsible = null;
+//		String strAnsids = null;
+//		try {
+//			if(objBa.lhpInfobase!=null && objBa.lhpInfobase.size()>0){
+//				objBa.lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_OAnsi);
+//				strInfo = strCname + strFname + " Start!" ;
+//				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS); //disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRS);
+//			}
+//			
+//			if(hmpPar!=null
+//					&& hmpPar.containsKey("^ansid^") 
+//					&& hmpPar.get("^ansid^")!=null){
+//				strAnsids = hmpPar.get("^ansid^").toString();
+//			}
+//			if(strAnsids!=null && strAnsids.trim().length()>0){
+//				Map<String, Object> mapParAnsible = new HashMap<>(); 
+//				mapParAnsible.put("intId", strAnsids); 
+////				mapParAnsible.put("ip", "1"); 
+////				mapParAnsible.put("sshKey", "1"); 
+//				String strParAnsible = JSON.toJSONString(mapParAnsible);
+//				HttpClientUtil objHttpClientUtil = new HttpClientUtil();
+//				String strAnsible = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/ansible/getAnsible", strParAnsible);
+//				
+//				Map<String, Object> mapResAnsible = JSON.parseObject(strAnsible, HashMap.class);
+//				if(mapResAnsible!=null && mapResAnsible.size()>0
+//						&& mapResAnsible.containsKey("msg") && mapResAnsible.get("msg")!=null
+//						&& mapResAnsible.containsKey("data") && mapResAnsible.get("data")!=null){
+//					String strMsg = mapResAnsible.get("msg")==null?null:mapResAnsible.get("msg").toString();
+//					if("ok".equals(strMsg)){
+//						String strDataAnsible = mapResAnsible.get("data").toString();
+//						if(strDataAnsible!=null && strDataAnsible.trim().length()>0){
+//							altDataAnsible = JSON.parseArray(strDataAnsible, HashMap.class);
+//							Object[] subKey = altDataAnsible.get(0).keySet().toArray();
+////							if(subKey!=null && subKey.length>0){
+////								for(HashMap map : altDataAnsible){
+////									System.out.print("Ansible ----");
+////									for(Object objkey : subKey){
+////										String strVal = map.get(objkey)==null? "":map.get(objkey).toString();
+////										System.out.print(objkey + ":" + strVal + ", ");
+////										/*
+////										 intId
+////										 strName
+////										 strIp
+////										 strLoginName
+////										 strPassword
+////										 strSshKey
+////										 */
+////									}
+////									System.out.println("");
+////								}
+////							}
+//						}
+//					}
+//				}
+//			}
+//			strInfo = strCname + strFname + " End!" ;
+//			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE); 
+//		} catch(Exception ex) {
+//			if(objBa!=null && objBa.objOutputLogPro!=null){
+//				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+//			}
+//		}
+//		return altDataAnsible;
+//	}
 }
