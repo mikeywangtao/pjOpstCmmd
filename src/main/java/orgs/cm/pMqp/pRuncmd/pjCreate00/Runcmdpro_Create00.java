@@ -102,7 +102,8 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 					objCmd = null;
 					
 					objAfter = new RunAfter_C00_1();
-					objAfter.disSetAll(hmpPar);
+					objAfter.disSetHmpall(hmpPar);
+					objAfter.disSetClsBaseAttrs(objBa);
 					super.dusRunAfter(objAfter);
 					objAfter = null;
 				}
@@ -130,7 +131,8 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 						objCmd = null;
 						
 						objAfter = new RunAfter_C00_2();
-						objAfter.disSetAll(hmpPar);
+						objAfter.disSetHmpall(hmpPar);
+						objAfter.disSetClsBaseAttrs(objBa);
 						super.dusRunAfter(objAfter);
 						objAfter = null;
 						strRunlopp = hmpPar.get(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg).toString();
@@ -164,7 +166,8 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 					objCmd = null;
 					
 					objAfter = new RunAfter_C00_3();
-					objAfter.disSetAll(hmpPar);
+					objAfter.disSetHmpall(hmpPar);
+					objAfter.disSetClsBaseAttrs(objBa);
 					super.dusRunAfter(objAfter);
 					objAfter = null;
 				}
@@ -179,7 +182,6 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 					
 //					Thread.sleep(5000);
 					objBefore = new RunBefore_C00_4();
-//					objBefore.disSetAll(hmpPar);
 					objBefore.disSetHmpall(hmpPar);
 					objBefore.disSetClsBaseAttrs(objBa);
 					super.disRunBefre(objBefore);
@@ -192,7 +194,8 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 					objCmd = null;
 					
 					objAfter = new RunAfter_C00_4();
-					objAfter.disSetAll(hmpPar);
+					objAfter.disSetHmpall(hmpPar);
+					objAfter.disSetClsBaseAttrs(objBa);
 					super.dusRunAfter(objAfter);
 					objAfter = null;
 				}
