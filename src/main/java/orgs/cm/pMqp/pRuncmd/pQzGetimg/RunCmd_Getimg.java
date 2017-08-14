@@ -154,7 +154,6 @@ STD line: } */
 			strInfo = strCname + strFname + " 查看镜像 Cmmd----" + StrCommand;
 			objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 			logger.info(strInfo);
-			logger.info(strInfo);
 			
 			process = Runtime.getRuntime().exec(StrCommand);
 

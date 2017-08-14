@@ -21,6 +21,7 @@ import orgs.cm.pMqp.pRuncmd.comm.AbsRunCmd;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunPrepare;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
 import orgs.cm.pMqp.pRuncmd.pAnsible.AnsiblePro;
+import orgs.cm.pMqp.pRuncmd.pKeystone.KeystonePro;
 
 public class Runcmdpro_Getimg extends AbsRuncmdPro {
 
@@ -41,6 +42,7 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 		
 		SaveInfoPro objSaveInfoPro = null;
 		List<HashMap> altDataAnsible = null;
+		List<HashMap> altDataKeystone = null;
 		
 		try {
 			disSetParinfos();
@@ -48,49 +50,45 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 			
 			AnsiblePro objAnsiblePro = new AnsiblePro(strCname, hmpPar);
 			altDataAnsible = objAnsiblePro.disGetAnsible_All();
-//			List<HashMap> altDataAnsible = disGetAnsible();
-			if(altDataAnsible!=null && altDataAnsible.size()>0){
-//				for(HashMap map : altDataAnsible){
-					HashMap map = altDataAnsible.get(0);
-//					disSetParinfos(map);
-					
-					objBa = new ClsBaseAttrs(strCname);
-					objBa.lhpInfobase = (LinkedHashMap<String, String>)hmpPar.get(ProcessAttrs.strInfoCType_Info);
-					objSaveInfoPro = new SaveInfoPro(strCname, objBa);
-					
-					objPrepare = new RunPrepare_Getimg();
-					objPrepare.disSetHmpall(hmpPar);
-					objPrepare.disSetClsBaseAttrs(objBa);
-					super.disRunPrepare(objPrepare);
-					
-					objBefore = new RunBefore_Getimg();
-					objBefore.disSetHmpall(hmpPar);
-					objBefore.disSetClsBaseAttrs(objBa);
-					super.disRunBefre(objBefore);
-					
-					objCmd = new RunCmd_Getimg();
-					objCmd.disSetHmpall(hmpPar);
-					objCmd.disSetClsBaseAttrs(objBa);
-					super.disRunCmd(objCmd);
-					
-					objAfter = new RunAfter_Getimg();
-					objAfter.disSetHmpall(hmpPar);
-					objAfter.disSetClsBaseAttrs(objBa);
-					super.dusRunAfter(objAfter);
+			KeystonePro objKeystonePro = new KeystonePro(strCname, hmpPar);
+			altDataKeystone = objKeystonePro.disGetKeustone_All();
 
-//				}
+			List<HashMap> lstAnsKsall = disSetAnsKs(altDataAnsible, altDataKeystone);
+			if(lstAnsKsall!=null && lstAnsKsall.size()>0){
+				for(HashMap mapRow : lstAnsKsall){
+					if(mapRow!=null && mapRow.size()>0){
+						if(disSetInpars(mapRow)){
+							objBa = new ClsBaseAttrs(strCname);
+							objBa.lhpInfobase = (LinkedHashMap<String, String>)hmpPar.get(ProcessAttrs.strParmapKey_Infobase);
+							objSaveInfoPro = new SaveInfoPro(strCname, objBa);
+							
+							objPrepare = new RunPrepare_Getimg();
+							objPrepare.disSetHmpall(hmpPar);
+							objPrepare.disSetClsBaseAttrs(objBa);
+							super.disRunPrepare(objPrepare);
+							
+							objBefore = new RunBefore_Getimg();
+							objBefore.disSetHmpall(hmpPar);
+							objBefore.disSetClsBaseAttrs(objBa);
+							super.disRunBefre(objBefore);
+							
+							objCmd = new RunCmd_Getimg();
+							objCmd.disSetHmpall(hmpPar);
+							objCmd.disSetClsBaseAttrs(objBa);
+							super.disRunCmd(objCmd);
+							
+							objAfter = new RunAfter_Getimg();
+							objAfter.disSetHmpall(hmpPar);
+							objAfter.disSetClsBaseAttrs(objBa);
+							super.dusRunAfter(objAfter);
+						}
+					}
+				}
 			}
 		} catch(Exception ex) {
 			if(objBa!=null && objBa.objOutputLogPro!=null){
 				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
 			}
-//			long lonFlg = System.currentTimeMillis();
-//			logger.error(strCname + strFname + ex + "||" + lonFlg);
-//			StackTraceElement[] subSte = ex.getStackTrace();
-//			for(int i=0; i<subSte.length; i++){
-//				logger.error(
-//						subSte[i].getClassName() + subSte[i].getMethodName() + ":" + subSte[i].getLineNumber() + "||" + lonFlg );
-//			}
 		} finally {
 			if(objSaveInfoPro!=null){
 				objSaveInfoPro.disSaveInfo_Run(DbInfoSaveAttrs.strSaveFlg_Run);
@@ -98,6 +96,79 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 		}
 	}
 	
+	private boolean disSetInpars(HashMap mapRowAnsksp){
+		String strFname = " disSetInpars : ";
+		boolean booRe = false;
+		try {
+			if(hmpPar!=null && hmpPar.size()>0
+					&& mapRowAnsksp!=null && mapRowAnsksp.size()>0){
+				HashMap<String, Object> hmpAllInp = new HashMap<>();
+				
+				hmpAllInp.put("^pdom^", mapRowAnsksp.get("strPDom").toString()); 
+				hmpAllInp.put("^udom^", mapRowAnsksp.get("strUDom").toString()); 
+				hmpAllInp.put("^pname^", mapRowAnsksp.get("strProject").toString()); 
+				hmpAllInp.put("^uname^", mapRowAnsksp.get("strUserName").toString()); 
+				hmpAllInp.put("^pass^", mapRowAnsksp.get("strKsPassword").toString()); 
+				hmpAllInp.put("^authurl^", mapRowAnsksp.get("strAuthUrl").toString()); 
+				hmpAllInp.put("^imgapi^", mapRowAnsksp.get("strImgapiv").toString()); 
+				hmpAllInp.put("^ideapi^", mapRowAnsksp.get("strIdeenity").toString()); 
+				hmpAllInp.put("^anscmmd^", mapRowAnsksp.get("strName").toString()); 
+				hmpPar.put("^anscmmd^", mapRowAnsksp.get("strName").toString()); 
+				hmpPar.put("^ansid^", mapRowAnsksp.get("intId").toString()); //hmpAllInp.get("^ansid^"));
+				
+				hmpPar.put(ProcessAttrs.strParmapKey_Inpars, hmpAllInp);
+				
+				booRe = true;
+			}
+		} catch(Exception ex) {
+			booRe = false;
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
+		}
+		return booRe;
+	}
+	
+	private List<HashMap> disSetAnsKs(List<HashMap> altDataAnsiblep, List<HashMap> altDataKeystonep){
+		String strFname = " disSetAnsKs : ";
+		List<HashMap> lstRe = null;
+		try {
+			if(altDataAnsiblep!=null && altDataAnsiblep.size()>0
+					&& altDataKeystonep!=null && altDataKeystonep.size()>0){
+				lstRe = new ArrayList<>();
+				for(HashMap mapKsRow : altDataKeystonep){
+					if(mapKsRow!=null && mapKsRow.size()>0
+							&& mapKsRow.containsKey("intAnsibleId") && mapKsRow.get("intAnsibleId")!=null
+							&& mapKsRow.containsKey("strPassword") && mapKsRow.get("strPassword")!=null){
+						String strKsAnsIds = mapKsRow.get("intAnsibleId").toString();
+						String strKspass = mapKsRow.get("strPassword").toString();
+						if(strKsAnsIds.trim().length()>0 && strKspass.trim().length()>0){
+							for(HashMap mapAnsRow : altDataAnsiblep){
+								if(mapAnsRow!=null && mapAnsRow.size()>0
+										&& mapAnsRow.containsKey("intId") && mapAnsRow.get("intId")!=null){
+									String strAnsIds = mapAnsRow.get("intId").toString();
+									if(strAnsIds.trim().length()>0
+											&& strKsAnsIds.trim().equals(strAnsIds.trim())){
+										HashMap mapAll = new HashMap<>();
+										mapAll = mapKsRow;
+										mapAll.putAll(mapAnsRow);
+										mapAll.put("strKsPassword", strKspass);
+										lstRe.add(mapAll);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		} catch(Exception ex) {
+			lstRe = null;
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
+		} 
+		return lstRe;
+	}
 	/**
 	 * 运行日志基本信息构建
 	 * */
@@ -182,10 +253,10 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 						"/home/anshells/" + DatePro.disGetYear4now()+DatePro.disGetWeek4now());
 				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_ShFilename, 
 						"/" 
-						+ "Getimg_"+DatePro.disGetStrdate4NowObjSdf001() );
+						+ "Getimg_"+DatePro.disGetStrdate4NowObjSdf001() 
 //						+ "_" + hmpAllInp.get("^req_type^").toString()
 //						+ hmpAllInp.get("^req_subtype^").toString() );
-//							+ ".sh");
+							+ ".sh");
 				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, "");
 				
 			} else {
