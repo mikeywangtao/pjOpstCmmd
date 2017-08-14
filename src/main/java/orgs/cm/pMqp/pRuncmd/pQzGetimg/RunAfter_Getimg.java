@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSON;
 import orgs.cm.pMqp.pComms.ClsBaseAttrs;
 import orgs.cm.pMqp.pComms.DatePro;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
+import orgs.cm.pMqp.pComms.PropertiesRemoteser;
 import orgs.cm.pMqp.pDbpro.DbInfoSaveAttrs;
 import orgs.cm.pMqp.pDbpro.SaveInfoPro;
 import orgs.cm.pMqp.pHttpc.HttpClientUtil;
@@ -43,6 +44,8 @@ public class RunAfter_Getimg extends AbsRunAfter {
 		String strFname = " disRunAfter : ";
 		String strInfo = null;
 		SaveInfoPro objSaveInfoPro = null;
+		String strRemoteSer = null;
+		String strReSerpoint = null;
 		
 //		LinkedHashMap<String, String> lhpInfo = new LinkedHashMap<String, String>();
 //		ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();	
@@ -63,45 +66,44 @@ public class RunAfter_Getimg extends AbsRunAfter {
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
 				
-				//格式化返回
-				String strAnsidf = hmpAll.get("^ansid^")==null? null:hmpAll.get("^ansid^").toString();
-				if(strAnsidf!=null && strAnsidf.trim().length()>0){
-					ResFormatpro objResFormatpro = new ResFormatpro(
-							(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd), strAnsidf);
-					ArrayList<LinkedHashMap<String, String>> altResf = objResFormatpro.disFormatpro();
-					if(altResf!=null){
-						hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstdf, altResf);
-						//httpclient 访问
-						String strReq = disCreateJson(altResf);
-						if(strReq!=null && strReq.trim().length()>0){
-							Map<String, Object> mapSetImg = new HashMap<>(); 
-							mapSetImg.put("msg", "ok");
-							mapSetImg.put("data", strReq);
-							String strSetImg = JSON.toJSONString(mapSetImg);
-							strInfo = strCname + strFname + " 镜像 After RequestBody----" + strSetImg;
-							objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
-							hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
-							HttpClientUtil objHttpClientUtil = new HttpClientUtil();
-							String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/images/saveImages", strSetImg);
-							Map<String, Object> mapResAnsible = JSON.parseObject(strSetImgres, HashMap.class);
-							strInfo = strCname + strFname + " 镜像 After respones----" + mapResAnsible;
-							logger.info(strInfo);
-							objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
-							hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
+				//获取远端server地址
+				strRemoteSer = PropertiesRemoteser.disGetval("auth");
+				strReSerpoint = PropertiesRemoteser.disGetval("authpoint");
+				if(strRemoteSer!=null && strRemoteSer.trim().length()>0
+						&& strReSerpoint!=null && strReSerpoint.trim().length()>0){
+					//格式化返回
+					String strAnsidf = hmpAll.get("^ansid^")==null? null:hmpAll.get("^ansid^").toString();
+					if(strAnsidf!=null && strAnsidf.trim().length()>0){
+						ResFormatpro objResFormatpro = new ResFormatpro(
+								(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd), strAnsidf);
+						ArrayList<LinkedHashMap<String, String>> altResf = objResFormatpro.disFormatpro();
+						if(altResf!=null){
+							hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstdf, altResf);
+							//httpclient 访问
+							String strReq = disCreateJson(altResf);
+							if(strReq!=null && strReq.trim().length()>0){
+								Map<String, Object> mapSetImg = new HashMap<>(); 
+								mapSetImg.put("msg", "ok");
+								mapSetImg.put("data", strReq);
+								String strSetImg = JSON.toJSONString(mapSetImg);
+								strInfo = strCname + strFname + " 镜像 After RequestBody----" + strSetImg;
+								objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
+								hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
+								HttpClientUtil objHttpClientUtil = new HttpClientUtil();
+								logger.info(strInfo);
+								String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://"+strRemoteSer+":"+strReSerpoint+"/pjOpStAuth/web/images/saveImages", strSetImg);
+//								String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/images/saveImages", strSetImg);
+								Map<String, Object> mapResAnsible = JSON.parseObject(strSetImgres, HashMap.class);
+								strInfo = strCname + strFname + " 镜像 After respones----" + mapResAnsible;
+								logger.info(strInfo);
+								objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
+								hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
+							}
 						}
 					}
+				} else {
+					throw new Exception(strCname + strFname + " strRemoteSer 或 strReSerpoint ==null .... ");
 				}
-				
-//				String strPackage = this.getClass().getPackage().getName();
-//				String[] subTmp = strPackage.split("\\.");
-//				if(subTmp!=null && subTmp.length>1){
-//					strPackage = subTmp[subTmp.length-1];
-//				}
-//				if(strPackage.indexOf(".")==-1){
-//					strPackage = strPackage.toLowerCase();
-//					DbInfotablePro4Cmmd.disInfotablePro(strPackage);
-//				}
-//				DbInfotablePro4Cmmd.disInfotablePro(disGetBusname());
 				
 				strInfo = strCname + strFname + " 镜像 After End----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, null);

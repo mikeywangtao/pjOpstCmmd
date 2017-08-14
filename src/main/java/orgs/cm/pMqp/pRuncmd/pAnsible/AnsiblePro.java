@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 
 import orgs.cm.pMqp.pComms.ClsBaseAttrs;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
+import orgs.cm.pMqp.pComms.PropertiesRemoteser;
 import orgs.cm.pMqp.pHttpc.HttpClientUtil;
 
 /**
@@ -47,6 +48,8 @@ public class AnsiblePro {
 		String strInfo = "";
 		List<HashMap> altDataAnsible = null;
 		String strAnsids = null;
+		String strRemoteSer = null;
+		String strReSerpoint = null;
 		try {
 			if(objBa.lhpInfobase!=null && objBa.lhpInfobase.size()>0){
 				objBa.lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_OAnsi);
@@ -54,27 +57,37 @@ public class AnsiblePro {
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS); //disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRS);
 			}
 
-			Map<String, Object> mapParAnsible = new HashMap<>(); 
-			String strParAnsible = JSON.toJSONString(mapParAnsible);
-			HttpClientUtil objHttpClientUtil = new HttpClientUtil();
-			String strAnsible = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/ansible/getAnsible", strParAnsible);
-			
-			Map<String, Object> mapResAnsible = JSON.parseObject(strAnsible, HashMap.class);
-			if(mapResAnsible!=null && mapResAnsible.size()>0
-					&& mapResAnsible.containsKey("msg") && mapResAnsible.get("msg")!=null
-					&& mapResAnsible.containsKey("data") && mapResAnsible.get("data")!=null){
-				String strMsg = mapResAnsible.get("msg")==null?null:mapResAnsible.get("msg").toString();
-				if("ok".equals(strMsg)){
-					String strDataAnsible = mapResAnsible.get("data").toString();
-					if(strDataAnsible!=null && strDataAnsible.trim().length()>0){
-						altDataAnsible = JSON.parseArray(strDataAnsible, HashMap.class);
-						Object[] subKey = altDataAnsible.get(0).keySet().toArray();
+			strRemoteSer = PropertiesRemoteser.disGetval("auth");
+			strReSerpoint = PropertiesRemoteser.disGetval("authpoint");
+			if(strRemoteSer!=null && strRemoteSer.trim().length()>0
+					&& strReSerpoint!=null && strReSerpoint.trim().length()>0){
+				Map<String, Object> mapParAnsible = new HashMap<>(); 
+				String strParAnsible = JSON.toJSONString(mapParAnsible);
+				HttpClientUtil objHttpClientUtil = new HttpClientUtil();
+				String strAnsible = objHttpClientUtil.sendHttpPostJson("http://"+strRemoteSer+":"+strReSerpoint+"/pjOpStAuth/web/ansible/getAnsible", strParAnsible);
+//				String strAnsible = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/ansible/getAnsible", strParAnsible);
+				
+				Map<String, Object> mapResAnsible = JSON.parseObject(strAnsible, HashMap.class);
+				if(mapResAnsible!=null && mapResAnsible.size()>0
+						&& mapResAnsible.containsKey("msg") && mapResAnsible.get("msg")!=null
+						&& mapResAnsible.containsKey("data") && mapResAnsible.get("data")!=null){
+					String strMsg = mapResAnsible.get("msg")==null?null:mapResAnsible.get("msg").toString();
+					if("ok".equals(strMsg)){
+						String strDataAnsible = mapResAnsible.get("data").toString();
+						if(strDataAnsible!=null && strDataAnsible.trim().length()>0){
+							altDataAnsible = JSON.parseArray(strDataAnsible, HashMap.class);
+							Object[] subKey = altDataAnsible.get(0).keySet().toArray();
+						}
 					}
 				}
+			} else {
+				throw new Exception(strCname + strFname + " strRemoteSer 或 strReSerpoint ==null .... ");
 			}
+			
 			strInfo = strCname + strFname + " End!" ;
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE); 
 		} catch(Exception ex) {
+			altDataAnsible = null;
 			if(objBa!=null && objBa.objOutputLogPro!=null){
 				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
 			}

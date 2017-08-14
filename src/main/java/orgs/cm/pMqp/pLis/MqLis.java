@@ -3,6 +3,7 @@ package orgs.cm.pMqp.pLis;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import orgs.cm.pMqp.pComms.PropertiesRemoteser;
 import orgs.cm.pMqp.pComms.Propertiesmap;
 
 /**
@@ -23,6 +24,8 @@ public class MqLis {
 				strPath = strPath.substring(0, intOdx) + "WEB-INF/classes/sysTarget.properties";
 				Propertiesmap.setPpt(strPath);
 				strPath = strPath.substring(0, intOdx) + "WEB-INF/classes/activeMq.properties";
+				Propertiesmap.setPpt(strPath);
+				strPath = strPath.substring(0, intOdx) + "WEB-INF/classes/remoteser.properties";
 				Propertiesmap.setPpt(strPath);
 				
 				ReceiveMsgProces objReceiveMsgProces = new ReceiveMsgProces();

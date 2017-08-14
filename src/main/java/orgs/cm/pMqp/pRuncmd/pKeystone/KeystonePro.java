@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 
 import orgs.cm.pMqp.pComms.ClsBaseAttrs;
 import orgs.cm.pMqp.pComms.ProcessAttrs;
+import orgs.cm.pMqp.pComms.PropertiesRemoteser;
 import orgs.cm.pMqp.pHttpc.HttpClientUtil;
 
 /**
@@ -37,6 +38,8 @@ public class KeystonePro {
 		String strFname = " disGetKeustone_All : ";
 		List<HashMap> altDataKeystone = null;
 		String strInfo = "";
+		String strRemoteSer = null;
+		String strReSerpoint = null;
 		try {
 			
 			if(objBa.lhpInfobase!=null && objBa.lhpInfobase.size()>0){
@@ -45,32 +48,41 @@ public class KeystonePro {
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS); //disSetInfo(strInfo, lhpInfobase, altRunc, ProcessAttrs.strInfoFlg_PRS);
 			}
 			
-			Map<String, Object> mapParKeystone = new HashMap<>(); 
-//			mapParKeystone.put("ksId", "1"); 
-//			mapParKeystone.put("dom", "1"); 
-//			mapParKeystone.put("project", "1"); 
-//			mapParKeystone.put("ideenity", "1"); 
-//			mapParKeystone.put("imgapiv", "1"); 
-//			mapParKeystone.put("ansibleId", "1"); 
-			String strParKeystone = JSON.toJSONString(mapParKeystone);
-			HttpClientUtil objHttpClientUtil = new HttpClientUtil();
-			String strKeystone = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/keystone/getKeystone", strParKeystone);
-			
-			Map<String, Object> mapResKeystone = JSON.parseObject(strKeystone, HashMap.class);
-			if(mapResKeystone!=null && mapResKeystone.size()>0
-					&& mapResKeystone.containsKey("msg") && mapResKeystone.get("msg")!=null
-					&& mapResKeystone.containsKey("data") && mapResKeystone.get("data")!=null){
-				String strMsg = mapResKeystone.get("msg")==null?null:mapResKeystone.get("msg").toString();
-				if("ok".equals(strMsg)){
-					String strDataKeystone = mapResKeystone.get("data").toString();
-					if(strDataKeystone!=null && strDataKeystone.trim().length()>0){
-						altDataKeystone = JSON.parseArray(strDataKeystone, HashMap.class);
+			strRemoteSer = PropertiesRemoteser.disGetval("auth");
+			strReSerpoint = PropertiesRemoteser.disGetval("authpoint");
+			if(strRemoteSer!=null && strRemoteSer.trim().length()>0
+					&& strReSerpoint!=null && strReSerpoint.trim().length()>0){
+				Map<String, Object> mapParKeystone = new HashMap<>(); 
+	//			mapParKeystone.put("ksId", "1"); 
+	//			mapParKeystone.put("dom", "1"); 
+	//			mapParKeystone.put("project", "1"); 
+	//			mapParKeystone.put("ideenity", "1"); 
+	//			mapParKeystone.put("imgapiv", "1"); 
+	//			mapParKeystone.put("ansibleId", "1"); 
+				String strParKeystone = JSON.toJSONString(mapParKeystone);
+				HttpClientUtil objHttpClientUtil = new HttpClientUtil();
+				String strKeystone = objHttpClientUtil.sendHttpPostJson("http://"+strRemoteSer+":"+strReSerpoint+"/pjOpStAuth/web/keystone/getKeystone", strParKeystone);
+//				String strKeystone = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/keystone/getKeystone", strParKeystone);
+				
+				Map<String, Object> mapResKeystone = JSON.parseObject(strKeystone, HashMap.class);
+				if(mapResKeystone!=null && mapResKeystone.size()>0
+						&& mapResKeystone.containsKey("msg") && mapResKeystone.get("msg")!=null
+						&& mapResKeystone.containsKey("data") && mapResKeystone.get("data")!=null){
+					String strMsg = mapResKeystone.get("msg")==null?null:mapResKeystone.get("msg").toString();
+					if("ok".equals(strMsg)){
+						String strDataKeystone = mapResKeystone.get("data").toString();
+						if(strDataKeystone!=null && strDataKeystone.trim().length()>0){
+							altDataKeystone = JSON.parseArray(strDataKeystone, HashMap.class);
+						}
 					}
 				}
+			} else {
+				throw new Exception(strCname + strFname + " strRemoteSer 或 strReSerpoint ==null .... ");
 			}
 			strInfo = strCname + strFname + " End!" ;
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 		} catch(Exception ex) {
+			altDataKeystone = null;
 			if(objBa!=null && objBa.objOutputLogPro!=null){
 				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
 			}
