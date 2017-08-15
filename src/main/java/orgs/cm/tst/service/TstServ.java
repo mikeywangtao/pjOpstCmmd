@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSON;
 
 import orgs.cm.pMqp.pHttpc.HttpClientUtil;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
+import orgs.cm.pMqp.pRuncmd.pQzGetflv.Runcmdpro_Getflv;
 import orgs.cm.pMqp.pRuncmd.pQzGetimg.Runcmdpro_Getimg;
 import orgs.cm.pMqp.pRuncmd.pjCreate00.Runcmdpro_Create00;
 import orgs.cm.tst.dao.TstDao;
@@ -134,8 +135,11 @@ public class TstServ {
 		*/
 
 
-		AbsRuncmdPro objRcGetimg = new Runcmdpro_Getimg();
-		objRcGetimg.disRuncmdPro();
+//		AbsRuncmdPro objRcGetimg = new Runcmdpro_Getimg();
+//		objRcGetimg.disRuncmdPro();
+		
+		AbsRuncmdPro objRcGetflv = new Runcmdpro_Getflv();
+		objRcGetflv.disRuncmdPro();
 		
 //		AbsRuncmdPro objRcCreate00 = new Runcmdpro_Create00();
 //		objRcCreate00.disRuncmdPro();

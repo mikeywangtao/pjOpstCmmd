@@ -73,13 +73,13 @@ public class QuartzSett {
 		String strFname = " disCreatejob : ";
 		Job objRe = null;
 		try {
-			if(strJobname.indexOf("imgJob")>-1){
-//				objRe =  new QuartzJob();
-				objRe = new QuartzJob_Getimg();
-			}
-//			if(strJobname.indexOf("flvJob")>-1){
-//				objRe = new QuartzJob_Getflv();
+//			if(strJobname.indexOf("imgJob")>-1){
+////				objRe =  new QuartzJob();
+//				objRe = new QuartzJob_Getimg();
 //			}
+			if(strJobname.indexOf("flvJob")>-1){
+				objRe = new QuartzJob_Getflv();
+			}
 //			if(strJobname.indexOf("netwJob")>-1){
 //				objRe = new QuartzJob_Getnetw();
 //			}
