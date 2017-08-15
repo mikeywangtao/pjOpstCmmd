@@ -23,7 +23,7 @@ import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
 import orgs.cm.pMqp.pRuncmd.pAnsible.AnsiblePro;
 import orgs.cm.pMqp.pRuncmd.pKeystone.KeystonePro;
 
-public class Runcmdpro_Getimg extends AbsRuncmdPro {
+public class Runcmdpro_Getimg extends AbsRuncmdPro implements Runnable {
 
 	private final String strCname = Runcmdpro_Getimg.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
@@ -32,6 +32,10 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro {
 	
 	private ClsBaseAttrs objBa = null;
 	private HashMap<String, Object> hmpPar = new HashMap<>();
+	
+	public void run(){
+		disRuncmdPro();
+	}
 	
 	public void disRuncmdPro(){
 		String strFname = " disRuncmdPro : ";

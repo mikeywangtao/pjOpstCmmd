@@ -7,6 +7,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import orgs.cm.pMqp.pProlst.ThrdRunManage;
 import orgs.cm.pMqp.pQz.QuartzBaseJob;
 
 public class QuartzJob_Getimg implements Job {//extends QuartzBaseJob {
@@ -31,5 +32,6 @@ public class QuartzJob_Getimg implements Job {//extends QuartzBaseJob {
 //		}
 		Runcmdpro_Getimg objRcGetimg = new Runcmdpro_Getimg();
 		objRcGetimg.disRuncmdPro();
+		ThrdRunManage.chmthdrMang_RuncmdPro.get("IFN").putThread2Mlt((Runnable)objRcGetimg);
 	}
 }
