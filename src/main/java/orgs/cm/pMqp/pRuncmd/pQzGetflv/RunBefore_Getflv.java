@@ -45,7 +45,7 @@ public class RunBefore_Getflv extends AbsRunBefore {
 				}
 				objSaveInfoPro = new SaveInfoPro(strCname, objBa);
 				
-				strInfo = strCname + strFname + " GetImage Before01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " GetFlv Before01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS );
 				
 				disSetShell(); 
@@ -55,7 +55,7 @@ public class RunBefore_Getflv extends AbsRunBefore {
 					hmpAll.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "t");
 				}
 				
-				strInfo = strCname + strFname + " GetImage Before01 End----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " GetFlv Before01 End----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE );
 			}
 		} catch(Exception ex) {
@@ -85,7 +85,7 @@ public class RunBefore_Getflv extends AbsRunBefore {
 					&& ((Map)hmpAll.get(ProcessAttrs.strParmapKey_Ppalst)).containsKey(ProcessAttrs.strParmapKey_Ppa_Cmdpar)
 					&& ((Map)hmpAll.get(ProcessAttrs.strParmapKey_Ppalst)).get(ProcessAttrs.strParmapKey_Ppa_Cmdpar)!=null
 					){
-				strInfo = strCname + strFname + " RunPrepare Getimg Start!" ;
+				strInfo = strCname + strFname + " RunPrepare Getflv Start!" ;
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
 				
 				HashMap<String, String> mapParam = (HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars);
@@ -119,7 +119,7 @@ public class RunBefore_Getflv extends AbsRunBefore {
 					strShline = strCmdshids + "}}}" + strShline; 
 					altShell.add(strShline);
 				}
-				strInfo = strCname + strFname + " RunPrepare Getimg End!" ;
+				strInfo = strCname + strFname + " RunPrepare Getflv End!" ;
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 			}
 			if(altShell!=null && altShell.size()>0){

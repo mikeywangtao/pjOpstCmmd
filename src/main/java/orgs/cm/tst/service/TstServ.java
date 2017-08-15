@@ -1,22 +1,14 @@
 package orgs.cm.tst.service;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSON;
-
-import orgs.cm.pMqp.pHttpc.HttpClientUtil;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
-import orgs.cm.pMqp.pRuncmd.pQzGetflv.Runcmdpro_Getflv;
-import orgs.cm.pMqp.pRuncmd.pQzGetimg.Runcmdpro_Getimg;
-import orgs.cm.pMqp.pRuncmd.pjCreate00.Runcmdpro_Create00;
+import orgs.cm.pMqp.pRuncmd.pQzGetnetw.Runcmdpro_Getnetw;
 import orgs.cm.tst.dao.TstDao;
 import orgs.cm.tst.model.RunCmmd000;
 import orgs.cm.tst.model.RunCmmd001;
@@ -138,8 +130,11 @@ public class TstServ {
 //		AbsRuncmdPro objRcGetimg = new Runcmdpro_Getimg();
 //		objRcGetimg.disRuncmdPro();
 		
-		AbsRuncmdPro objRcGetflv = new Runcmdpro_Getflv();
-		objRcGetflv.disRuncmdPro();
+//		AbsRuncmdPro objRcGetflv = new Runcmdpro_Getflv();
+//		objRcGetflv.disRuncmdPro();
+		
+		AbsRuncmdPro objRcGetnetw = new Runcmdpro_Getnetw();
+		objRcGetnetw.disRuncmdPro();
 		
 //		AbsRuncmdPro objRcCreate00 = new Runcmdpro_Create00();
 //		objRcCreate00.disRuncmdPro();

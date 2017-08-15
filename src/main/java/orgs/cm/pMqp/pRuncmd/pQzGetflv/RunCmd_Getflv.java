@@ -74,7 +74,7 @@ public class RunCmd_Getflv extends AbsRunCmd {
 			objSaveInfoPro = new SaveInfoPro(strCname, objBa);
 			
 			logger.info(strCname + strFname + "  Start!");
-			strInfo = strCname + strFname + " 查看镜像 Runcmd01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
+			strInfo = strCname + strFname + " 查看系统模板 Runcmd01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS );
 			
 			hmpAll.put(ProcessAttrs.strParmapKey_Runlst, null);
@@ -130,35 +130,35 @@ public class RunCmd_Getflv extends AbsRunCmd {
 			}
 			/* ------------------------------------------------------------------------------- */
 //			String StrCommand = "ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u root "; //查看镜像
-/* 11:17:09.345 [http-bio-8080-exec-10] INFO  orgs.cm.tst.model.RunCmmd002 - Run Cmmd ----> ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u rootSTD line: 10.167.212.1 | SUCCESS => {
-STD line:     "changed": true, 
-STD line:     "rc": 0, 
-STD line:     "stderr": "", 
-STD line:     "stdout": "+--------------------------------------+------------+\r\n| ID                                   | Name       |\r\n+--------------------------------------+------------+\r\n| 4c367d93-fbe5-4c58-ac85-f7aab0310740 | centos6    |\r\n| 4c3b9963-bc32-4c38-a592-309e2da5722e | centos6.5  |\r\n| 20022a68-bc87-462d-ba6c-af6570ba839e | cirros     |\r\n| a7ff7cec-f187-4439-969e-a696020fb6a6 | fedora25   |\r\n| a1f55a3b-fd1c-4512-bbcf-15f4a231371c | ubuntu1404 |\r\n+--------------------------------------+------------+\r\n", 
-STD line:     "stdout_lines": [
-STD line:         "+--------------------------------------+------------+", 
-STD line:         "| ID                                   | Name       |", 
-STD line:         "+--------------------------------------+------------+", 
-STD line:         "| 4c367d93-fbe5-4c58-ac85-f7aab0310740 | centos6    |", 
-STD line:         "| 4c3b9963-bc32-4c38-a592-309e2da5722e | centos6.5  |", 
-STD line:         "| 20022a68-bc87-462d-ba6c-af6570ba839e | cirros     |", 
-STD line:         "| a7ff7cec-f187-4439-969e-a696020fb6a6 | fedora25   |", 
-STD line:         "| a1f55a3b-fd1c-4512-bbcf-15f4a231371c | ubuntu1404 |", 
-STD line:         "+--------------------------------------+------------+"
-STD line:     ]
-STD line: } */
+/* 查看镜像 STD line: 10.167.212.1 | SUCCESS => {
+查看镜像 STD line:     "changed": true, 
+查看镜像 STD line:     "rc": 0, 
+查看镜像 STD line:     "stderr": "", 
+查看镜像 STD line:     "stdout": "+------------------------------------+-----------------------------------+-------+------+-----------+-------+-----------+\r\n| ID                                 | Name                              |   RAM | Disk | Ephemeral | VCPUs | Is Public |\r\n+------------------------------------+-----------------------------------+-------+------+-----------+-------+-----------+\r\n| 0                                  | m1.nano                           |    64 |    1 |         0 |     1 | True      |\r\n| 0579be21527653cb8ce6b63050578da22a | 0579be21527653cb8ce6b63050578da2a |  4096 |   20 |         0 |     2 | True      |\r\n| 0579be21527653cb8ce6b63050578daa   | 0579be21527653cb8ce6b63050578daa  | 12288 |   20 |         0 |     2 | True      |\r\n| 1                                  | default.flavor01                  |  1024 |    1 |         0 |     1 | True      |\r\n| 2                                  | default.flavor02                  |  2048 |    1 |         0 |     2 | True      |\r\n+------------------------------------+-----------------------------------+-------+------+-----------+-------+-----------+\r\n", 
+查看镜像 STD line:     "stdout_lines": [
+查看镜像 STD line:         "+------------------------------------+-----------------------------------+-------+------+-----------+-------+-----------+", 
+查看镜像 STD line:         "| ID                                 | Name                              |   RAM | Disk | Ephemeral | VCPUs | Is Public |", 
+查看镜像 STD line:         "+------------------------------------+-----------------------------------+-------+------+-----------+-------+-----------+", 
+查看镜像 STD line:         "| 0                                  | m1.nano                           |    64 |    1 |         0 |     1 | True      |", 
+查看镜像 STD line:         "| 0579be21527653cb8ce6b63050578da22a | 0579be21527653cb8ce6b63050578da2a |  4096 |   20 |         0 |     2 | True      |", 
+查看镜像 STD line:         "| 0579be21527653cb8ce6b63050578daa   | 0579be21527653cb8ce6b63050578daa  | 12288 |   20 |         0 |     2 | True      |", 
+查看镜像 STD line:         "| 1                                  | default.flavor01                  |  1024 |    1 |         0 |     1 | True      |", 
+查看镜像 STD line:         "| 2                                  | default.flavor02                  |  2048 |    1 |         0 |     2 | True      |", 
+查看镜像 STD line:         "+------------------------------------+-----------------------------------+-------+------+-----------+-------+-----------+"
+查看镜像 STD line:     ]
+查看镜像 STD line: }*/
 			StrCommand = StrCommand.replaceAll(",", "");
 			SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
-			strInfo = strCname + strFname + " 查看镜像 Start----" + DatePro.disGetStrdate4NowObjSdf001();
+			strInfo = strCname + strFname + " 查看系统模板 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
-			strInfo = strCname + strFname + " 查看镜像 Cmmd----" + StrCommand;
+			strInfo = strCname + strFname + " 查看系统模板 Cmmd----" + StrCommand;
 			objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 			logger.info(strInfo);
 			
 			process = Runtime.getRuntime().exec(StrCommand);
 
-			errorGobbler = new CmdStreamGobbler(process.getErrorStream(), StrCommand, "查看镜像 ERR", strstrCpuuid, this);
-			outputGobbler = new CmdStreamGobbler(process.getInputStream(), StrCommand, "查看镜像 STD", strstrCpuuid, this);
+			errorGobbler = new CmdStreamGobbler(process.getErrorStream(), StrCommand, "查看系统模板 ERR", strstrCpuuid, this);
+			outputGobbler = new CmdStreamGobbler(process.getInputStream(), StrCommand, "查看系统模板 STD", strstrCpuuid, this);
 
 			if(errorGobbler!=null && outputGobbler!=null){
 				errorGobbler.start();
@@ -207,7 +207,7 @@ STD line: } */
 					}
 				}
 				super.strThrflg = null;
-				strInfo = strCname + strFname + " 查看镜像 Runcmd01 End----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " 查看系统模板 Runcmd01 End----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 				hmpAll.put(ProcessAttrs.strParmapKey_Runlst, objBa.altRunc);
 //				for(int i=0; i<objBa.altRunc.size(); i++){
