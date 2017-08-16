@@ -43,12 +43,14 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro implements Runnable {
 		AbsRunBefore objBefore = null;
 		AbsRunCmd objCmd = null;
 		AbsRunAfter objAfter = null;
+		String strInfo = "";
 		
 		SaveInfoPro objSaveInfoPro = null;
 		List<HashMap> altDataAnsible = null;
 		List<HashMap> altDataKeystone = null;
 		
 		try {
+			
 			disSetParinfos();
 			disSetInfobase();
 			
@@ -59,12 +61,19 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro implements Runnable {
 
 			List<HashMap> lstAnsKsall = disSetAnsKs(altDataAnsible, altDataKeystone);
 			if(lstAnsKsall!=null && lstAnsKsall.size()>0){
+				objBa = new ClsBaseAttrs(strCname);
+				objBa.lhpInfobase = (LinkedHashMap<String, String>)hmpPar.get(ProcessAttrs.strParmapKey_Infobase);
+				
+				strInfo = strCname + strFname + "000 Input----" + hmpPar.toString();
+				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
+				objSaveInfoPro = new SaveInfoPro(strCname, objBa);
+				objSaveInfoPro.disSaveInfo_Cp(DbInfoSaveAttrs.strSaveFlg_Cp);
+				
 				for(HashMap mapRow : lstAnsKsall){
 					if(mapRow!=null && mapRow.size()>0){
 						if(disSetInpars(mapRow)){
-							objBa = new ClsBaseAttrs(strCname);
-							objBa.lhpInfobase = (LinkedHashMap<String, String>)hmpPar.get(ProcessAttrs.strParmapKey_Infobase);
-							objSaveInfoPro = new SaveInfoPro(strCname, objBa);
+							
+//							objSaveInfoPro = new SaveInfoPro(strCname, objBa);
 							
 							objPrepare = new RunPrepare_Getimg();
 							objPrepare.disSetHmpall(hmpPar);
@@ -85,9 +94,14 @@ public class Runcmdpro_Getimg extends AbsRuncmdPro implements Runnable {
 							objAfter.disSetHmpall(hmpPar);
 							objAfter.disSetClsBaseAttrs(objBa);
 							super.dusRunAfter(objAfter);
+							
+
 						}
 					}
 				}
+				
+				strInfo = strCname + strFname + "999 End!" ;
+				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 			}
 		} catch(Exception ex) {
 			if(objBa!=null && objBa.objOutputLogPro!=null){
