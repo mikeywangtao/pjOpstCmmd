@@ -1,4 +1,4 @@
-package orgs.cm.pMqp.pRuncmd.pQzGetnetw;
+package orgs.cm.pMqp.pRuncmd.pQzGetvmste;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,9 +18,9 @@ import orgs.cm.pMqp.pDbpro.IBaseDbpro;
 import orgs.cm.pMqp.pDbpro.SaveInfoPro;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunPrepare;
 
-public class RunPrepare_Getnetw extends AbsRunPrepare {
+public class RunPrepare_Getvmste extends AbsRunPrepare {
 
-	private final String strCname = RunPrepare_Getnetw.class.getName();
+	private final String strCname = RunPrepare_Getvmste.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
 	
@@ -56,7 +56,7 @@ public class RunPrepare_Getnetw extends AbsRunPrepare {
 				}
 				objSaveInfoPro = new SaveInfoPro(strCname, objBa);
 				
-				strInfo = strCname + strFname + " RunPrepare Getnetw Start!" ;
+				strInfo = strCname + strFname + " RunPrepare Getvmste Start!" ;
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
 				
 				disSearchCmdi(ProcessSql_Qz.strQzSql_Search_Cmdi, hmpCmds);
@@ -67,7 +67,7 @@ public class RunPrepare_Getnetw extends AbsRunPrepare {
 				
 //				disSetShell();
 				
-				strInfo = strCname + strFname + " RunPrepare Getnetw End!" ;
+				strInfo = strCname + strFname + " RunPrepare Getvmste End!" ;
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 			}
 		} catch(Exception ex) {
@@ -151,14 +151,14 @@ public class RunPrepare_Getnetw extends AbsRunPrepare {
 		String strInfo = "";
 		String strSqlf = strSqlTempp;
 		try {
-			strInfo = strCname + strFname + " RunPrepare Getnetw Start!" ;
+			strInfo = strCname + strFname + " RunPrepare Getvmste Start!" ;
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
 			if(strSqlf!=null && strSqlf.trim().length()>0
 					&& hmpCmdsp !=null){
 				strSqlf = strSqlf.replaceAll("\\^cmdi_ids\\^", strCmdiIds);
 				hmpCmdsp.put(ProcessAttrs.strParmapKey_Ppa_Cmdpar, objDbpro.disSearch(strSqlf));
 			}
-			strInfo = strCname + strFname + " RunPrepare Getnetw End!" ;
+			strInfo = strCname + strFname + " RunPrepare Getvmste End!" ;
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 		} catch(Exception ex) {
 //			disOutputLog(strFname, ex);
@@ -173,7 +173,7 @@ public class RunPrepare_Getnetw extends AbsRunPrepare {
 		String strInfo = "";
 		String strSqlf = strSqlTempp;
 		try {
-			strInfo = strCname + strFname + " RunPrepare Getnetw Start!" ;
+			strInfo = strCname + strFname + " RunPrepare Getvmste Start!" ;
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
 			if(strSqlf!=null && strSqlf.trim().length()>0
 					&& strCmdiIds!=null && strCmdiIds.trim().length()>0
@@ -182,7 +182,7 @@ public class RunPrepare_Getnetw extends AbsRunPrepare {
 				strSqlf = strSqlf.replaceAll("\\^cmdi_ids\\^", strCmdiIds);
 				hmpCmdsp.put(ProcessAttrs.strParmapKey_Ppa_Cmdsh, objDbpro.disSearch(strSqlf));
 			}
-			strInfo = strCname + strFname + " RunPrepare Getnetw End!" ;
+			strInfo = strCname + strFname + " RunPrepare Getvmste End!" ;
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 		} catch(Exception ex) {
 //			disOutputLog(strFname, ex);
@@ -197,13 +197,13 @@ public class RunPrepare_Getnetw extends AbsRunPrepare {
 		String strInfo = "";
 		String strSqlf = strSqlTempp;
 		try {
-			strInfo = strCname + strFname + " RunPrepare Getnetw Start!" ;
+			strInfo = strCname + strFname + " RunPrepare Getvmste Start!" ;
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
 			if(strSqlf!=null && strSqlf.trim().length()>0
 					&& hmpCmdsp !=null){
 				//定时任务采用固定值查询
 				strSqlf = strSqlf.replaceAll("\\^req_type\\^", "qz");
-				strSqlf = strSqlf.replaceAll("\\^req_subtype\\^", "getnetw");
+				strSqlf = strSqlf.replaceAll("\\^req_subtype\\^", "getvmste");
 				ArrayList<LinkedHashMap<String, Object>> altCmdi = objDbpro.disSearch(strSqlf);
 				if(altCmdi!=null && altCmdi.size()==1){
 					String strCmd = null;
@@ -221,7 +221,7 @@ public class RunPrepare_Getnetw extends AbsRunPrepare {
 					}
 				}
 			}
-			strInfo = strCname + strFname + " RunPrepare Getnetw End!" ;
+			strInfo = strCname + strFname + " RunPrepare Getvmste End!" ;
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 		} catch(Exception ex) {
 			strCmdiIds = null;
