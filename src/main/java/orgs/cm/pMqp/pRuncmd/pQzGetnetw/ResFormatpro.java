@@ -50,7 +50,7 @@ public class ResFormatpro {
 								if(subInfo!=null && subInfo.length==5
 										&& !"ID".equals(subInfo[1].trim().toUpperCase())){
 									//20170724 strImgId,strName
-									lmpRow.put("strImgId", subInfo[1].trim());
+									lmpRow.put("strNetwId", subInfo[1].trim());
 									lmpRow.put("strName", subInfo[2].trim());
 									lmpRow.put("strSubnets", subInfo[3].trim());
 									lmpRow.put("intAnsibleId", strAnsId);

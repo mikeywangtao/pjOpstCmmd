@@ -50,12 +50,12 @@ public class ResFormatpro {
 								if(subInfo!=null && subInfo.length==9
 										&& !"ID".equals(subInfo[1].trim())){
 									//20170724 strImgId,strName
-									lmpRow.put("strFlvId", subInfo[1].trim());
+									lmpRow.put("strFlvTempId", subInfo[1].trim());
 									lmpRow.put("strFlvName", subInfo[2].trim());
 									lmpRow.put("strFlvRam", subInfo[3].trim());
 									lmpRow.put("strFlvDisk", subInfo[4].trim());
-									lmpRow.put("strFlvEphemeral", subInfo[5].trim());
-									lmpRow.put("strFlvVCpus", subInfo[6].trim());
+									lmpRow.put("intFlvEphemeral", subInfo[5].trim());
+									lmpRow.put("intFlvVCpus", subInfo[6].trim());
 									lmpRow.put("strFlvIsPublic", subInfo[7].trim());
 									lmpRow.put("intAnsibleId", strAnsId);
 									altRe.add((LinkedHashMap<String, String>)lmpRow.clone());
