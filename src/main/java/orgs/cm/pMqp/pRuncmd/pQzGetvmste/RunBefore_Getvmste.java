@@ -45,7 +45,7 @@ public class RunBefore_Getvmste extends AbsRunBefore {
 				}
 				objSaveInfoPro = new SaveInfoPro(strCname, objBa);
 				
-				strInfo = strCname + strFname + " GetNetw Before01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " Getvmste Before01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS );
 				
 				disSetShell(); 
@@ -55,7 +55,7 @@ public class RunBefore_Getvmste extends AbsRunBefore {
 					hmpAll.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "t");
 				}
 				
-				strInfo = strCname + strFname + " GetNetw Before01 End----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " Getvmste Before01 End----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE );
 			}
 		} catch(Exception ex) {

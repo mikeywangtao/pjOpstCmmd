@@ -62,7 +62,7 @@ public class RunAfter_Getvmste extends AbsRunAfter {
 				logger.info(strCname + strFname + "  Start!");
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, null);
 				objBa.lhpInfobase.put(ProcessAttrs.strInfoType_Info, ProcessAttrs.strInfoFlgKey_Aft);
-				strInfo = strCname + strFname + " 网络 After Start----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " vm状态 After Start----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
 				
@@ -86,7 +86,7 @@ public class RunAfter_Getvmste extends AbsRunAfter {
 								mapSetImg.put("msg", "ok");
 								mapSetImg.put("data", strReq);
 								String strSetImg = JSON.toJSONString(mapSetImg);
-								strInfo = strCname + strFname + " 网络 After RequestBody----" + strSetImg;
+								strInfo = strCname + strFname + " vm状态 After RequestBody----" + strSetImg;
 								objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 								hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
 								HttpClientUtil objHttpClientUtil = new HttpClientUtil();
@@ -94,7 +94,7 @@ public class RunAfter_Getvmste extends AbsRunAfter {
 								String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://"+strRemoteSer+":"+strReSerpoint+"/pjOpStAuth/web/images/saveImages", strSetImg);
 //								String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/images/saveImages", strSetImg);
 								Map<String, Object> mapResAnsible = JSON.parseObject(strSetImgres, HashMap.class);
-								strInfo = strCname + strFname + " 网络 After respones----" + mapResAnsible;
+								strInfo = strCname + strFname + " vm状态 After respones----" + mapResAnsible;
 								logger.info(strInfo);
 								objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 								hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
@@ -105,7 +105,7 @@ public class RunAfter_Getvmste extends AbsRunAfter {
 					throw new Exception(strCname + strFname + " strRemoteSer 或 strReSerpoint ==null .... ");
 				}
 				
-				strInfo = strCname + strFname + " 网络 After End----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " vm状态 After End----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
 			}

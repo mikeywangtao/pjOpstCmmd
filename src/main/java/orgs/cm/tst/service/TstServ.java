@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
-import orgs.cm.pMqp.pRuncmd.pQzGetnetw.Runcmdpro_Getnetw;
+import orgs.cm.pMqp.pRuncmd.pQzGetvmste.Runcmdpro_Getvmste;
 import orgs.cm.tst.dao.TstDao;
 import orgs.cm.tst.model.RunCmmd000;
 import orgs.cm.tst.model.RunCmmd001;
@@ -133,8 +133,11 @@ public class TstServ {
 //		AbsRuncmdPro objRcGetflv = new Runcmdpro_Getflv();
 //		objRcGetflv.disRuncmdPro();
 		
-		AbsRuncmdPro objRcGetnetw = new Runcmdpro_Getnetw();
-		objRcGetnetw.disRuncmdPro();
+//		AbsRuncmdPro objRcGetnetw = new Runcmdpro_Getnetw();
+//		objRcGetnetw.disRuncmdPro();
+		
+		AbsRuncmdPro objRcGetvmste = new Runcmdpro_Getvmste();
+		objRcGetvmste.disRuncmdPro();
 		
 //		AbsRuncmdPro objRcCreate00 = new Runcmdpro_Create00();
 //		objRcCreate00.disRuncmdPro();

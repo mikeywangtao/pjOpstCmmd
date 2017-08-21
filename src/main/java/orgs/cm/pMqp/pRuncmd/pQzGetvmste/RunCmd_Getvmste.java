@@ -74,7 +74,7 @@ public class RunCmd_Getvmste extends AbsRunCmd {
 			objSaveInfoPro = new SaveInfoPro(strCname, objBa);
 			
 			logger.info(strCname + strFname + "  Start!");
-			strInfo = strCname + strFname + " 获取Vm状态 Runcmd01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
+			strInfo = strCname + strFname + " vm状态 Runcmd01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS );
 			
 			hmpAll.put(ProcessAttrs.strParmapKey_Runlst, null);
@@ -146,16 +146,16 @@ public class RunCmd_Getvmste extends AbsRunCmd {
 查看镜像 STD line: } */
 			StrCommand = StrCommand.replaceAll(",", "");
 			SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
-			strInfo = strCname + strFname + " 查看网络 Start----" + DatePro.disGetStrdate4NowObjSdf001();
+			strInfo = strCname + strFname + " vm状态 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
-			strInfo = strCname + strFname + " 查看网络 Cmmd----" + StrCommand;
+			strInfo = strCname + strFname + " vm状态 Cmmd----" + StrCommand;
 			objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 			logger.info(strInfo);
 			
 			process = Runtime.getRuntime().exec(StrCommand);
 
-			errorGobbler = new CmdStreamGobbler(process.getErrorStream(), StrCommand, "获取Vm状态 ERR", strstrCpuuid, this);
-			outputGobbler = new CmdStreamGobbler(process.getInputStream(), StrCommand, "获取Vm状态 STD", strstrCpuuid, this);
+			errorGobbler = new CmdStreamGobbler(process.getErrorStream(), StrCommand, "vm状态 ERR", strstrCpuuid, this);
+			outputGobbler = new CmdStreamGobbler(process.getInputStream(), StrCommand, "vm状态 STD", strstrCpuuid, this);
 
 			if(errorGobbler!=null && outputGobbler!=null){
 				errorGobbler.start();
@@ -204,7 +204,7 @@ public class RunCmd_Getvmste extends AbsRunCmd {
 					}
 				}
 				super.strThrflg = null;
-				strInfo = strCname + strFname + " 获取Vm状态 Runcmd01 End----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " vm状态 Runcmd01 End----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 				hmpAll.put(ProcessAttrs.strParmapKey_Runlst, objBa.altRunc);
 //				for(int i=0; i<objBa.altRunc.size(); i++){

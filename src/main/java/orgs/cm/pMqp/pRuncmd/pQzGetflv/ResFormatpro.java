@@ -40,14 +40,14 @@ public class ResFormatpro {
 						String strInfo = mapRow.get(ProcessAttrs.strInfoKey_Info)==null?
 								null : mapRow.get(ProcessAttrs.strInfoKey_Info).toString();
 						if(strInfo!=null && strInfo.trim().length()>0){
-							if(strInfo.indexOf("stdout_lines")>0){
+							if(strInfo.indexOf("stdout_lines")>-1){
 								booFlg = true;
 								continue;
 							}
 							if(booFlg && strInfo.indexOf("| ")>-1){
 								lmpRow.clear();
 								String[] subInfo = strInfo.split("\\|");
-								if(subInfo!=null && subInfo.length==4
+								if(subInfo!=null && subInfo.length==9
 										&& !"ID".equals(subInfo[1].trim())){
 									//20170724 strImgId,strName
 									lmpRow.put("strFlvId", subInfo[1].trim());

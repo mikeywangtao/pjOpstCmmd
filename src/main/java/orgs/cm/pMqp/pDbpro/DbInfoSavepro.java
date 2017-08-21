@@ -180,7 +180,12 @@ subflg=start}
 								strSqlCheck = strSqlCheck.replaceAll("\\^infotype\\^", mapRow.get(ProcessAttrs.strInfoCType_Info) + " " + mapRow.get(ProcessAttrs.strInfoType_Info));
 								strSqlCheck = strSqlCheck.replaceAll("\\^infoflg\\^", mapRow.get("flg"));
 								strSqlCheck = strSqlCheck.replaceAll("\\^infosubflg\\^", mapRow.get("subflg"));
-								strSqlCheck = strSqlCheck.replaceAll("\\^info\\^", mapRow.get("info").replaceAll("'", "\""));
+								String strInfoTmp = mapRow.get("info");
+								if(strInfoTmp!=null){
+									strSqlCheck = strSqlCheck.replaceAll("\\^info\\^", mapRow.get("info").replaceAll("'", "\""));
+								} else {
+									strSqlCheck = strSqlCheck.replaceAll("\\^info\\^", "");
+								}
 								strSqlCheck = strSqlCheck.replaceAll("\\^cpuuid\\^", mapRow.get("cpuuid"));
 								strSqlCheck = strSqlCheck.replaceAll("\\^createdt\\^", DatePro.disGetStrdate4NowObjSdf001());
 								strSqlCheck = strSqlCheck.replaceAll("\\^cmdrundt\\^", mapRow.get(ProcessAttrs.strInfoKey_Rundt));
