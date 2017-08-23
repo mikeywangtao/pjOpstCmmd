@@ -91,7 +91,7 @@ public class RunAfter_Getnetw extends AbsRunAfter {
 								hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
 								HttpClientUtil objHttpClientUtil = new HttpClientUtil();
 								logger.info(strInfo);
-								String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://"+strRemoteSer+":"+strReSerpoint+"/pjOpStAuth/web/images/saveImages", strSetImg);
+								String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://"+strRemoteSer+":"+strReSerpoint+"/pjOpStAuth/web/network/saveNetwork", strSetImg);
 //								String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/images/saveImages", strSetImg);
 								Map<String, Object> mapResAnsible = JSON.parseObject(strSetImgres, HashMap.class);
 								strInfo = strCname + strFname + " 网络 After respones----" + mapResAnsible;
