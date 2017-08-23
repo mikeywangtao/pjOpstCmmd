@@ -75,9 +75,12 @@ public class RunAfter_Getflv extends AbsRunAfter {
 					String strAnsidf = hmpAll.get("^ansid^")==null? null:hmpAll.get("^ansid^").toString();
 					if(strAnsidf!=null && strAnsidf.trim().length()>0){
 						ResFormatpro objResFormatpro = new ResFormatpro(
-								(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd), strAnsidf);
+								(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd)
+								, strAnsidf
+								, hmpAll
+								, objBa);
 						ArrayList<LinkedHashMap<String, String>> altResf = objResFormatpro.disFormatpro();
-						if(altResf!=null){
+						if(altResf!=null && altResf.size()>0){
 							hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstdf, altResf);
 							//httpclient 访问
 							String strReq = disCreateJson(altResf);

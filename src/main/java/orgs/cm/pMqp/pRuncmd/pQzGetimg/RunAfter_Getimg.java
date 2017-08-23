@@ -75,7 +75,10 @@ public class RunAfter_Getimg extends AbsRunAfter {
 					String strAnsidf = hmpAll.get("^ansid^")==null? null:hmpAll.get("^ansid^").toString();
 					if(strAnsidf!=null && strAnsidf.trim().length()>0){
 						ResFormatpro objResFormatpro = new ResFormatpro(
-								(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd), strAnsidf);
+								(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd)
+								, strAnsidf
+								, hmpAll
+								, objBa);
 						ArrayList<LinkedHashMap<String, String>> altResf = objResFormatpro.disFormatpro();
 						if(altResf!=null){
 							hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstdf, altResf);
