@@ -144,7 +144,7 @@ public class RunCmd_Getnetw extends AbsRunCmd {
 查看镜像 STD line:         "+--------------------------------------+-------------+------------------------------------------------------+"
 查看镜像 STD line:     ]
 查看镜像 STD line: } */
-			StrCommand = StrCommand.replaceAll(",", "");
+//			StrCommand = StrCommand.replaceAll(",", "");
 			SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
 			strInfo = strCname + strFname + " 查看网络 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);

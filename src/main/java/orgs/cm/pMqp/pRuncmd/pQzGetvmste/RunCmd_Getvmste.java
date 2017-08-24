@@ -144,7 +144,7 @@ public class RunCmd_Getvmste extends AbsRunCmd {
 查看镜像 STD line:         "+--------------------------------------+-------------+------------------------------------------------------+"
 查看镜像 STD line:     ]
 查看镜像 STD line: } */
-			StrCommand = StrCommand.replaceAll(",", "");
+//			StrCommand = StrCommand.replaceAll(",", "");
 			SimpleDateFormat objSdf = new SimpleDateFormat("yyyyMMddHHmmssS");
 			strInfo = strCname + strFname + " vm状态 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			objBa.altRunc = disSetInfo(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
