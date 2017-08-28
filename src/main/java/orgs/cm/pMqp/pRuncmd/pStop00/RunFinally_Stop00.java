@@ -1,4 +1,4 @@
-package orgs.cm.pMqp.pRuncmd.pjCreate00;
+package orgs.cm.pMqp.pRuncmd.pStop00;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,9 +21,9 @@ import orgs.cm.pMqp.pDbpro.SaveInfoPro;
 import orgs.cm.pMqp.pHttpc.HttpClientUtil;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunFinally;
 
-public class RunFinally_Create00 extends AbsRunFinally{
+public class RunFinally_Stop00 extends AbsRunFinally{
 
-	private final String strCname = RunFinally_Create00.class.getName();
+	private final String strCname = RunFinally_Stop00.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
 //	private LinkedHashMap<String, String> lhpInfobase = new LinkedHashMap<String, String>();
@@ -61,7 +61,7 @@ public class RunFinally_Create00 extends AbsRunFinally{
 			
 			objBa.lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
 			objBa.lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Finly);
-			strInfo = strCname + strFname + " VM创建 Finally Start----" + DatePro.disGetStrdate4NowObjSdf001();
+			strInfo = strCname + strFname + " 停止VM Finally Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
 			
 			strRemoteSer = PropertiesRemoteser.disGetval("cms");
@@ -71,7 +71,7 @@ public class RunFinally_Create00 extends AbsRunFinally{
 				if(hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg) 
 						&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
 						&& "end".equals(hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString().trim())){
-					strInfo = strCname + strFname + " VM创建 Finally Ok----" + DatePro.disGetStrdate4NowObjSdf001();
+					strInfo = strCname + strFname + " 停止VM Finally Ok----" + DatePro.disGetStrdate4NowObjSdf001();
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx + " Finally Ok ");
 					
 					strMsgs =  hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst).toString();
@@ -91,17 +91,17 @@ public class RunFinally_Create00 extends AbsRunFinally{
 					String strSetImg = "";
 					strSetImg = JSON.toJSONString(mapReq);
 //					strSetImg = "{'msgs':'"+strMsgs+"', 'finallydt':'"+strFinallydt+"', 'state':'ok', 'cpids':'"+strCpids+"'}";
-					strInfo = strCname + strFname + " VM创建 Finally Ok request----" + strSetImg;
+					strInfo = strCname + strFname + " 停止VM Finally Ok request----" + strSetImg;
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PAx + " request ");
 					HttpClientUtil objHttpClientUtil = new HttpClientUtil();
 					String strSetVminfos = objHttpClientUtil.sendHttpPostJson("http://"+strRemoteSer+":"+strReSerpoint+"/vm/info/", strSetImg);
 //					String strSetVminfos = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:10000/vm/info/", strSetImg);
-					strInfo = strCname + strFname + " VM创建 Finally ----mapRes---- " + strSetVminfos;
+					strInfo = strCname + strFname + " 停止VM Finally ----mapRes---- " + strSetVminfos;
 					
 				} else {
 					objBa.lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
 					objBa.lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Finly);
-					strInfo = strCname + strFname + " VM创建 Finally Ng----" + DatePro.disGetStrdate4NowObjSdf001();
+					strInfo = strCname + strFname + " 停止VM Finally Ng----" + DatePro.disGetStrdate4NowObjSdf001();
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx + " Finally Ng ");
 					
 					cutmids = hmpAll.get("^customerids^").toString();
@@ -119,16 +119,16 @@ public class RunFinally_Create00 extends AbsRunFinally{
 					String strSetImg = "";
 					strSetImg = JSON.toJSONString(mapReq);
 //					strSetImg = "{'msgs':'"+strMsgs+"', 'finallydt':'"+strFinallydt+"', 'state':'ng', 'cpids':'"+strCpids+"'}";
-					strInfo = strCname + strFname + " VM创建 Finally Ng request----" + strSetImg;
+					strInfo = strCname + strFname + " 停止VM Finally Ng request----" + strSetImg;
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PAx + " request ");
 					HttpClientUtil objHttpClientUtil = new HttpClientUtil();
 					String strSetVminfos = objHttpClientUtil.sendHttpPostJson("http://"+strRemoteSer+":"+strReSerpoint+"/vm/info/", strSetImg);
 //					String strSetVminfos = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:10000/vm/info/", strSetImg);
-					strInfo = strCname + strFname + " VM创建 Finally ----mapRes---- " + strSetVminfos;
+					strInfo = strCname + strFname + " 停止VM Finally ----mapRes---- " + strSetVminfos;
 					
 				}
 			}
-			strInfo = strCname + strFname + " VM创建 Finally End----" + DatePro.disGetStrdate4NowObjSdf001();
+			strInfo = strCname + strFname + " 停止VM Finally End----" + DatePro.disGetStrdate4NowObjSdf001();
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 		} catch(Exception ex) {
 			if(objBa!=null && objBa.objOutputLogPro!=null){
