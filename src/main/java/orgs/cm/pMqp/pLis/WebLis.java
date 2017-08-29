@@ -6,6 +6,8 @@ import javax.servlet.ServletContextListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import orgs.cm.pMqp.pDblst.DbContManage;
+
 public class WebLis implements ServletContextListener {
 
 	private final String strCname = WebLis.class.getName();
@@ -18,24 +20,7 @@ public class WebLis implements ServletContextListener {
 	public void contextDestroyed(ServletContextEvent arg0) {
 		String strFname = " contextDestroyed : ";
 		try{
-//			logger.info(strCname + strFname + "dflkjga;");
-//			System.out.println("");
-//			if(ThreadPoolManage.chmThdPool_Msg!=null
-//					&& ThreadPoolManage.chmThdPool_Msg.size()>0){
-//				ThreadPoolManage.chmThdPool_Msg = null;
-//			}
-//			
-//			if(ThreadRunManage.chmthdrMang_DataSave!=null
-//					&& ThreadRunManage.chmthdrMang_DataSave.size()>0) {
-//				String[] subKey = ThreadRunManage.chmthdrMang_DataSave.keySet().toArray(new String[0]);
-//				if(subKey!=null && subKey.length>0){
-//					for(String key : subKey){
-//						if(key!=null && key.trim().length()>0){
-//							ThreadRunManage.chmthdrMang_DataSave.get(key).shutdownVltThd();
-//						}
-//					}
-//				}
-//			}
+			DbContManage.disShutdown();
 		} catch(Exception ex) {
 			long lonFlg = System.currentTimeMillis();
 			logger.error(strCname + strFname + ex + "||" + lonFlg);

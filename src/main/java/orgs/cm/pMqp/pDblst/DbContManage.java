@@ -63,7 +63,8 @@ public class DbContManage {
 		String[] strkeys = chmDb.keySet().toArray(new String[0]);
 		if(strkeys!=null && strkeys.length>0){
 			for(String key : strkeys){
-				chmDb.remove(key);
+				ObjRepePool01<DbCont> obj = chmDb.remove(key);
+				obj.disRemoreall(new DbContDestroyed());
 			}
 		}
 	}

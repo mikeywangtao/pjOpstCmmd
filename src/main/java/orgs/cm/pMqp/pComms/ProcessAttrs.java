@@ -65,13 +65,13 @@ public class ProcessAttrs {
 	public static final String strParmapKey_Ppa_Cmdpar = "cmdpar";
 	public static final String strParmapKey_Ppa_Cmdshr = "cmdshr";
 	
-	public static final String strParmapKey_Ppa_ShFileroot = "strShFileroot";
-	public static final String strParmapKey_Ppa_ShFilename = "strShFilename";
-	public static final String strParmapKey_Ppa_ShFilecflg = "strShFilecflg";
-	public static final String strParmapKey_Ppa_RunShCmmd = "strRunShCmmd";
-	public static final String strParmapKey_Ppa_NowRunCmdids = "strNowRunCmdids";
-	public static final String strParmapKey_Ppa_NowRunflg = "strNowRunflg";
-	public static final String strParmapKey_Ppa_NowPostfix = "strNowPostfix";
+	public static final String strParmapKey_Ppa_ShFileroot = "strShFileroot";//shell文件根
+	public static final String strParmapKey_Ppa_ShFilename = "strShFilename";//shell文件名
+	public static final String strParmapKey_Ppa_ShFilecflg = "strShFilecflg";//shell文件创建flg
+	public static final String strParmapKey_Ppa_RunShCmmd = "strRunShCmmd";//shell运行命令
+	public static final String strParmapKey_Ppa_NowRunCmdids = "strNowRunCmdids";//当前shell的数据库IDS
+	public static final String strParmapKey_Ppa_NowRunflg = "strNowRunflg";//
+	public static final String strParmapKey_Ppa_NowPostfix = "strNowPostfix";//
 	public static final String strParmapKey_Ppa_RunLoopFlg = "strRunLoopFlg";
 	public static final String strParmapKey_Ppa_RunResLst = "strRunResLst";
 }

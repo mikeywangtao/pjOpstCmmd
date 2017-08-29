@@ -1,5 +1,6 @@
 package orgs.cm.tst.service;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import org.apache.logging.log4j.LogManager;
@@ -126,7 +127,22 @@ public class TstServ {
 		}
 		*/
 
-
+		HashMap<String, Object> hmpParp = new HashMap<>();
+		hmpParp.put("^customerids^", "1");
+		hmpParp.put("^ansid^", "1");
+		hmpParp.put("^anscmmd^", "openstack");
+		
+		hmpParp.put("^pdom^", "Default");
+		hmpParp.put("^udom^", "Default");
+		hmpParp.put("^pname^", "admin");
+		hmpParp.put("^uname^", "admin");
+		hmpParp.put("^pass^", "admin");
+		hmpParp.put("^authurl^", "http://test-controller:5000/v3");
+		hmpParp.put("^ideapi^", "3");
+		hmpParp.put("^imgapi^", "2");
+		hmpParp.put("^vmids^", "d2ad4ebf-3299-425e-a0ae-973cf56d49d9");
+		
+				
 //		AbsRuncmdPro objRcGetimg = new Runcmdpro_Getimg();
 //		objRcGetimg.disRuncmdPro();
 		
@@ -142,9 +158,11 @@ public class TstServ {
 //		AbsRuncmdPro objRcCreate00 = new Runcmdpro_Create00();
 //		objRcCreate00.disRuncmdPro();
 		
+		hmpParp.put("^req_type^", "STOP");
+		hmpParp.put("^req_subtype^", "STOP00");
 		AbsRuncmdPro objRcStop00 = null;
 		objRcStop00 = new Runcmdpro_Stop00();
-		objRcStop00.disSetPars(null);
+		objRcStop00.disSetPars(hmpParp);
 		objRcStop00.disRuncmdPro();
 		
 //		try {

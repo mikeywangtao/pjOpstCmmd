@@ -99,7 +99,7 @@ public class Runcmdpro_Stop00 extends AbsRuncmdPro implements Runnable {
 					objCmd.disSetHmpall(hmpPar);
 					objCmd.disSetClsBaseAttrs(objBa);
 					super.disRunCmd(objCmd);
-					objCmd = null;
+					objCmd = null;	
 					
 					objAfter = new RunAfter_So00_1();
 					objAfter.disSetHmpall(hmpPar);
@@ -119,6 +119,9 @@ public class Runcmdpro_Stop00 extends AbsRuncmdPro implements Runnable {
 					int intLoop = 0;
 					String strRunlopp = null;
 					do {
+						Thread.sleep(5000);
+						intLoop = intLoop + 1;
+						
 						objBefore = new RunBefore_So00_2();
 						objBefore.disSetHmpall(hmpPar);
 						objBefore.disSetClsBaseAttrs(objBa);
@@ -138,14 +141,18 @@ public class Runcmdpro_Stop00 extends AbsRuncmdPro implements Runnable {
 						objAfter = null;
 						strRunlopp = hmpPar.get(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg).toString();
 						
-						intLoop = intLoop + 1;
-						
 						strInfo = strCname + strFname + 
 								ProcessAttrs.strParmapKey_Ppa_NowRunflg + ":" + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg) +
 								" loop (do while) : strRunlopp ----" + strRunlopp + 
 								 " Loop num : " + intLoop;
 						objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PLx+" loop (do while) ");
-					} while("t".equals(strRunlopp) || intLoop==10);
+					} while("t".equals(strRunlopp) && intLoop<=10);
+					if(intLoop>=10){
+						hmpPar.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, "false}}}Ng:"+intLoop);
+					} else {
+						hmpPar.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, "true}}}SHUTOFF");
+						hmpPar.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "end");
+					}
 				}
 			} else {
 				throw new Exception("hmpPar Error ! is null or is empty!");
@@ -258,7 +265,7 @@ login_name=wode,
 				hmpAllInp = hmpPar;
 				hmpAllInp.put("^devname^", "dev-"+objUuid.toString().replaceAll("-", ""));
 				hmpAllInp.put("^devids^", null);
-				hmpAllInp.put("^vmids^", null);
+//				hmpAllInp.put("^vmids^", null);
 				hmpAllInp.put("^shell_allpath^", "");
 				if(!hmpAllInp.containsKey("^vmname^")
 						|| hmpAllInp.get("^vmname^")==null
@@ -280,7 +287,7 @@ login_name=wode,
 				hmpPar.put("^uksids^", hmpAllInp.get("^uksids^"));
 				hmpPar.put("^devname^", "dev-"+objUuid.toString().replaceAll("-", ""));
 				hmpPar.put("^devids^", null);
-				hmpPar.put("^vmids^", null);
+				hmpPar.put("^vmids^", hmpAllInp.get("^vmids^"));
 				
 				hmpPar.put(ProcessAttrs.strInfoKey_Cpuuid, objUuid.toString().replaceAll("-", ""));
 				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "f");

@@ -82,17 +82,35 @@ public class RunAfter_So00_1 extends AbsRunAfter {
 								(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd);
 						ResFormatpro_1 objResFormatpro_2 = new ResFormatpro_1(hmpAll, altStd, strDevname, objBa);
 						String strFlg = objResFormatpro_2.disGetFlg();
-						String[] subFlg = strFlg.split("}}}");
-						if(subFlg!=null && subFlg.length==2){
-							if("available".equals(subFlg[0])){
-								hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg, "f");//循环runcmd
-								hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "2");
-								hmpAll.put("^devids^", subFlg[1]);
-								((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).put("^devids^", subFlg[1]);
-								strInfo = strCname + strFname + " 停止VM After01 ----strParmapKey_Ppa_NowRunflg false" + DatePro.disGetStrdate4NowObjSdf001();
-								objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx + " strParmapKey_Ppa_NowRunflg false ");
-								hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
-							} 
+						if(strFlg!=null && strFlg.trim().length()>0
+								&& "Ok".equals(strFlg)){
+							hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg, "f");//循环runcmd
+							hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "2");
+							hmpAll.put("StopFlgRun", strFlg);
+							((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).put("StopFlgRun : ", strFlg);
+							strInfo = strCname + strFname + " 停止VM After01 ----strParmapKey_Ppa_NowRunflg false" + DatePro.disGetStrdate4NowObjSdf001();
+							objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx + " strParmapKey_Ppa_NowRunflg false ");
+							hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
+						} else {
+							hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg, "f");//循环runcmd
+							hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "9999");
+							hmpAll.put("StopFlgRun", strFlg);
+							((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).put("StopFlgRun : ", strFlg);
+							strInfo = strCname + strFname + " 停止VM After01 ----strParmapKey_Ppa_NowRunflg false" + DatePro.disGetStrdate4NowObjSdf001();
+							objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx + " strParmapKey_Ppa_NowRunflg false ");
+							hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
+						}
+//						String[] subFlg = strFlg.split("}}}");
+//						if(subFlg!=null && subFlg.length==2){
+//							if("available".equals(subFlg[0])){
+//								hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg, "f");//循环runcmd
+//								hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "2");
+//								hmpAll.put("^devids^", subFlg[1]);
+//								((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).put("^devids^", subFlg[1]);
+//								strInfo = strCname + strFname + " 停止VM After01 ----strParmapKey_Ppa_NowRunflg false" + DatePro.disGetStrdate4NowObjSdf001();
+//								objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx + " strParmapKey_Ppa_NowRunflg false ");
+//								hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
+//							} 
 //							else {
 //								hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg, "t");//不循环runcmd
 //								hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "2");
@@ -100,7 +118,7 @@ public class RunAfter_So00_1 extends AbsRunAfter {
 //								objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx + " strParmapKey_Ppa_NowRunflg true ");
 //								hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
 //							}
-						}
+//						}
 					}
 				}
 				if(hmpAll.containsKey(ProcessAttrs.strInfoFlgKey_Reserr)

@@ -47,9 +47,7 @@ public class RunBefore_So00_2 extends AbsRunBefore {
 		try {
 			if(hmpAll!=null && hmpAll.size()>0
 					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg)
-					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
-					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg)
-					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg)==null){
+					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null){
 				if(objBa==null){
 					return null;
 				}
@@ -115,8 +113,8 @@ public class RunBefore_So00_2 extends AbsRunBefore {
 				String strNowRunflg = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString();
 				String[] subCmmd = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunShCmmd).toString().split(",");
 				String[] subCmdids = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_Cmdids).toString().split(",");
-				if(subCmmd!=null && subCmmd.length==4 //命令数变化需要修改
-						&& subCmdids!=null && subCmdids.length==4 //命令数变化需要修改
+				if(subCmmd!=null && subCmmd.length==2 //命令数变化需要修改
+						&& subCmdids!=null && subCmdids.length==2 //命令数变化需要修改
 						&& strNowRunflg!=null && strNowRunflg.trim().length()>0){
 					if(strNowRunflg!=null && strNowRunflg.trim().length()>0){
 						strCmdids = subCmdids[Integer.parseInt(strNowRunflg)-1];

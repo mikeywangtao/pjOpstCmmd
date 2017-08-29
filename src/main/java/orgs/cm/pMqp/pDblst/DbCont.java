@@ -80,4 +80,23 @@ public class DbCont {
 		}
 		return objRe;
 	}
+	
+	public void disCloseself(){
+		String strFname = " disCloseself : ";
+		try {
+			if(cont!=null && !cont.isClosed()){
+				cont.close();
+			}
+			cont = null;
+		} catch(Exception ex) {
+			cont = null;
+			long lonFlg = System.currentTimeMillis();
+			logger.error(strCname + strFname + ex + "||" + lonFlg);
+			StackTraceElement[] subSte = ex.getStackTrace();
+			for(int i=0; i<subSte.length; i++){
+				logger.error(
+						subSte[i].getClassName() + subSte[i].getMethodName() + ":" + subSte[i].getLineNumber() + "||" + lonFlg );
+			}
+		}
+	}
 }

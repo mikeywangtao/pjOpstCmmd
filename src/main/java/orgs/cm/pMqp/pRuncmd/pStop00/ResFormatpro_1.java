@@ -66,19 +66,22 @@ public class ResFormatpro_1 {
 						strInfos = strCname + strFname + "CmmdRunRes ----" + strInfo;
 						objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfos, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PResx);
 						if(strInfo!=null && strInfo.trim().length()>0){
-							if(strInfo.indexOf("stdout_lines")>0){
-								booFlg = true;
-								continue;
-							}
-							if(booFlg && strInfo.indexOf("| ")>-1){
-								String[] subInfo = strInfo.split("\\|");
-								if(subInfo!=null && subInfo.length==9
-										&& !"ID".equals(subInfo[1].trim())
-										&& strBaseFlg.trim().equals(subInfo[3].trim())){
-									strRe = subInfo[2].trim()+"}}}"+subInfo[1].trim();
-									break;
+							if(strInfo.indexOf("stdout")>0){
+								if(strInfo.indexOf("Cannot")==-1){
+									booFlg = true;
+									strRe = "Ok";
+									continue;
 								}
 							}
+//							if(booFlg && strInfo.indexOf("| ")>-1){
+//								String[] subInfo = strInfo.split("\\|");
+//								if(subInfo!=null && subInfo.length==9
+//										&& !"ID".equals(subInfo[1].trim())
+//										&& strBaseFlg.trim().equals(subInfo[3].trim())){
+//									strRe = subInfo[2].trim()+"}}}"+subInfo[1].trim();
+//									break;
+//								}
+//							}
 						}
 					}
 				}

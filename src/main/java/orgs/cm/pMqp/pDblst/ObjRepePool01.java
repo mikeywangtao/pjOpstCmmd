@@ -126,4 +126,25 @@ public class ObjRepePool01<T> {
 		}
 		return booRe;
 	}
+	
+	public void disRemoreall(IDbContDestroyed objDesp){
+		String strFname = " disRemoreall : ";
+		try {
+			if(altObj!=null && altObj.size()>0){
+				for(int i=altObj.size()-1; i>0; i--){
+					T t = altObj.remove(i);
+					objDesp.disDestroyed(t);
+				}
+			}
+		} catch(Exception ex) {
+			long lonFlg = System.currentTimeMillis();
+			logger.error(strCname + strFname + ex + "||" + lonFlg);
+			StackTraceElement[] subSte = ex.getStackTrace();
+			for(int i=0; i<subSte.length; i++){
+				logger.error(
+						subSte[i].getClassName() + subSte[i].getMethodName() + ":" + subSte[i].getLineNumber() + "||" + lonFlg );
+			}
+			throw ex;
+		}
+	}
 }
