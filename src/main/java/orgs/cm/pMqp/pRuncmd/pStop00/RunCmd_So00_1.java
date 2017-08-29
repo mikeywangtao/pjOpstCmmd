@@ -21,11 +21,11 @@ import orgs.cm.pMqp.pDbpro.SaveInfoPro;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunCmd;
 import orgs.cm.pMqp.pRuncmd.pQzGetimg.RunCmd_Getimg;
 
-public class RunCmd_ST00_1 extends AbsRunCmd {
+public class RunCmd_So00_1 extends AbsRunCmd {
 
 	private HashMap<String, Object> hmpAll;
 	
-	private final String strCname = RunCmd_ST00_1.class.getName();
+	private final String strCname = RunCmd_So00_1.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
 	private ClsBaseAttrs objBa = null; 

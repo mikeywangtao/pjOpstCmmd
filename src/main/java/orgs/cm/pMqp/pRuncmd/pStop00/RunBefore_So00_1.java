@@ -20,9 +20,9 @@ import orgs.cm.pMqp.pRuncmd.comm.AbsRunBefore;
 import orgs.cm.pMqp.pShellpro.AbsShellpro;
 import orgs.cm.pMqp.pShellpro.StandardShellpro_C00;
 
-public class RunBefore_ST00_2 extends AbsRunBefore {
+public class RunBefore_So00_1 extends AbsRunBefore {
 
-	private final String strCname = RunBefore_ST00_2.class.getName();
+	private final String strCname = RunBefore_So00_1.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
 //	private LinkedHashMap<String, String> lhpInfobase = new LinkedHashMap<String, String>();

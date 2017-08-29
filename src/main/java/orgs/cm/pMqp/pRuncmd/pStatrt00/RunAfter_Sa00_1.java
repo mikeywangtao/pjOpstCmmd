@@ -1,4 +1,4 @@
-package orgs.cm.pMqp.pRuncmd.pStop00;
+package orgs.cm.pMqp.pRuncmd.pStatrt00;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,12 +22,12 @@ import orgs.cm.pMqp.pDbpro.SaveInfoPro;
 import orgs.cm.pMqp.pHttpc.HttpClientUtil;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunAfter;
 
-public class RunAfter_ST00_1 extends AbsRunAfter {
+public class RunAfter_Sa00_1 extends AbsRunAfter {
 
 
 	private AbsDbpro objDbpro = null;
 	private HashMap<String, Object> hmpAll;
-	private final String strCname = RunAfter_ST00_1.class.getName();
+	private final String strCname = RunAfter_Sa00_1.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
 	private ClsBaseAttrs objBa = null; 

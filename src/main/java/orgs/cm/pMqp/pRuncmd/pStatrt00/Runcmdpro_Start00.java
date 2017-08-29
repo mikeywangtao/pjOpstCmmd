@@ -1,4 +1,4 @@
-package orgs.cm.pMqp.pRuncmd.pStop00;
+package orgs.cm.pMqp.pRuncmd.pStatrt00;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,9 +25,9 @@ import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
  * 停止 Vm 虚拟机。
  * 创建一个。
  * */
-public class Runcmdpro_Stop00 extends AbsRuncmdPro implements Runnable {
+public class Runcmdpro_Start00 extends AbsRuncmdPro implements Runnable {
 
-	private final String strCname = Runcmdpro_Stop00.class.getName();
+	private final String strCname = Runcmdpro_Start00.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
 	private HashMap<String, Object> hmpPar = new HashMap<>();
@@ -76,7 +76,7 @@ public class Runcmdpro_Stop00 extends AbsRuncmdPro implements Runnable {
 					&& objBa!=null){
 //				HashMap map = altDataAnsible.get(0);
 				
-				objPrepare = new RunPrepare_Stop00();
+				objPrepare = new RunPrepare_Start00();
 				objPrepare.disSetHmpall(hmpPar);
 				objPrepare.disSetClsBaseAttrs(objBa);
 				super.disRunPrepare(objPrepare);
@@ -89,19 +89,19 @@ public class Runcmdpro_Stop00 extends AbsRuncmdPro implements Runnable {
 							" run cmmd 1 " + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg);
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx+" run cmmd 1 ");
 					
-					objBefore = new RunBefore_So00_1();
+					objBefore = new RunBefore_Sa00_1();
 					objBefore.disSetHmpall(hmpPar);
 					objBefore.disSetClsBaseAttrs(objBa);
 					super.disRunBefre(objBefore);
 					objBefore = null;
 					
-					objCmd = new RunCmd_So00_1();
+					objCmd = new RunCmd_Sa00_1();
 					objCmd.disSetHmpall(hmpPar);
 					objCmd.disSetClsBaseAttrs(objBa);
 					super.disRunCmd(objCmd);
 					objCmd = null;
 					
-					objAfter = new RunAfter_So00_1();
+					objAfter = new RunAfter_Sa00_1();
 					objAfter.disSetHmpall(hmpPar);
 					objAfter.disSetClsBaseAttrs(objBa);
 					super.dusRunAfter(objAfter);
@@ -119,19 +119,19 @@ public class Runcmdpro_Stop00 extends AbsRuncmdPro implements Runnable {
 					int intLoop = 0;
 					String strRunlopp = null;
 					do {
-						objBefore = new RunBefore_So00_2();
+						objBefore = new RunBefore_Sa00_2();
 						objBefore.disSetHmpall(hmpPar);
 						objBefore.disSetClsBaseAttrs(objBa);
 						super.disRunBefre(objBefore);
 						objBefore = null;
 						
-						objCmd = new RunCmd_So00_2();
+						objCmd = new RunCmd_Sa00_2();
 						objCmd.disSetHmpall(hmpPar);
 						objCmd.disSetClsBaseAttrs(objBa);
 						super.disRunCmd(objCmd);
 						objCmd = null;
 						
-						objAfter = new RunAfter_So00_2();
+						objAfter = new RunAfter_Sa00_2();
 						objAfter.disSetHmpall(hmpPar);
 						objAfter.disSetClsBaseAttrs(objBa);
 						super.dusRunAfter(objAfter);
@@ -159,7 +159,7 @@ public class Runcmdpro_Stop00 extends AbsRuncmdPro implements Runnable {
 			}
 		} finally {
 			if(objBa!=null && objSaveInfoPro!=null){
-				AbsRunFinally objRunFinally = new RunFinally_Stop00();
+				AbsRunFinally objRunFinally = new RunFinally_Start00();
 				objRunFinally.disSetHmpall(hmpPar);
 				objRunFinally.disSetClsBaseAttrs(objBa);
 				objRunFinally.disRunFinally();
