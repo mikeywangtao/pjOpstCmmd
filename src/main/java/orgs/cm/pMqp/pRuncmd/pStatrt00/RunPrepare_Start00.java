@@ -22,7 +22,7 @@ import orgs.cm.pMqp.pDbpro.SaveInfoPro;
 import orgs.cm.pMqp.pRuncmd.comm.AbsRunPrepare;
 
 /**
- * create00准备
+ *  start00准备
  * */
 public class RunPrepare_Start00 extends AbsRunPrepare {
 

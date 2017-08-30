@@ -80,7 +80,7 @@ public class RunAfter_So00_1 extends AbsRunAfter {
 					if(strDevname!=null && strDevname.trim().length()>0){
 						ArrayList<LinkedHashMap<String, String>> altStd = 
 								(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd);
-						ResFormatpro_1 objResFormatpro_2 = new ResFormatpro_1(hmpAll, altStd, strDevname, objBa);
+						ResFormatpro_So001 objResFormatpro_2 = new ResFormatpro_So001(hmpAll, altStd, strDevname, objBa);
 						String strFlg = objResFormatpro_2.disGetFlg();
 						if(strFlg!=null && strFlg.trim().length()>0
 								&& "Ok".equals(strFlg)){

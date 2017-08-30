@@ -79,7 +79,7 @@ public class RunAfter_C00_1 extends AbsRunAfter {
 						&& hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd)!=null
 						&& hmpAll.containsKey(ProcessAttrs.strInfoFlgKey_Reserr)
 						&& hmpAll.get(ProcessAttrs.strInfoFlgKey_Reserr)==null){
-					ResFormatpro_1 objResFormatpro_1 = new ResFormatpro_1(hmpAll, (ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd), objBa);
+					ResFormatpro_C001 objResFormatpro_1 = new ResFormatpro_C001(hmpAll, (ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd), objBa);
 					objResFormatpro_1.disFormatpro();
 					hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "2");
 					strInfo = strCname + strFname + " VM创建 After01 ----strParmapKey_Ppa_NowRunflg OK 2" + DatePro.disGetStrdate4NowObjSdf001();
@@ -88,7 +88,7 @@ public class RunAfter_C00_1 extends AbsRunAfter {
 				}
 				if(hmpAll.containsKey(ProcessAttrs.strInfoFlgKey_Reserr)
 						&& hmpAll.get(ProcessAttrs.strInfoFlgKey_Reserr)!=null){
-					ResFormatpro_1 objResFormatpro_1 = new ResFormatpro_1(hmpAll, (ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Reserr), objBa);
+					ResFormatpro_C001 objResFormatpro_1 = new ResFormatpro_C001(hmpAll, (ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Reserr), objBa);
 					objResFormatpro_1.disFormatpro();
 					hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, null);
 					strInfo = strCname + strFname + " VM创建 After01 ----strParmapKey_Ppa_NowRunflg Error" + DatePro.disGetStrdate4NowObjSdf001();

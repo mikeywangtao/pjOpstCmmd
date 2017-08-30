@@ -19,9 +19,9 @@ import orgs.cm.pMqp.pDbpro.SaveInfoPro;
 /**
  * 格式化img返回信息，结果用于request。
  * */
-public class ResFormatpro_4 {
+public class ResFormatpro_C004 {
 	
-	private final String strCname = ResFormatpro_4.class.getName();
+	private final String strCname = ResFormatpro_C004.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 	
 	private SaveInfoPro objSaveInfoPro = null;
@@ -30,12 +30,12 @@ public class ResFormatpro_4 {
 //	private LinkedHashMap<String, String> lhpInfobase = new LinkedHashMap<String, String>();
 //	private ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();	
 
-	private ResFormatpro_4(){};
+	private ResFormatpro_C004(){};
 	
 	private LinkedHashMap<String, String> lhpCol = new LinkedHashMap<>();
 	private String strAnsId = "0";
 	private ArrayList<LinkedHashMap<String, String>> altRes;
-	public ResFormatpro_4(HashMap<String, Object> hmpParp
+	public ResFormatpro_C004(HashMap<String, Object> hmpParp
 			, ArrayList<LinkedHashMap<String, String>> altResp
 			, String intAnsidp
 			, ClsBaseAttrs objBap){

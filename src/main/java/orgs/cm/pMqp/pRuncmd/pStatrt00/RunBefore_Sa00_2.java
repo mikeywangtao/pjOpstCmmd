@@ -47,9 +47,7 @@ public class RunBefore_Sa00_2 extends AbsRunBefore {
 		try {
 			if(hmpAll!=null && hmpAll.size()>0
 					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg)
-					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
-					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg)
-					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg)==null){
+					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null){
 				if(objBa==null){
 					return null;
 				}
@@ -57,7 +55,7 @@ public class RunBefore_Sa00_2 extends AbsRunBefore {
 				
 				objBa.lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
 				objBa.lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Bef);
-				strInfo = strCname + strFname + " 停止VM Before02 Start----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " 启动VM Before02 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS );
 				
 				disSetShell();
@@ -70,7 +68,7 @@ public class RunBefore_Sa00_2 extends AbsRunBefore {
 						hmpAll.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "t");
 					}
 				}
-				strInfo = strCname + strFname + " 停止VM Before02 End----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " 启动VM Before02 End----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 
 			}
@@ -108,15 +106,15 @@ public class RunBefore_Sa00_2 extends AbsRunBefore {
 					&& hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg)
 					&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
 					){
-				strInfo = strCname + strFname + " 停止VM Before01 构建shell命令 Start----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " 启动VM Before01 构建shell命令 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
 				
 				String strCmdids = null;
 				String strNowRunflg = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString();
 				String[] subCmmd = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunShCmmd).toString().split(",");
 				String[] subCmdids = hmpAll.get(ProcessAttrs.strParmapKey_Ppa_Cmdids).toString().split(",");
-				if(subCmmd!=null && subCmmd.length==4 //命令数变化需要修改
-						&& subCmdids!=null && subCmdids.length==4 //命令数变化需要修改
+				if(subCmmd!=null && subCmmd.length==2 //命令数变化需要修改
+						&& subCmdids!=null && subCmdids.length==2 //命令数变化需要修改
 						&& strNowRunflg!=null && strNowRunflg.trim().length()>0){
 					if(strNowRunflg!=null && strNowRunflg.trim().length()>0){
 						strCmdids = subCmdids[Integer.parseInt(strNowRunflg)-1];
@@ -161,12 +159,12 @@ public class RunBefore_Sa00_2 extends AbsRunBefore {
 			}
 			if(altShell!=null && altShell.size()>0){
 				for(String strSCmd : altShell){
-					strInfo = strCname + strFname + " 停止VM Before01 shell命令行 ----" + strSCmd;
+					strInfo = strCname + strFname + " 启动VM Before01 shell命令行 ----" + strSCmd;
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PAx + " shell命令行 ");
 				}
 				hmpAll.put(ProcessAttrs.strParmapKey_Ppa_Cmdshr, altShell);
 			}
-			strInfo = strCname + strFname + " 停止VM Before01 构建shell命令 End----" + DatePro.disGetStrdate4NowObjSdf001();
+			strInfo = strCname + strFname + " 启动VM Before01 构建shell命令 End----" + DatePro.disGetStrdate4NowObjSdf001();
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 		} catch(Exception ex) {
 			if(objBa!=null && objBa.objOutputLogPro!=null){

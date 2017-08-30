@@ -85,7 +85,7 @@ public class RunCmd_Sa00_1 extends AbsRunCmd {
 			hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstd, null);
 			objBa.lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
 			objBa.lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Runc);
-			strInfo = strCname + strFname + " 停止VM Run01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
+			strInfo = strCname + strFname + " 启动VM Run01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS );
 
 			if(hmpAll!=null && hmpAll.containsKey(ProcessAttrs.strInfoKey_Cpuuid)){
@@ -145,40 +145,28 @@ public class RunCmd_Sa00_1 extends AbsRunCmd {
 			/* ------------------------------------------------------------------------------- */
 //			String StrCommand = "ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u root "; //查看镜像
 /* 
-创建VM STD line: 10.167.212.1 | SUCCESS => {
-创建VM STD line:     "changed": true, 
-创建VM STD line:     "rc": 0, 
-创建VM STD line:     "stderr": "", 
-创建VM STD line:     "stdout": "+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+\r\n| ID                                   | Status    | Name                                 | Size | Volume Type | Bootable | Attached to |\r\n+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+\r\n| 30ff9ce4-290d-47a5-acd4-5073ca1639f0 | available | -                                    | 1    | -           | true     |             |\r\n| 37c50bb0-2538-4ad7-9c89-fdf33c0424b7 | available | dev-c36397e8f4bd491a9360130d89bd2eab | 1    | -           | true     |             |\r\n| 4dce04ba-2fab-4af7-bc60-44e9e912fc96 | available | dev-4bdd73081c5f4420946100e2a478d396 | 1    | -           | true     |             |\r\n| 50041379-58f6-465f-a4c4-7e76fda0ff87 | available | dev-c36397e8f4bd491a9360130d89bd2eab | 1    | -           | true     |             |\r\n| 7b216755-b341-45f6-90ea-d46e6d9d8724 | available | -                                    | 1    | -           | true     |             |\r\n| aa90b0c2-f9c1-45e8-8201-48db06a01338 | available | dev-f5b0cea9169e44a8aaebb4238079fb84 | 1    | -           | true     |             |\r\n| b38ed2d2-c21f-4331-8930-0fb74884699a | available | dev-f5b0cea9169e44a8aaebb4238079fb84 | 1    | -           | true     |             |\r\n| b4e47dda-2a3c-43ba-bbc8-c80ecde70628 | available | -                                    | 1    | -           | true     |             |\r\n| ddcc7c2d-0c31-450c-b4c2-c6ee53f50e14 | available | dev-4bdd73081c5f4420946100e2a478d396 | 1    | -           | true     |             |\r\n+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+\r\n", 
-创建VM STD line:     "stdout_lines": [
-创建VM STD line:         "+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+", 
-创建VM STD line:         "| ID                                   | Status    | Name                                 | Size | Volume Type | Bootable | Attached to |", 
-创建VM STD line:         "+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+", 
-创建VM STD line:         "| 30ff9ce4-290d-47a5-acd4-5073ca1639f0 | available | -                                    | 1    | -           | true     |             |", 
-创建VM STD line:         "| 37c50bb0-2538-4ad7-9c89-fdf33c0424b7 | available | dev-c36397e8f4bd491a9360130d89bd2eab | 1    | -           | true     |             |", 
-创建VM STD line:         "| 4dce04ba-2fab-4af7-bc60-44e9e912fc96 | available | dev-4bdd73081c5f4420946100e2a478d396 | 1    | -           | true     |             |", 
-创建VM STD line:         "| 50041379-58f6-465f-a4c4-7e76fda0ff87 | available | dev-c36397e8f4bd491a9360130d89bd2eab | 1    | -           | true     |             |", 
-创建VM STD line:         "| 7b216755-b341-45f6-90ea-d46e6d9d8724 | available | -                                    | 1    | -           | true     |             |", 
-创建VM STD line:         "| aa90b0c2-f9c1-45e8-8201-48db06a01338 | available | dev-f5b0cea9169e44a8aaebb4238079fb84 | 1    | -           | true     |             |", 
-创建VM STD line:         "| b38ed2d2-c21f-4331-8930-0fb74884699a | available | dev-f5b0cea9169e44a8aaebb4238079fb84 | 1    | -           | true     |             |", 
-创建VM STD line:         "| b4e47dda-2a3c-43ba-bbc8-c80ecde70628 | available | -                                    | 1    | -           | true     |             |", 
-创建VM STD line:         "| ddcc7c2d-0c31-450c-b4c2-c6ee53f50e14 | available | dev-4bdd73081c5f4420946100e2a478d396 | 1    | -           | true     |             |", 
-创建VM STD line:         "+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+"
-创建VM STD line:     ]
-创建VM STD line: }
+启动VM STD line: 10.167.212.1 | SUCCESS => {
+启动VM STD line:     "changed": true, 
+启动VM STD line:     "rc": 0, 
+启动VM STD line:     "stderr": "", 
+启动VM STD line:     "stdout": "Request to start server d2ad4ebf-3299-425e-a0ae-973cf56d49d9 has been accepted.\r\n", 
+启动VM STD line:     "stdout_lines": [
+启动VM STD line:         "Request to start server d2ad4ebf-3299-425e-a0ae-973cf56d49d9 has been accepted."
+启动VM STD line:     ]
+启动VM STD line: }
 */
 			
 //			StrCommand = StrCommand.substring(0, StrCommand.length()-1);
 			StrCommand = StrCommand.replaceAll(",", "");
-			strInfo = strCname + strFname + " 停止VM Run01 Cmmd----" + StrCommand;
+			strInfo = strCname + strFname + " 启动VM Run01 Cmmd----" + StrCommand;
 			strInfo = strInfo.replaceAll("'", "\"");
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 			logger.info(strInfo);
 			
 			process = Runtime.getRuntime().exec(StrCommand);
 
-			errorGobbler = new CmdStreamGobbler(process.getErrorStream(), StrCommand, "停止VM ERR", strstrCpuuid, this);
-			outputGobbler = new CmdStreamGobbler(process.getInputStream(), StrCommand, "停止VM STD", strstrCpuuid, this);
+			errorGobbler = new CmdStreamGobbler(process.getErrorStream(), StrCommand, "启动VM ERR", strstrCpuuid, this);
+			outputGobbler = new CmdStreamGobbler(process.getInputStream(), StrCommand, "启动VM STD", strstrCpuuid, this);
 
 			if(errorGobbler!=null && outputGobbler!=null){
 				errorGobbler.start();
@@ -191,7 +179,7 @@ public class RunCmd_Sa00_1 extends AbsRunCmd {
 				}
 
 				while(super.strThrflg!=null){
-					if((new Date().getTime())-lonBasrDt<=10000){
+					if((new Date().getTime())-lonBasrDt<=15000){
 						Thread.sleep(1010);
 						if(super.strThrflg.equals("ERR")){
 							strInfo = strCname + strFname + " ERR 正常完成！";
@@ -225,7 +213,7 @@ public class RunCmd_Sa00_1 extends AbsRunCmd {
 					}
 				}
 				super.strThrflg = null;
-				strInfo = strCname + strFname + " 停止VM Run01 End----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " 启动VM Run01 End----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 //				hmpAll.put(ProcessAttrs.strParmapKey_Runlst, altRunc);
 //				for(int i=0; i<altRunc.size(); i++){

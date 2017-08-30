@@ -1,4 +1,4 @@
-package orgs.cm.pMqp.pRuncmd.pStop00;
+package orgs.cm.pMqp.pRuncmd.pjCreate00;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,9 +19,9 @@ import orgs.cm.pMqp.pDbpro.SaveInfoPro;
 /**
  * 格式化img返回信息，结果用于request。
  * */
-public class ResFormatpro_2 {
+public class ResFormatpro_C002 {
 	
-	private final String strCname = ResFormatpro_2.class.getName();
+	private final String strCname = ResFormatpro_C002.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 
 	private SaveInfoPro objSaveInfoPro = null;
@@ -30,11 +30,11 @@ public class ResFormatpro_2 {
 //	private LinkedHashMap<String, String> lhpInfobase = new LinkedHashMap<String, String>();
 //	private ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();	
 	
-	private ResFormatpro_2(){};
+	private ResFormatpro_C002(){};
 	
 	private String strBaseFlg = null;
 	private ArrayList<LinkedHashMap<String, String>> altRes;
-	public ResFormatpro_2(HashMap<String, Object> hmpParp
+	public ResFormatpro_C002(HashMap<String, Object> hmpParp
 			, ArrayList<LinkedHashMap<String, String>> altResp
 			, String strBaseFlgp
 			, ClsBaseAttrs objBap){
@@ -72,8 +72,9 @@ public class ResFormatpro_2 {
 							}
 							if(booFlg && strInfo.indexOf("| ")>-1){
 								String[] subInfo = strInfo.split("\\|");
-								if(subInfo!=null && subInfo.length==4
-										&& "status".equals(subInfo[1].trim())){
+								if(subInfo!=null && subInfo.length==9
+										&& !"ID".equals(subInfo[1].trim())
+										&& strBaseFlg.trim().equals(subInfo[3].trim())){
 									strRe = subInfo[2].trim()+"}}}"+subInfo[1].trim();
 									break;
 								}

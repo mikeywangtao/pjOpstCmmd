@@ -1,4 +1,4 @@
-package orgs.cm.pMqp.pRuncmd.pStatrt00;
+package orgs.cm.pMqp.pRuncmd.pStop00;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,9 +19,9 @@ import orgs.cm.pMqp.pDbpro.SaveInfoPro;
 /**
  * 格式化img返回信息，结果用于request。
  * */
-public class ResFormatpro_1 {
+public class ResFormatpro_So001 {
 	
-	private final String strCname = ResFormatpro_1.class.getName();
+	private final String strCname = ResFormatpro_So001.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
 
 	private SaveInfoPro objSaveInfoPro = null;
@@ -30,11 +30,11 @@ public class ResFormatpro_1 {
 //	private LinkedHashMap<String, String> lhpInfobase = new LinkedHashMap<String, String>();
 //	private ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();	
 	
-	private ResFormatpro_1(){};
+	private ResFormatpro_So001(){};
 	
 	private String strBaseFlg = null;
 	private ArrayList<LinkedHashMap<String, String>> altRes;
-	public ResFormatpro_1(HashMap<String, Object> hmpParp
+	public ResFormatpro_So001(HashMap<String, Object> hmpParp
 			, ArrayList<LinkedHashMap<String, String>> altResp
 			, String strBaseFlgp
 			, ClsBaseAttrs objBap){
@@ -66,19 +66,22 @@ public class ResFormatpro_1 {
 						strInfos = strCname + strFname + "CmmdRunRes ----" + strInfo;
 						objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfos, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PResx);
 						if(strInfo!=null && strInfo.trim().length()>0){
-							if(strInfo.indexOf("stdout_lines")>0){
-								booFlg = true;
-								continue;
-							}
-							if(booFlg && strInfo.indexOf("| ")>-1){
-								String[] subInfo = strInfo.split("\\|");
-								if(subInfo!=null && subInfo.length==9
-										&& !"ID".equals(subInfo[1].trim())
-										&& strBaseFlg.trim().equals(subInfo[3].trim())){
-									strRe = subInfo[2].trim()+"}}}"+subInfo[1].trim();
-									break;
+							if(strInfo.indexOf("stdout")>0){
+								if(strInfo.indexOf("Cannot")==-1){
+									booFlg = true;
+									strRe = "Ok";
+									continue;
 								}
 							}
+//							if(booFlg && strInfo.indexOf("| ")>-1){
+//								String[] subInfo = strInfo.split("\\|");
+//								if(subInfo!=null && subInfo.length==9
+//										&& !"ID".equals(subInfo[1].trim())
+//										&& strBaseFlg.trim().equals(subInfo[3].trim())){
+//									strRe = subInfo[2].trim()+"}}}"+subInfo[1].trim();
+//									break;
+//								}
+//							}
 						}
 					}
 				}

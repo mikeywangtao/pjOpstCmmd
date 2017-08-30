@@ -48,10 +48,11 @@ public class RunFinally_Start00 extends AbsRunFinally{
 		String strReSerpoint = null;
 		
 		String strMsgs = "";
-		String strCpids = "";
+//		String strCpids = "";
 		String strVmIp = "";
-		String strVmName = "";
-		String cutmids = "";
+//		String strVmName = "";
+//		String cutmids = "";
+		String strAnsId = "";
 		String strFinallydt = DatePro.disGetStrdate4NowObjSdf001();
 		try {
 			if(objBa==null){
@@ -61,70 +62,93 @@ public class RunFinally_Start00 extends AbsRunFinally{
 			
 			objBa.lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
 			objBa.lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Finly);
-			strInfo = strCname + strFname + " 停止VM Finally Start----" + DatePro.disGetStrdate4NowObjSdf001();
+			strInfo = strCname + strFname + " 启动VM Finally Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
 			
-			strRemoteSer = PropertiesRemoteser.disGetval("cms");
-			strReSerpoint = PropertiesRemoteser.disGetval("cmspoint");
+			strMsgs =  hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst).toString();
+			strRemoteSer = PropertiesRemoteser.disGetval("auth");
+			strReSerpoint = PropertiesRemoteser.disGetval("authpoint");
 			if(strRemoteSer!=null && strRemoteSer.trim().length()>0
 					&& strReSerpoint!=null && strReSerpoint.trim().length()>0){
 				if(hmpAll.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg) 
 						&& hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg)!=null
-						&& "end".equals(hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString().trim())){
-					strInfo = strCname + strFname + " 停止VM Finally Ok----" + DatePro.disGetStrdate4NowObjSdf001();
+						&& "end".equals(hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString().trim())
+						&& strMsgs.split("}}}").length==2 
+						&& strMsgs.indexOf("true")>-1){
+					strInfo = strCname + strFname + " 启动VM Finally Ok----" + DatePro.disGetStrdate4NowObjSdf001();
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx + " Finally Ok ");
 					
-					strMsgs =  hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst).toString();
-					strCpids = hmpAll.get("cp_ids").toString();
+					strAnsId = hmpAll.get("^ansid^")==null? "":hmpAll.get("^ansid^").toString();
 					strVmIp = hmpAll.get("strVmIp").toString();
-					strVmName = hmpAll.get("strVmName").toString();
-					cutmids = hmpAll.get("^customerids^").toString();
-					HashMap<String, String> mapReq = new HashMap<>();
-					mapReq.put("msgs", strMsgs);
-					mapReq.put("finallydt", strFinallydt);
-					mapReq.put("state", "ok");
-					mapReq.put("cpids", strCpids);
-					mapReq.put("vmname", strVmName);
-					mapReq.put("vmip", strVmIp);
-					mapReq.put("cutmids", cutmids);
+					
+					ArrayList<LinkedHashMap<String, String>> altRe = new ArrayList<>();
+					LinkedHashMap<String, String> hmpRow = new LinkedHashMap<>();
+					hmpRow.put("strVmId", strVmIp);
+					hmpRow.put("strVmName", "");
+					hmpRow.put("strStatus", strMsgs.split("}}}")[1]);
+					hmpRow.put("strTaskState", "");
+					hmpRow.put("strPowerState", "");
+					hmpRow.put("strNetworks", "");
+					hmpRow.put("intAnsibleId", strAnsId);
+					altRe.add((LinkedHashMap<String, String>)hmpRow.clone());
+					
+//					HashMap<String, String> mapReq = new HashMap<>();
+//					mapReq.put("msgs", strMsgs);
+//					mapReq.put("finallydt", strFinallydt);
+//					mapReq.put("state", strMsgs.split("}}}")[1]);
+//					mapReq.put("cpids", strCpids);
+//					mapReq.put("vmname", strVmName);
+//					mapReq.put("vmip", strVmIp);
+//					mapReq.put("cutmids", cutmids);
 	
 					String strSetImg = "";
-					strSetImg = JSON.toJSONString(mapReq);
+					strSetImg = JSON.toJSONString(altRe);
 //					strSetImg = "{'msgs':'"+strMsgs+"', 'finallydt':'"+strFinallydt+"', 'state':'ok', 'cpids':'"+strCpids+"'}";
-					strInfo = strCname + strFname + " 停止VM Finally Ok request----" + strSetImg;
+					strInfo = strCname + strFname + " 启动VM Finally Ok request----" + strSetImg;
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PAx + " request ");
 					HttpClientUtil objHttpClientUtil = new HttpClientUtil();
-					String strSetVminfos = objHttpClientUtil.sendHttpPostJson("http://"+strRemoteSer+":"+strReSerpoint+"/vm/info/", strSetImg);
+					String strSetVminfos = objHttpClientUtil.sendHttpPostJson("http://"+strRemoteSer+":"+strReSerpoint+"/pjOpStAuth/web/vm/updateVmStatus/", strSetImg);
 //					String strSetVminfos = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:10000/vm/info/", strSetImg);
-					strInfo = strCname + strFname + " 停止VM Finally ----mapRes---- " + strSetVminfos;
+					strInfo = strCname + strFname + " 启动VM Finally ----mapRes---- " + strSetVminfos;
 					
 				} else {
 					objBa.lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
 					objBa.lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Finly);
-					strInfo = strCname + strFname + " 停止VM Finally Ng----" + DatePro.disGetStrdate4NowObjSdf001();
+					strInfo = strCname + strFname + " 启动VM Finally Ng----" + DatePro.disGetStrdate4NowObjSdf001();
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx + " Finally Ng ");
 					
-					cutmids = hmpAll.get("^customerids^").toString();
-					strMsgs =  hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst).toString();
+					strAnsId = hmpAll.get("^ansid^")==null? "":hmpAll.get("^ansid^").toString();
+					strVmIp = hmpAll.get("strVmIp").toString();
 					
-					HashMap<String, String> mapReq = new HashMap<>();
-					mapReq.put("msgs", strMsgs);
-					mapReq.put("finallydt", strFinallydt);
-					mapReq.put("state", "ng");
-					mapReq.put("cpids", "");
-					mapReq.put("vmname", "");
-					mapReq.put("vmip", "");
-					mapReq.put("cutmids", cutmids);
+					ArrayList<LinkedHashMap<String, String>> altRe = new ArrayList<>();
+					LinkedHashMap<String, String> hmpRow = new LinkedHashMap<>();
+					hmpRow.put("strVmId", strVmIp);
+					hmpRow.put("strVmName", "");
+					hmpRow.put("strStatus", strMsgs.split("}}}")[1]);
+					hmpRow.put("strTaskState", "");
+					hmpRow.put("strPowerState", "");
+					hmpRow.put("strNetworks", "");
+					hmpRow.put("intAnsibleId", strAnsId);
+					altRe.add((LinkedHashMap<String, String>)hmpRow.clone());
+					
+//					HashMap<String, String> mapReq = new HashMap<>();
+//					mapReq.put("msgs", strMsgs);
+//					mapReq.put("finallydt", strFinallydt);
+//					mapReq.put("state", strMsgs.split("}}}")[1]);
+//					mapReq.put("cpids", strCpids);
+//					mapReq.put("vmname", strVmName);
+//					mapReq.put("vmip", strVmIp);
+//					mapReq.put("cutmids", cutmids);
 					
 					String strSetImg = "";
-					strSetImg = JSON.toJSONString(mapReq);
+					strSetImg = JSON.toJSONString(altRe);
 //					strSetImg = "{'msgs':'"+strMsgs+"', 'finallydt':'"+strFinallydt+"', 'state':'ng', 'cpids':'"+strCpids+"'}";
-					strInfo = strCname + strFname + " 停止VM Finally Ng request----" + strSetImg;
+					strInfo = strCname + strFname + " 启动VM Finally Ng request----" + strSetImg;
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PAx + " request ");
 					HttpClientUtil objHttpClientUtil = new HttpClientUtil();
-					String strSetVminfos = objHttpClientUtil.sendHttpPostJson("http://"+strRemoteSer+":"+strReSerpoint+"/vm/info/", strSetImg);
+					String strSetVminfos = objHttpClientUtil.sendHttpPostJson("http://"+strRemoteSer+":"+strReSerpoint+"/pjOpStAuth/web/vm/updateVmStatus/", strSetImg);
 //					String strSetVminfos = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:10000/vm/info/", strSetImg);
-					strInfo = strCname + strFname + " 停止VM Finally ----mapRes---- " + strSetVminfos;
+					strInfo = strCname + strFname + " 启动VM Finally ----mapRes---- " + strSetVminfos;
 					
 				}
 			}

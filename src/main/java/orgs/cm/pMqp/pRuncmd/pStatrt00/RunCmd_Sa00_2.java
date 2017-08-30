@@ -85,7 +85,7 @@ public class RunCmd_Sa00_2 extends AbsRunCmd {
 			hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstd, null);
 			objBa.lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
 			objBa.lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Runc);
-			strInfo = strCname + strFname + " 停止VM Run01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
+			strInfo = strCname + strFname + " 启动VM Run01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS );
 
 			if(hmpAll!=null && hmpAll.containsKey(ProcessAttrs.strInfoKey_Cpuuid)){
@@ -145,40 +145,70 @@ public class RunCmd_Sa00_2 extends AbsRunCmd {
 			/* ------------------------------------------------------------------------------- */
 //			String StrCommand = "ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u root "; //查看镜像
 /* 
-创建VM STD line: 10.167.212.1 | SUCCESS => {
-创建VM STD line:     "changed": true, 
-创建VM STD line:     "rc": 0, 
-创建VM STD line:     "stderr": "", 
-创建VM STD line:     "stdout": "+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+\r\n| ID                                   | Status    | Name                                 | Size | Volume Type | Bootable | Attached to |\r\n+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+\r\n| 30ff9ce4-290d-47a5-acd4-5073ca1639f0 | available | -                                    | 1    | -           | true     |             |\r\n| 37c50bb0-2538-4ad7-9c89-fdf33c0424b7 | available | dev-c36397e8f4bd491a9360130d89bd2eab | 1    | -           | true     |             |\r\n| 4dce04ba-2fab-4af7-bc60-44e9e912fc96 | available | dev-4bdd73081c5f4420946100e2a478d396 | 1    | -           | true     |             |\r\n| 50041379-58f6-465f-a4c4-7e76fda0ff87 | available | dev-c36397e8f4bd491a9360130d89bd2eab | 1    | -           | true     |             |\r\n| 7b216755-b341-45f6-90ea-d46e6d9d8724 | available | -                                    | 1    | -           | true     |             |\r\n| aa90b0c2-f9c1-45e8-8201-48db06a01338 | available | dev-f5b0cea9169e44a8aaebb4238079fb84 | 1    | -           | true     |             |\r\n| b38ed2d2-c21f-4331-8930-0fb74884699a | available | dev-f5b0cea9169e44a8aaebb4238079fb84 | 1    | -           | true     |             |\r\n| b4e47dda-2a3c-43ba-bbc8-c80ecde70628 | available | -                                    | 1    | -           | true     |             |\r\n| ddcc7c2d-0c31-450c-b4c2-c6ee53f50e14 | available | dev-4bdd73081c5f4420946100e2a478d396 | 1    | -           | true     |             |\r\n+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+\r\n", 
-创建VM STD line:     "stdout_lines": [
-创建VM STD line:         "+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+", 
-创建VM STD line:         "| ID                                   | Status    | Name                                 | Size | Volume Type | Bootable | Attached to |", 
-创建VM STD line:         "+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+", 
-创建VM STD line:         "| 30ff9ce4-290d-47a5-acd4-5073ca1639f0 | available | -                                    | 1    | -           | true     |             |", 
-创建VM STD line:         "| 37c50bb0-2538-4ad7-9c89-fdf33c0424b7 | available | dev-c36397e8f4bd491a9360130d89bd2eab | 1    | -           | true     |             |", 
-创建VM STD line:         "| 4dce04ba-2fab-4af7-bc60-44e9e912fc96 | available | dev-4bdd73081c5f4420946100e2a478d396 | 1    | -           | true     |             |", 
-创建VM STD line:         "| 50041379-58f6-465f-a4c4-7e76fda0ff87 | available | dev-c36397e8f4bd491a9360130d89bd2eab | 1    | -           | true     |             |", 
-创建VM STD line:         "| 7b216755-b341-45f6-90ea-d46e6d9d8724 | available | -                                    | 1    | -           | true     |             |", 
-创建VM STD line:         "| aa90b0c2-f9c1-45e8-8201-48db06a01338 | available | dev-f5b0cea9169e44a8aaebb4238079fb84 | 1    | -           | true     |             |", 
-创建VM STD line:         "| b38ed2d2-c21f-4331-8930-0fb74884699a | available | dev-f5b0cea9169e44a8aaebb4238079fb84 | 1    | -           | true     |             |", 
-创建VM STD line:         "| b4e47dda-2a3c-43ba-bbc8-c80ecde70628 | available | -                                    | 1    | -           | true     |             |", 
-创建VM STD line:         "| ddcc7c2d-0c31-450c-b4c2-c6ee53f50e14 | available | dev-4bdd73081c5f4420946100e2a478d396 | 1    | -           | true     |             |", 
-创建VM STD line:         "+--------------------------------------+-----------+--------------------------------------+------+-------------+----------+-------------+"
-创建VM STD line:     ]
-创建VM STD line: }
+启动VM STD line: 10.167.212.1 | SUCCESS => {
+启动VM STD line:     "changed": true, 
+启动VM STD line:     "rc": 0, 
+启动VM STD line:     "stderr": "", 
+启动VM STD line:     "stdout": "+--------------------------------------+---------------------------------------------------------------------------------+\r\n| Property                             | Value                                                                           |\r\n+--------------------------------------+---------------------------------------------------------------------------------+\r\n| OS-DCF:diskConfig                    | MANUAL                                                                          |\r\n| OS-EXT-AZ:availability_zone          | nova                                                                            |\r\n| OS-EXT-SRV-ATTR:host                 | test-compute1                                                                   |\r\n| OS-EXT-SRV-ATTR:hostname             | vm109                                                                           |\r\n| OS-EXT-SRV-ATTR:hypervisor_hostname  | test-compute1                                                                   |\r\n| OS-EXT-SRV-ATTR:instance_name        | instance-000000a7                                                               |\r\n| OS-EXT-SRV-ATTR:kernel_id            |                                                                                 |\r\n| OS-EXT-SRV-ATTR:launch_index         | 0                                                                               |\r\n| OS-EXT-SRV-ATTR:ramdisk_id           |                                                                                 |\r\n| OS-EXT-SRV-ATTR:reservation_id       | r-8rdddk2w                                                                      |\r\n| OS-EXT-SRV-ATTR:root_device_name     | /dev/vda                                                                        |\r\n| OS-EXT-SRV-ATTR:user_data            | -                                                                               |\r\n| OS-EXT-STS:power_state               | 4                                                                               |\r\n| OS-EXT-STS:task_state                | -                                                                               |\r\n| OS-EXT-STS:vm_state                  | stopped                                                                         |\r\n| OS-SRV-USG:launched_at               | 2017-08-10T07:53:05.000000                                                      |\r\n| OS-SRV-USG:terminated_at             | -                                                                               |\r\n| accessIPv4                           |                                                                                 |\r\n| accessIPv6                           |                                                                                 |\r\n| config_drive                         |                                                                                 |\r\n| created                              | 2017-08-10T07:52:47Z                                                            |\r\n| description                          | -                                                                               |\r\n| flavor                               | m1.nano (0)                                                                     |\r\n| hostId                               | 4027383ec49c28b491306e42f5a804fa2215ef722fb70bf8dca16bd1                        |\r\n| host_status                          | UP                                                                              |\r\n| id                                   | d2ad4ebf-3299-425e-a0ae-973cf56d49d9                                            |\r\n| image                                | cirros (20022a68-bc87-462d-ba6c-af6570ba839e)                                   |\r\n| key_name                             | -                                                                               |\r\n| locked                               | False                                                                           |\r\n| metadata                             | {}                                                                              |\r\n| name                                 | vm109                                                                           |\r\n| os-extended-volumes:volumes_attached | [{\"id\": \"3631d7fe-1fe1-486e-9354-0cabf359e16d\", \"delete_on_termination\": true}] |\r\n| provider network                     | 10.167.211.54                                                                   |\r\n| security_groups                      | default                                                                         |\r\n| status                               | SHUTOFF                                                                         |\r\n| tags                                 | []                                                                              |\r\n| tenant_id                            | 0f50d3fbc4f64fb6b0e892d56ff47ced                                                |\r\n| updated                              | 2017-08-29T05:39:40Z                                                            |\r\n| user_id                              | fdb93da2369e494ea091004e9253013f                                                |\r\n+--------------------------------------+---------------------------------------------------------------------------------+\r\n", 
+启动VM STD line:     "stdout_lines": [
+启动VM STD line:         "+--------------------------------------+---------------------------------------------------------------------------------+", 
+启动VM STD line:         "| Property                             | Value                                                                           |", 
+启动VM STD line:         "+--------------------------------------+---------------------------------------------------------------------------------+", 
+启动VM STD line:         "| OS-DCF:diskConfig                    | MANUAL                                                                          |", 
+启动VM STD line:         "| OS-EXT-AZ:availability_zone          | nova                                                                            |", 
+启动VM STD line:         "| OS-EXT-SRV-ATTR:host                 | test-compute1                                                                   |", 
+启动VM STD line:         "| OS-EXT-SRV-ATTR:hostname             | vm109                                                                           |", 
+启动VM STD line:         "| OS-EXT-SRV-ATTR:hypervisor_hostname  | test-compute1                                                                   |", 
+启动VM STD line:         "| OS-EXT-SRV-ATTR:instance_name        | instance-000000a7                                                               |", 
+启动VM STD line:         "| OS-EXT-SRV-ATTR:kernel_id            |                                                                                 |", 
+启动VM STD line:         "| OS-EXT-SRV-ATTR:launch_index         | 0                                                                               |", 
+启动VM STD line:         "| OS-EXT-SRV-ATTR:ramdisk_id           |                                                                                 |", 
+启动VM STD line:         "| OS-EXT-SRV-ATTR:reservation_id       | r-8rdddk2w                                                                      |", 
+启动VM STD line:         "| OS-EXT-SRV-ATTR:root_device_name     | /dev/vda                                                                        |", 
+启动VM STD line:         "| OS-EXT-SRV-ATTR:user_data            | -                                                                               |", 
+启动VM STD line:         "| OS-EXT-STS:power_state               | 4                                                                               |", 
+启动VM STD line:         "| OS-EXT-STS:task_state                | -                                                                               |", 
+启动VM STD line:         "| OS-EXT-STS:vm_state                  | stopped                                                                         |", 
+启动VM STD line:         "| OS-SRV-USG:launched_at               | 2017-08-10T07:53:05.000000                                                      |", 
+启动VM STD line:         "| OS-SRV-USG:terminated_at             | -                                                                               |", 
+启动VM STD line:         "| accessIPv4                           |                                                                                 |", 
+启动VM STD line:         "| accessIPv6                           |                                                                                 |", 
+启动VM STD line:         "| config_drive                         |                                                                                 |", 
+启动VM STD line:         "| created                              | 2017-08-10T07:52:47Z                                                            |", 
+启动VM STD line:         "| description                          | -                                                                               |", 
+启动VM STD line:         "| flavor                               | m1.nano (0)                                                                     |", 
+启动VM STD line:         "| hostId                               | 4027383ec49c28b491306e42f5a804fa2215ef722fb70bf8dca16bd1                        |", 
+启动VM STD line:         "| host_status                          | UP                                                                              |", 
+启动VM STD line:         "| id                                   | d2ad4ebf-3299-425e-a0ae-973cf56d49d9                                            |", 
+启动VM STD line:         "| image                                | cirros (20022a68-bc87-462d-ba6c-af6570ba839e)                                   |", 
+启动VM STD line:         "| key_name                             | -                                                                               |", 
+启动VM STD line:         "| locked                               | False                                                                           |", 
+启动VM STD line:         "| metadata                             | {}                                                                              |", 
+启动VM STD line:         "| name                                 | vm109                                                                           |", 
+启动VM STD line:         "| os-extended-volumes:volumes_attached | [{\"id\": \"3631d7fe-1fe1-486e-9354-0cabf359e16d\", \"delete_on_termination\": true}] |", 
+启动VM STD line:         "| provider network                     | 10.167.211.54                                                                   |", 
+启动VM STD line:         "| security_groups                      | default                                                                         |", 
+启动VM STD line:         "| status                               | ACTIVE                                                                         |", 
+启动VM STD line:         "| tags                                 | []                                                                              |", 
+启动VM STD line:         "| tenant_id                            | 0f50d3fbc4f64fb6b0e892d56ff47ced                                                |", 
+启动VM STD line:         "| updated                              | 2017-08-29T05:39:40Z                                                            |", 
+启动VM STD line:         "| user_id                              | fdb93da2369e494ea091004e9253013f                                                |", 
+启动VM STD line:         "+--------------------------------------+---------------------------------------------------------------------------------+"
+启动VM STD line:     ]
+启动VM STD line: }
 */
 			
 //			StrCommand = StrCommand.substring(0, StrCommand.length()-1);
 			StrCommand = StrCommand.replaceAll(",", "");
-			strInfo = strCname + strFname + " 停止VM Run01 Cmmd----" + StrCommand;
+			strInfo = strCname + strFname + " 启动VM Run01 Cmmd----" + StrCommand;
 			strInfo = strInfo.replaceAll("'", "\"");
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 			logger.info(strInfo);
 			
 			process = Runtime.getRuntime().exec(StrCommand);
 
-			errorGobbler = new CmdStreamGobbler(process.getErrorStream(), StrCommand, "停止VM ERR", strstrCpuuid, this);
-			outputGobbler = new CmdStreamGobbler(process.getInputStream(), StrCommand, "停止VM STD", strstrCpuuid, this);
+			errorGobbler = new CmdStreamGobbler(process.getErrorStream(), StrCommand, "启动VM ERR", strstrCpuuid, this);
+			outputGobbler = new CmdStreamGobbler(process.getInputStream(), StrCommand, "启动VM STD", strstrCpuuid, this);
 
 			if(errorGobbler!=null && outputGobbler!=null){
 				errorGobbler.start();
@@ -225,7 +255,7 @@ public class RunCmd_Sa00_2 extends AbsRunCmd {
 					}
 				}
 				super.strThrflg = null;
-				strInfo = strCname + strFname + " 停止VM Run01 End----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " 启动VM Run01 End----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 //				hmpAll.put(ProcessAttrs.strParmapKey_Runlst, altRunc);
 //				for(int i=0; i<altRunc.size(); i++){

@@ -1,7 +1,5 @@
 package orgs.cm.pMqp.pRuncmd.pjCreate00;
 
-import static org.hamcrest.CoreMatchers.containsString;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -21,27 +19,24 @@ import orgs.cm.pMqp.pDbpro.SaveInfoPro;
 /**
  * 格式化img返回信息，结果用于request。
  * */
-public class ResFormatpro_3 {
+public class ResFormatpro_C001 {
 	
-	private final String strCname = ResFormatpro_3.class.getName();
+	private final String strCname = ResFormatpro_C001.class.getName();
 	private final Logger logger = LogManager.getLogger(strCname);
-
+	
 	private SaveInfoPro objSaveInfoPro = null;
 	private ClsBaseAttrs objBa = null; 
 	private HashMap<String, Object> hmpAll = null;
 //	private LinkedHashMap<String, String> lhpInfobase = new LinkedHashMap<String, String>();
 //	private ArrayList<LinkedHashMap<String, String>> altRunc = new ArrayList<LinkedHashMap<String, String>>();	
+
+	private ResFormatpro_C001(){};
 	
-	private ResFormatpro_3(){};
-	
-	private String strAnsId = "0";
 	private ArrayList<LinkedHashMap<String, String>> altRes;
-	public ResFormatpro_3(HashMap<String, Object> hmpParp
+	public ResFormatpro_C001(HashMap<String, Object> hmpParp
 			, ArrayList<LinkedHashMap<String, String>> altResp
-			, String intAnsidp
 			, ClsBaseAttrs objBap){
 		this.altRes = altResp;
-		this.strAnsId = intAnsidp;
 		this.hmpAll = hmpParp;
 		this.objBa = objBap;
 		if(objBa!=null && hmpAll!=null){
@@ -49,12 +44,13 @@ public class ResFormatpro_3 {
 		}
 	}
 	
-	public String disResCheck(){
-		String strFname = "";
+	public ArrayList<LinkedHashMap<String, String>> disFormatpro(){
+		String strFname = " disFormatpro : ";
 		boolean booFlg = false;
-		String strRe = null;
+		LinkedHashMap<String, String> lmpRow = new LinkedHashMap<>();
+		ArrayList<LinkedHashMap<String, String>> altRe = new ArrayList<>();
 		String strInfos = "";
-		try {
+		try{
 			objBa.lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
 			strInfos = strCname + strFname + " Start!" ;
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfos, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
@@ -67,57 +63,6 @@ public class ResFormatpro_3 {
 								null : mapRow.get(ProcessAttrs.strInfoKey_Info).toString();
 						strInfos = strCname + strFname + "CmmdRunRes ----" + strInfo;
 						objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfos, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PResx);
-						if(strInfo!=null && strInfo.trim().length()>0){
-							if(strInfo.indexOf("SUCCESS")>0){
-								booFlg = true;
-								continue;
-							}
-							if(booFlg && strInfo.indexOf("| ")>-1){
-								String[] subInfo = strInfo.split("\\|");
-								if(subInfo!=null && subInfo.length==4
-										&& !"Property".equals(subInfo[1].trim())
-										&& "id".equals(subInfo[1].trim())){
-									strRe = "t}}}" + subInfo[2].trim();
-								}
-							}
-						}
-					}
-				}
-			}
-			strInfos = strCname + strFname + " End!" ;
-			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfos, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
-		} catch(Exception ex) {
-			strRe = null;
-			if(objBa!=null && objBa.objOutputLogPro!=null){
-				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
-			}
-		} finally {
-			if(objSaveInfoPro!=null){
-				objSaveInfoPro.disSaveInfo_Run(DbInfoSaveAttrs.strSaveFlg_Run);
-			}
-//			disSaveInfo(DbInfoSaveAttrs.strSaveFlg_Run);
-		}
-		return strRe;
-	}
-	
-//	public ArrayList<LinkedHashMap<String, String>> disFormatpro(){
-//		String strFname = " disFormatpro : ";
-//		boolean booFlg = false;
-//		LinkedHashMap<String, String> lmpRow = new LinkedHashMap<>();
-//		ArrayList<LinkedHashMap<String, String>> altRe = new ArrayList<>();
-//		String strInfos = "";
-//		
-//		try{
-//			objBa.lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
-//			strInfos = strCname + strFname + " Start!" ;
-//			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfos, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
-//
-//			if(altRes!=null && altRes.size()>0){
-//				for(LinkedHashMap<String, String> mapRow : altRes){
-//					if(mapRow.containsKey(ProcessAttrs.strInfoKey_Info)
-//							&& mapRow.get(ProcessAttrs.strInfoKey_Info)!=null){
-//						String strInfo = mapRow.get(ProcessAttrs.strInfoKey_Info)==null?
-//								null : mapRow.get(ProcessAttrs.strInfoKey_Info).toString();
 //						if(strInfo!=null && strInfo.trim().length()>0){
 //							if(strInfo.indexOf("stdout_lines")>0){
 //								booFlg = true;
@@ -127,7 +72,7 @@ public class ResFormatpro_3 {
 //								lmpRow.clear();
 //								String[] subInfo = strInfo.split("\\|");
 //								if(subInfo!=null && subInfo.length==4
-//										&& !"Property".equals(subInfo[1].trim())){
+//										&& !"ID".equals(subInfo[1].trim())){
 //									//20170724 strImgId,strName
 //									lmpRow.put("strImgId", subInfo[1].trim());
 //									lmpRow.put("strName", subInfo[2].trim());
@@ -136,22 +81,24 @@ public class ResFormatpro_3 {
 //								}
 //							}
 //						}
-//					}
-//				}
-//			}
-//			strInfos = strCname + strFname + " End!" ;
-//			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfos, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
-//		} catch(Exception ex) {
-//			altRe = null;
-//			objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);//disOutputLog(strFname, ex);
-//		} finally {
-//			if(objSaveInfoPro!=null){
-//				objSaveInfoPro.disSaveInfo_Run(DbInfoSaveAttrs.strSaveFlg_Run);
-//			}
-////			disSaveInfo(DbInfoSaveAttrs.strSaveFlg_Run);
-//		}
-//		return altRe;
-//	}
+					}
+				}
+			}
+			strInfos = strCname + strFname + " End!" ;
+			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfos, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
+		} catch(Exception ex) {
+			altRe = null;
+			if(objBa!=null && objBa.objOutputLogPro!=null){
+				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);
+			}
+		} finally {
+			if(objSaveInfoPro!=null){
+				objSaveInfoPro.disSaveInfo_Run(DbInfoSaveAttrs.strSaveFlg_Run);
+			}
+//			disSaveInfo(DbInfoSaveAttrs.strSaveFlg_Run);
+		}
+		return altRe;
+	}
 	
 //	private void disSaveInfo(String strFlgp){
 //		String strFname = " disSaveInfo : ";

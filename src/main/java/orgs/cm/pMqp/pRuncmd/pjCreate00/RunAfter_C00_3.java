@@ -75,7 +75,7 @@ public class RunAfter_C00_3 extends AbsRunAfter {
 				//格式化返回
 				String strAnsidf = hmpAll.get("^ansid^")==null? null:hmpAll.get("^ansid^").toString();
 				if(strAnsidf!=null && strAnsidf.trim().length()>0){
-					ResFormatpro_3 objResFormatpro = new ResFormatpro_3(
+					ResFormatpro_C003 objResFormatpro = new ResFormatpro_C003(
 							hmpAll, 
 							(ArrayList<LinkedHashMap<String, String>>)hmpAll.get(ProcessAttrs.strInfoFlgKey_Resstd), 
 							strAnsidf,

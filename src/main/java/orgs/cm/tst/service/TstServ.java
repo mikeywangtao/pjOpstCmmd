@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
-import orgs.cm.pMqp.pRuncmd.pStop00.Runcmdpro_Stop00;
+import orgs.cm.pMqp.pRuncmd.pStatrt00.Runcmdpro_Start00;
 import orgs.cm.tst.dao.TstDao;
 import orgs.cm.tst.model.RunCmmd000;
 import orgs.cm.tst.model.RunCmmd001;
@@ -149,7 +149,7 @@ public class TstServ {
 //		AbsRuncmdPro objRcGetflv = new Runcmdpro_Getflv();
 //		objRcGetflv.disRuncmdPro();
 		
-//		AbsRuncmdPro objRcGetnetw = new Runcmdpro_Getnetw();
+//		AbsRuncmdPro objRcGetnetw 	= new Runcmdpro_Getnetw();
 //		objRcGetnetw.disRuncmdPro();
 		
 //		AbsRuncmdPro objRcGetvmste = new Runcmdpro_Getvmste();
@@ -158,12 +158,19 @@ public class TstServ {
 //		AbsRuncmdPro objRcCreate00 = new Runcmdpro_Create00();
 //		objRcCreate00.disRuncmdPro();
 		
-		hmpParp.put("^req_type^", "STOP");
-		hmpParp.put("^req_subtype^", "STOP00");
-		AbsRuncmdPro objRcStop00 = null;
-		objRcStop00 = new Runcmdpro_Stop00();
-		objRcStop00.disSetPars(hmpParp);
-		objRcStop00.disRuncmdPro();
+//		hmpParp.put("^req_type^", "STOP");
+//		hmpParp.put("^req_subtype^", "STOP00");
+//		AbsRuncmdPro objRcStop00 = null;
+//		objRcStop00 = new Runcmdpro_Stop00();
+//		objRcStop00.disSetPars(hmpParp);
+//		objRcStop00.disRuncmdPro();
+		
+		hmpParp.put("^req_type^", "START");
+		hmpParp.put("^req_subtype^", "START00");
+		AbsRuncmdPro objRcStart00 = null;
+		objRcStart00 = new Runcmdpro_Start00();
+		objRcStart00.disSetPars(hmpParp);
+		objRcStart00.disRuncmdPro();
 		
 //		try {
 //			for(int i=0; i<2000; i++){
