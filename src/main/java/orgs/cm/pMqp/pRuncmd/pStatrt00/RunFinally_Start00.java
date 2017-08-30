@@ -102,7 +102,10 @@ public class RunFinally_Start00 extends AbsRunFinally{
 //					mapReq.put("cutmids", cutmids);
 	
 					String strSetImg = "";
-					strSetImg = JSON.toJSONString(altRe);
+					HashMap<String, Object>  hmpRep = new HashMap<>();
+					hmpRep.put("msg", "ng");
+					hmpRep.put("data", altRe);
+					strSetImg = JSON.toJSONString(hmpRep);
 //					strSetImg = "{'msgs':'"+strMsgs+"', 'finallydt':'"+strFinallydt+"', 'state':'ok', 'cpids':'"+strCpids+"'}";
 					strInfo = strCname + strFname + " 启动VM Finally Ok request----" + strSetImg;
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PAx + " request ");
@@ -141,7 +144,10 @@ public class RunFinally_Start00 extends AbsRunFinally{
 //					mapReq.put("cutmids", cutmids);
 					
 					String strSetImg = "";
-					strSetImg = JSON.toJSONString(altRe);
+					HashMap<String, Object>  hmpRep = new HashMap<>();
+					hmpRep.put("msg", "ng");
+					hmpRep.put("data", altRe);
+					strSetImg = JSON.toJSONString(hmpRep);
 //					strSetImg = "{'msgs':'"+strMsgs+"', 'finallydt':'"+strFinallydt+"', 'state':'ng', 'cpids':'"+strCpids+"'}";
 					strInfo = strCname + strFname + " 启动VM Finally Ng request----" + strSetImg;
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PAx + " request ");

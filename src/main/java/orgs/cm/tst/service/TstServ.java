@@ -140,6 +140,7 @@ public class TstServ {
 		hmpParp.put("^authurl^", "http://test-controller:5000/v3");
 		hmpParp.put("^ideapi^", "3");
 		hmpParp.put("^imgapi^", "2");
+		
 		hmpParp.put("^vmids^", "d2ad4ebf-3299-425e-a0ae-973cf56d49d9");
 		
 				

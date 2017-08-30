@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
+import orgs.cm.pMqp.pRuncmd.pStatrt00.Runcmdpro_Start00;
 import orgs.cm.pMqp.pRuncmd.pStop00.Runcmdpro_Stop00;
 import orgs.cm.pMqp.pRuncmd.pjCreate00.Runcmdpro_Create00;
 
@@ -110,6 +111,18 @@ login_name=wode,
 					}
 					if(objRcStop00!=null){
 						ThrdRunManage.chmthdrMang_RuncmdPro.get("SSRD").putThread2Mlt((Runnable)objRcStop00);
+					}
+				}
+				
+				if("START".equals(strProflg.trim())){
+					AbsRuncmdPro objRcStart00 = null;
+					if("START00".equals(strSubProflg.trim())){
+						objRcStart00 = new Runcmdpro_Start00();
+						objRcStart00.disSetPars(mapMsg);
+//						objRcStop00.disRuncmdPro();
+					}
+					if(objRcStart00!=null){
+						ThrdRunManage.chmthdrMang_RuncmdPro.get("SSRD").putThread2Mlt((Runnable)objRcStart00);
 					}
 				}
 				

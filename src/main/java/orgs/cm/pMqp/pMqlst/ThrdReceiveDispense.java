@@ -90,15 +90,32 @@ public class ThrdReceiveDispense extends Thread {
 						&& mapJson.containsKey("^req_type^")){
 					Object objProflg = mapJson.get("^req_type^");
 					strProflg = objProflg==null? null:objProflg.toString();
-					if(strProflg!=null && strProflg.trim().length()>0
-							&& ThrdRunManage.chmthdrMang_RuncmdPro.containsKey(strProflg)){
-						ThrdRuncmdPro objThrdRuncmdPro = new ThrdRuncmdPro();
-						objThrdRuncmdPro.setMsg(mapJson);
-						ThrdRunManage.chmthdrMang_RuncmdPro.get(strProflg.toUpperCase()).putThread2Mlt((Runnable)objThrdRuncmdPro);
-						
+					
+					if(strProflg!=null && strProflg.trim().length()>0){
+						if("CREATE".equals(strProflg.trim())){
+							strProflg = "CREATE";
+						}
+						if("EDIT".equals(strProflg.trim())){
+							strProflg = "EDIT";
+						}
+						if("START".equals(strProflg.trim())
+								|| "STOP".equals(strProflg.trim())
+								|| "DEST".equals(strProflg.trim())
+								|| "RES".equals(strProflg.trim())){
+							strProflg = "SSRD";
+						}
+						if(ThrdRunManage.chmthdrMang_RuncmdPro.containsKey(strProflg)){
+							ThrdRuncmdPro objThrdRuncmdPro = new ThrdRuncmdPro();
+							objThrdRuncmdPro.setMsg(mapJson);
+							ThrdRunManage.chmthdrMang_RuncmdPro.get(strProflg.toUpperCase()).putThread2Mlt((Runnable)objThrdRuncmdPro);
+							
+						} else {
+							logger.error(strCname + strFname + " proflg Error!" + strMsg);
+							logger.info(strCname + strFname + " proflg Error!" + strMsg);
+						}
 					} else {
-						logger.error(strCname + strFname + " proflg Error!" + strMsg);
-						logger.info(strCname + strFname + " proflg Error!" + strMsg);
+						logger.error(strCname + strFname + " proflg null!" + strMsg);
+						logger.info(strCname + strFname + " proflg null!" + strMsg);
 					}
 				} else {
 					logger.error(strCname + strFname + " mapJson Error!" + strMsg);
