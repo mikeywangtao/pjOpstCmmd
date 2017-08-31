@@ -66,7 +66,7 @@ public class RunAfter_De00_2 extends AbsRunAfter {
 				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, null);
 				objBa.lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
 				objBa.lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Aft);
-				strInfo = strCname + strFname + " 启动VM After01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " 销毁VM After01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
 //				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 				
@@ -84,20 +84,20 @@ public class RunAfter_De00_2 extends AbsRunAfter {
 						String strFlg = objResFormatpro_2.disGetFlg();
 						String[] subFlg = strFlg.split("}}}");
 						if(subFlg!=null && subFlg.length==2){
-							if(!"SOFT_DELETED".equals(subFlg[0])){
+							if(!"DELETED".equals(subFlg[0])){
 								hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg, "t");//循环runcmd
 								hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "2");
 								hmpAll.put("strVmIp", hmpAll.get("^vmids^")==null? "":hmpAll.get("^vmids^").toString());
 //								hmpAll.put("^devids^", subFlg[1]);
 								((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).put("^devids^", subFlg[1]);
-								strInfo = strCname + strFname + " 启动VM After01 ----strParmapKey_Ppa_NowRunflg false" + DatePro.disGetStrdate4NowObjSdf001();
+								strInfo = strCname + strFname + " 销毁VM After01 ----strParmapKey_Ppa_NowRunflg false" + DatePro.disGetStrdate4NowObjSdf001();
 								objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx + " strParmapKey_Ppa_NowRunflg false ");
 								hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
 							} else {
 								hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg, "f");//不循环runcmd
 								hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "000");
 								hmpAll.put("strVmIp", hmpAll.get("^vmids^")==null? "":hmpAll.get("^vmids^").toString());
-								strInfo = strCname + strFname + " 启动VM After01 ----strParmapKey_Ppa_NowRunflg true" + DatePro.disGetStrdate4NowObjSdf001();
+								strInfo = strCname + strFname + " 销毁VM After01 ----strParmapKey_Ppa_NowRunflg true" + DatePro.disGetStrdate4NowObjSdf001();
 								objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx + " strParmapKey_Ppa_NowRunflg true ");
 								hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
 							}
@@ -107,7 +107,7 @@ public class RunAfter_De00_2 extends AbsRunAfter {
 				if(hmpAll.containsKey(ProcessAttrs.strInfoFlgKey_Reserr)
 						&& hmpAll.get(ProcessAttrs.strInfoFlgKey_Reserr)!=null){
 					hmpAll.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, null);
-					strInfo = strCname + strFname + " 启动VM After01 ----strInfoFlgKey_Reserr Error" + DatePro.disGetStrdate4NowObjSdf001();
+					strInfo = strCname + strFname + " 销毁VM After01 ----strInfoFlgKey_Reserr Error" + DatePro.disGetStrdate4NowObjSdf001();
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_Elx + " strInfoFlgKey_Reserr Error ");
 //					hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 				}
@@ -115,14 +115,14 @@ public class RunAfter_De00_2 extends AbsRunAfter {
 //				DbInfotablePro4Cmmd.disInfotablePro(disGetBusname());
 				
 				String strRes = ((String)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst));
-				strRes = strRes +  "," + strCname + strFname+ "启动VM Run01after ok ----end " ;
-				hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, strRes);				strInfo = strCname + strFname + " 启动VM After01 End----" + DatePro.disGetStrdate4NowObjSdf001();
+				strRes = strRes +  "," + strCname + strFname+ "销毁VM Run01after ok ----end " ;
+				hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, strRes);				strInfo = strCname + strFname + " 销毁VM After01 End----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 //				hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, altRunc);
 			}
 		} catch(Exception ex) {
 			String strRes = ((String)hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst));
-			strRes = strRes +  "," + strCname + strFname+ "启动VM Run01after Ex " + ex ;
+			strRes = strRes +  "," + strCname + strFname+ "销毁VM Run01after Ex " + ex ;
 			hmpAll.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, strRes);
 			if(objBa!=null && objBa.objOutputLogPro!=null){
 				objBa.objOutputLogPro.disErrOutputLog(logger, objBa.altRunc, objBa.lhpInfobase, strFname, ex);

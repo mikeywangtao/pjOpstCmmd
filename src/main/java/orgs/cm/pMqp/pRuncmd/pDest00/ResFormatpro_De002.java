@@ -72,9 +72,8 @@ public class ResFormatpro_De002 {
 							}
 							if(booFlg && strInfo.indexOf("| ")>-1){
 								String[] subInfo = strInfo.split("\\|");
-								if(subInfo!=null && subInfo.length==4
-										&& "status".equals(subInfo[1].trim())){
-									strRe = subInfo[2].trim()+"}}}"+subInfo[1].trim();
+								if(subInfo!=null && subInfo.length==8){
+									strRe = subInfo[3].trim()+"}}}"+subInfo[1].trim();
 									break;
 								}
 							}

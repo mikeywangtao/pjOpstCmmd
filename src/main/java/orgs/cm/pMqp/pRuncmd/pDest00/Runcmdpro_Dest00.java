@@ -150,7 +150,7 @@ public class Runcmdpro_Dest00 extends AbsRuncmdPro implements Runnable {
 					if(intLoop>=10){
 						hmpPar.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, "false}}}Ng:"+intLoop);
 					} else {
-						hmpPar.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, "true}}}ACTIVE");
+						hmpPar.put(ProcessAttrs.strParmapKey_Ppa_RunResLst, "true}}}DELETED");
 						hmpPar.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "end");
 					}
 				}

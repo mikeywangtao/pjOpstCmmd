@@ -62,7 +62,7 @@ public class RunFinally_Dest00 extends AbsRunFinally{
 			
 			objBa.lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
 			objBa.lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Finly);
-			strInfo = strCname + strFname + " 启动VM Finally Start----" + DatePro.disGetStrdate4NowObjSdf001();
+			strInfo = strCname + strFname + " 销毁VM Finally Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS);
 			
 			strMsgs =  hmpAll.get(ProcessAttrs.strParmapKey_Ppa_RunResLst).toString();
@@ -75,7 +75,7 @@ public class RunFinally_Dest00 extends AbsRunFinally{
 						&& "end".equals(hmpAll.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg).toString().trim())
 						&& strMsgs.split("}}}").length==2 
 						&& strMsgs.indexOf("true")>-1){
-					strInfo = strCname + strFname + " 启动VM Finally Ok----" + DatePro.disGetStrdate4NowObjSdf001();
+					strInfo = strCname + strFname + " 销毁VM Finally Ok----" + DatePro.disGetStrdate4NowObjSdf001();
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx + " Finally Ok ");
 					
 					strAnsId = hmpAll.get("^ansid^")==null? "":hmpAll.get("^ansid^").toString();
@@ -103,21 +103,21 @@ public class RunFinally_Dest00 extends AbsRunFinally{
 	
 					String strSetImg = "";
 					HashMap<String, Object>  hmpRep = new HashMap<>();
-					hmpRep.put("msg", "ng");
+					hmpRep.put("msg", "ok");
 					hmpRep.put("data", altRe);
 					strSetImg = JSON.toJSONString(hmpRep);
 //					strSetImg = "{'msgs':'"+strMsgs+"', 'finallydt':'"+strFinallydt+"', 'state':'ok', 'cpids':'"+strCpids+"'}";
-					strInfo = strCname + strFname + " 启动VM Finally Ok request----" + strSetImg;
+					strInfo = strCname + strFname + " 销毁VM Finally Ok request----" + strSetImg;
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PAx + " request ");
 					HttpClientUtil objHttpClientUtil = new HttpClientUtil();
 					String strSetVminfos = objHttpClientUtil.sendHttpPostJson("http://"+strRemoteSer+":"+strReSerpoint+"/pjOpStAuth/web/vm/updateVmStatus/", strSetImg);
 //					String strSetVminfos = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:10000/vm/info/", strSetImg);
-					strInfo = strCname + strFname + " 启动VM Finally ----mapRes---- " + strSetVminfos;
+					strInfo = strCname + strFname + " 销毁VM Finally ----mapRes---- " + strSetVminfos;
 					
 				} else {
 					objBa.lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
 					objBa.lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Finly);
-					strInfo = strCname + strFname + " 启动VM Finally Ng----" + DatePro.disGetStrdate4NowObjSdf001();
+					strInfo = strCname + strFname + " 销毁VM Finally Ng----" + DatePro.disGetStrdate4NowObjSdf001();
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx + " Finally Ng ");
 					
 					strAnsId = hmpAll.get("^ansid^")==null? "":hmpAll.get("^ansid^").toString();
@@ -149,12 +149,12 @@ public class RunFinally_Dest00 extends AbsRunFinally{
 					hmpRep.put("data", altRe);
 					strSetImg = JSON.toJSONString(altRe);
 //					strSetImg = "{'msgs':'"+strMsgs+"', 'finallydt':'"+strFinallydt+"', 'state':'ng', 'cpids':'"+strCpids+"'}";
-					strInfo = strCname + strFname + " 启动VM Finally Ng request----" + strSetImg;
+					strInfo = strCname + strFname + " 销毁VM Finally Ng request----" + strSetImg;
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PAx + " request ");
 					HttpClientUtil objHttpClientUtil = new HttpClientUtil();
 					String strSetVminfos = objHttpClientUtil.sendHttpPostJson("http://"+strRemoteSer+":"+strReSerpoint+"/pjOpStAuth/web/vm/updateVmStatus/", strSetImg);
 //					String strSetVminfos = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:10000/vm/info/", strSetImg);
-					strInfo = strCname + strFname + " 启动VM Finally ----mapRes---- " + strSetVminfos;
+					strInfo = strCname + strFname + " 销毁VM Finally ----mapRes---- " + strSetVminfos;
 					
 				}
 			}

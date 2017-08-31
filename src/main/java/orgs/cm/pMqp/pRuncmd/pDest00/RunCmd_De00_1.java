@@ -85,7 +85,7 @@ public class RunCmd_De00_1 extends AbsRunCmd {
 			hmpAll.put(ProcessAttrs.strInfoFlgKey_Resstd, null);
 			objBa.lhpInfobase = (LinkedHashMap<String, String>)(hmpAll.get(ProcessAttrs.strParmapKey_Infobase));
 			objBa.lhpInfobase.put(ProcessAttrs.strInfoCType_Info, ProcessAttrs.strInfoFlgKey_Runc);
-			strInfo = strCname + strFname + " 启动VM Run01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
+			strInfo = strCname + strFname + " 销毁VM Run01 Start----" + DatePro.disGetStrdate4NowObjSdf001();
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRS );
 
 			if(hmpAll!=null && hmpAll.containsKey(ProcessAttrs.strInfoKey_Cpuuid)){
@@ -145,28 +145,28 @@ public class RunCmd_De00_1 extends AbsRunCmd {
 			/* ------------------------------------------------------------------------------- */
 //			String StrCommand = "ansible openstack -m script -a  '/home/heaven/shtst001.sh' -u root "; //查看镜像
 /* 
-启动VM STD line: 10.167.212.1 | SUCCESS => {
-启动VM STD line:     "changed": true, 
-启动VM STD line:     "rc": 0, 
-启动VM STD line:     "stderr": "", 
-启动VM STD line:     "stdout": "Request to start server d2ad4ebf-3299-425e-a0ae-973cf56d49d9 has been accepted.\r\n", 
-启动VM STD line:     "stdout_lines": [
-启动VM STD line:         "Request to start server d2ad4ebf-3299-425e-a0ae-973cf56d49d9 has been accepted."
-启动VM STD line:     ]
-启动VM STD line: }
+销毁VM STD line: 10.167.212.1 | SUCCESS => {
+销毁VM STD line:     "changed": true, 
+销毁VM STD line:     "rc": 0, 
+销毁VM STD line:     "stderr": "", 
+销毁VM STD line:     "stdout": "Request to start server d2ad4ebf-3299-425e-a0ae-973cf56d49d9 has been accepted.\r\n", 
+销毁VM STD line:     "stdout_lines": [
+销毁VM STD line:         "Request to start server d2ad4ebf-3299-425e-a0ae-973cf56d49d9 has been accepted."
+销毁VM STD line:     ]
+销毁VM STD line: }
 */
 			
 //			StrCommand = StrCommand.substring(0, StrCommand.length()-1);
 			StrCommand = StrCommand.replaceAll(",", "");
-			strInfo = strCname + strFname + " 启动VM Run01 Cmmd----" + StrCommand;
+			strInfo = strCname + strFname + " 销毁VM Run01 Cmmd----" + StrCommand;
 			strInfo = strInfo.replaceAll("'", "\"");
 			objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, null);
 			logger.info(strInfo);
 			
 			process = Runtime.getRuntime().exec(StrCommand);
 
-			errorGobbler = new CmdStreamGobbler(process.getErrorStream(), StrCommand, "启动VM ERR", strstrCpuuid, this);
-			outputGobbler = new CmdStreamGobbler(process.getInputStream(), StrCommand, "启动VM STD", strstrCpuuid, this);
+			errorGobbler = new CmdStreamGobbler(process.getErrorStream(), StrCommand, "销毁VM ERR", strstrCpuuid, this);
+			outputGobbler = new CmdStreamGobbler(process.getInputStream(), StrCommand, "销毁VM STD", strstrCpuuid, this);
 
 			if(errorGobbler!=null && outputGobbler!=null){
 				errorGobbler.start();
@@ -213,7 +213,7 @@ public class RunCmd_De00_1 extends AbsRunCmd {
 					}
 				}
 				super.strThrflg = null;
-				strInfo = strCname + strFname + " 启动VM Run01 End----" + DatePro.disGetStrdate4NowObjSdf001();
+				strInfo = strCname + strFname + " 销毁VM Run01 End----" + DatePro.disGetStrdate4NowObjSdf001();
 				objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRE);
 //				hmpAll.put(ProcessAttrs.strParmapKey_Runlst, altRunc);
 //				for(int i=0; i<altRunc.size(); i++){
