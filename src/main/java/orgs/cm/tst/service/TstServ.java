@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import orgs.cm.pMqp.pRuncmd.comm.AbsRuncmdPro;
-import orgs.cm.pMqp.pRuncmd.pStatrt00.Runcmdpro_Start00;
+import orgs.cm.pMqp.pRuncmd.pEdit00.Runcmdpro_Edit00;
 import orgs.cm.tst.dao.TstDao;
 import orgs.cm.tst.model.RunCmmd000;
 import orgs.cm.tst.model.RunCmmd001;
@@ -200,12 +200,22 @@ public class TstServ {
 //		objRcStop00.disSetPars(hmpParp);
 //		objRcStop00.disRuncmdPro();
 		
-		hmpParp.put("^req_type^", "START");
-		hmpParp.put("^req_subtype^", "START00");
-		AbsRuncmdPro objRcStart00 = null;
-		objRcStart00 = new Runcmdpro_Start00();
-		objRcStart00.disSetPars(hmpParp);
-		objRcStart00.disRuncmdPro();
+//		hmpParp.put("^req_type^", "START");
+//		hmpParp.put("^req_subtype^", "START00");
+//		AbsRuncmdPro objRcStart00 = null;
+//		objRcStart00 = new Runcmdpro_Start00();
+//		objRcStart00.disSetPars(hmpParp);
+//		objRcStart00.disRuncmdPro();
+		
+		hmpParp.put("^vmids^", "be31735b-eee3-48c3-b481-91cb48be560f");
+		hmpParp.put("^req_type^", "EDIT");
+		hmpParp.put("^req_subtype^", "EDIT00");
+		hmpParp.put("intTemplateId", "1");
+		hmpParp.put("^flvids^", "2");
+		AbsRuncmdPro objEdit00 = null;
+		objEdit00 = new Runcmdpro_Edit00();
+		objEdit00.disSetPars(hmpParp);
+		objEdit00.disRuncmdPro();
 		
 //		try {
 //			for(int i=0; i<2000; i++){

@@ -181,8 +181,8 @@ subflg=start}
 								strSqlCheck = strSqlCheck.replaceAll("\\^infoflg\\^", mapRow.get("flg"));
 								strSqlCheck = strSqlCheck.replaceAll("\\^infosubflg\\^", mapRow.get("subflg"));
 								String strInfoTmp = mapRow.get("info");
-								if(strInfoTmp!=null){
-									strSqlCheck = strSqlCheck.replaceAll("\\^info\\^", mapRow.get("info").replaceAll("'", "\""));
+								if(strInfoTmp!=null && strInfoTmp.trim().length()>0){
+									strSqlCheck = strSqlCheck.replaceAll("\\^info\\^", strInfoTmp.replaceAll("'", "\""));
 								} else {
 									strSqlCheck = strSqlCheck.replaceAll("\\^info\\^", "");
 								}
