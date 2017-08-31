@@ -156,6 +156,40 @@ public class TstServ {
 //		AbsRuncmdPro objRcGetvmste = new Runcmdpro_Getvmste();
 //		objRcGetvmste.disRuncmdPro();
 		
+		
+		
+//		hmpParp.put("^pname^", "admin");
+//		hmpParp.put("^ansid^", "1"); 
+//		hmpParp.put("msgId", "2017083110100758490008"); 
+//		hmpParp.put("^intImaId^", "105"); 
+//		hmpParp.put("^strSshKey^", "None"); 
+//		hmpParp.put("^uname^", "admin"); 
+//		hmpParp.put("^strVmUser^", "None");
+//		hmpParp.put("^shell_allpath^", ""); 
+//		hmpParp.put("^intNwId^", "12"); 
+//		hmpParp.put("^netwids^", "aedbece2-0b64-4879-94e5-461439cd6930");
+//		hmpParp.put("usr_name", "username"); 
+//		hmpParp.put("^authurl^", "http://test-controller:5000/v3"); 
+//		hmpParp.put("^flvids^", "0"); 
+//		hmpParp.put("^imgapi^", "2"); 
+//		hmpParp.put("^uksids^", "1"); 
+//		hmpParp.put("sysflg", "cms"); 
+//		hmpParp.put("^vmids^", ""); 
+//		hmpParp.put("^ideapi^", "3"); 
+//		hmpParp.put("^intTemId^", "0"); 
+//		hmpParp.put("^pdom^", "Default");
+//		hmpParp.put("^pass^", "admin"); 
+//		hmpParp.put("^customerids^", "1"); 
+//		hmpParp.put("^imgids^", "20022a68-bc87-462d-ba6c-af6570ba839e"); 
+//		hmpParp.put("serverTarget", "test"); 
+//		hmpParp.put("login_name", "admin"); 
+//		hmpParp.put("^udom^", "Default"); 
+//		hmpParp.put("^anscmmd^", "openstack"); 
+//		hmpParp.put("^vmname^", "vm190");
+//		hmpParp.put("^req_type^", "CREATE"); 
+//		hmpParp.put("^devids^", ""); 
+//		hmpParp.put("^req_subtype^", "CREATE00"); 
+//		hmpParp.put("^strVmPassword^", "None");
 //		AbsRuncmdPro objRcCreate00 = new Runcmdpro_Create00();
 //		objRcCreate00.disRuncmdPro();
 		
