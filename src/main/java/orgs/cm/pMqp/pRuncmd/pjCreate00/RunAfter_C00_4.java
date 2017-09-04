@@ -100,7 +100,7 @@ public class RunAfter_C00_4 extends AbsRunAfter {
 						mapRes.put("netwids", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^netwids^").toString());
 						mapRes.put("flvids", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^flvids^").toString());
 						mapRes.put("intImaId", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^intImaId^").toString());
-						mapRes.put("intTemId", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^intTemId^").toString());
+						mapRes.put("intTemId", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^intTemplateId^").toString());
 						mapRes.put("intNwId", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^intNwId^").toString());
 						mapRes.put("strVmUser", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^strVmUser^").toString());
 						mapRes.put("strVmPassword", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^strVmPassword^").toString());

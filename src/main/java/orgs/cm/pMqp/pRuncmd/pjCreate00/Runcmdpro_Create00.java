@@ -334,6 +334,10 @@ login_name=wode,
 				hmpPar.put("^devids^", null);
 				hmpPar.put("^vmids^", null);
 				
+				hmpPar.put("^intTemplateId^", hmpAllInp.get("^intTemplateId^"));
+				hmpPar.put("^intImaId^", hmpAllInp.get("^intImaId^"));
+				hmpPar.put("^intNwId^", hmpAllInp.get("^intNwId^"));
+				
 				hmpPar.put(ProcessAttrs.strInfoKey_Cpuuid, objUuid.toString().replaceAll("-", ""));
 				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "f");
 				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_RunShCmmd, null);

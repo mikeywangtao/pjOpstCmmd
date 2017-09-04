@@ -87,6 +87,10 @@ public class RunFinally_Create00 extends AbsRunFinally{
 					mapReq.put("vmname", strVmName);
 					mapReq.put("vmip", strVmIp);
 					mapReq.put("cutmids", cutmids);
+					
+					mapReq.put("intTemId", hmpAll.get("^intTemplateId^")==null? "":hmpAll.get("^intTemplateId^").toString());
+					mapReq.put("intImaId", hmpAll.get("^intImaId^")==null? "":hmpAll.get("^intImaId^").toString());
+					mapReq.put("intNwId", hmpAll.get("^intNwId^")==null? "":hmpAll.get("^intNwId^").toString());
 	
 					String strSetImg = "";
 					strSetImg = JSON.toJSONString(mapReq);
@@ -115,6 +119,10 @@ public class RunFinally_Create00 extends AbsRunFinally{
 					mapReq.put("vmname", "");
 					mapReq.put("vmip", "");
 					mapReq.put("cutmids", cutmids);
+					
+					mapReq.put("intTemId", hmpAll.get("^intTemplateId^")==null? "":hmpAll.get("^intTemplateId^").toString());
+					mapReq.put("intImaId", hmpAll.get("^intImaId^")==null? "":hmpAll.get("^intImaId^").toString());
+					mapReq.put("intNwId", hmpAll.get("^intNwId^")==null? "":hmpAll.get("^intNwId^").toString());
 					
 					String strSetImg = "";
 					strSetImg = JSON.toJSONString(mapReq);
