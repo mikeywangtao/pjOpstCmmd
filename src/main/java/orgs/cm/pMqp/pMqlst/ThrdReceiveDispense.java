@@ -101,7 +101,7 @@ public class ThrdReceiveDispense extends Thread {
 						if("START".equals(strProflg.trim())
 								|| "STOP".equals(strProflg.trim())
 								|| "DEST".equals(strProflg.trim())
-								|| "RES".equals(strProflg.trim())){
+								|| "RELOAD".equals(strProflg.trim())){
 							strProflg = "SSRD";
 						}
 						if(ThrdRunManage.chmthdrMang_RuncmdPro.containsKey(strProflg)){
