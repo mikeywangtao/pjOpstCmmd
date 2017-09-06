@@ -217,6 +217,9 @@ public class TstServ {
 		objEdit00.disSetPars(hmpParp);
 		objEdit00.disRuncmdPro();
 		
+//		reload
+//		{^intTemplateId^=26, ^pname^=admin, ^ansid^=1, msgId=2017090514025305058566, ^intImaId^=105, ^strSshKey^=None, ^uname^=admin, ^intVmId^=131, ^strVmUser^=None, ^shell_allpath^=, ^intNwId^=12, ^netwids^=aedbece2-0b64-4879-94e5-461439cd6930, usr_name=username, ^authurl^=http://test-controller:5000/v3, ^flvids^=0, ^imgapi^=2, ^devname^=dev-942e3bf761144ab3a268bdc650e83827, ^uksids^=1, sysflg=cms, ^vmids^=00108704-9182-433d-af0a-1d8272333197, ^ideapi^=3, ^intTemId^=0, ^pdom^=Default, ^pass^=admin, ^customerids^=1, ^imgids^=20022a68-bc87-462d-ba6c-af6570ba839e, serverTarget=test, login_name=admin, ^udom^=Default, ^anscmmd^=openstack, ^vmname^=vm205, ^req_type^=RELOAD, ^devids^=null, ^req_subtype^=RELOAD00, ^strVmPassword^=None}
+		
 //		try {
 //			for(int i=0; i<2000; i++){
 //				

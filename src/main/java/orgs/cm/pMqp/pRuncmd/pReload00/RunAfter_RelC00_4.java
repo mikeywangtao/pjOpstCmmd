@@ -102,7 +102,7 @@ public class RunAfter_RelC00_4 extends AbsRunAfter {
 						mapRes.put("intImaId", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^intImaId^").toString());
 						mapRes.put("intTemId", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^intTemplateId^").toString());
 						mapRes.put("intNwId", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^intNwId^").toString());
-						mapRes.put("intId", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^intId^").toString());
+						mapRes.put("intId", hmpAll.get("^intId^").toString());
 						mapRes.put("strVmUser", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^strVmUser^").toString());
 						mapRes.put("strVmPassword", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^strVmPassword^").toString());
 						mapRes.put("strSshKey", ((HashMap<String, String>)hmpAll.get(ProcessAttrs.strParmapKey_Inpars)).get("^strSshKey^").toString());
@@ -127,7 +127,7 @@ public class RunAfter_RelC00_4 extends AbsRunAfter {
 						hmpAll.put(ProcessAttrs.strParmapKey_Aftlst, objBa.altRunc);
 						HttpClientUtil objHttpClientUtil = new HttpClientUtil();
 						
-						String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://"+strRemoteSer+":"+strReSerpoint+"/pjOpStAuth/web/vm/saveVmInfo/", strSetImg);
+						String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://"+strRemoteSer+":"+strReSerpoint+"/pjOpStAuth/web/vm/updateVmInfo/", strSetImg);
 //						String strSetImgres = objHttpClientUtil.sendHttpPostJson("http://10.167.212.105:9001/pjOpStAuth/web/vm/saveVmInfo", strSetImg);
 						strInfo = strCname + strFname + " VM创建 After04 ----mapRes---- " + strSetImgres;
 						strInfo = strInfo.replaceAll("'", "\"");
