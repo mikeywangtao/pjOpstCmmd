@@ -85,9 +85,10 @@ public class RunFinally_Edit00 extends AbsRunFinally{
 					LinkedHashMap<String, String> hmpRow = new LinkedHashMap<>();
 					hmpRow.put("strVmId", strVmIp);
 					hmpRow.put("strFlavor", hmpAll.get("strFlavor")==null? "":hmpAll.get("strFlavor").toString());
-					hmpRow.put("intTemplateId", hmpAll.get("intTemplateId")==null? "":hmpAll.get("intTemplateId").toString());
+//					hmpRow.put("intTemplateId", hmpAll.get("intTemplateId")==null? "":hmpAll.get("intTemplateId").toString());
 					hmpRow.put("strVmName", "");
-					hmpRow.put("strStatus", strMsgs.split("}}}")[1]);
+					hmpRow.put("intTemId", hmpAll.get("intTemId")==null? "":hmpAll.get("intTemId").toString());
+					hmpRow.put("strStatus", "ACTIVE");
 					hmpRow.put("strTaskState", "");
 					hmpRow.put("strPowerState", "");
 					hmpRow.put("strNetworks", "");
@@ -129,7 +130,8 @@ public class RunFinally_Edit00 extends AbsRunFinally{
 					LinkedHashMap<String, String> hmpRow = new LinkedHashMap<>();
 					hmpRow.put("strVmId", strVmIp);
 					hmpRow.put("strFlavor", "");
-					hmpRow.put("intTemplateId", "");
+					hmpRow.put("intTemId", "");
+//					hmpRow.put("intTemplateId", "");
 					hmpRow.put("strVmName", "");
 					hmpRow.put("strStatus", strMsgs.split("}}}")[1]);
 					hmpRow.put("strTaskState", "");

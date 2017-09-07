@@ -320,7 +320,7 @@ login_name=wode,
 				hmpPar = new HashMap<>();
 				
 				hmpPar.put(ProcessAttrs.strParmapKey_Inpars, hmpAllInp);
-				hmpPar.put("intTemplateId" , hmpAllInp.get("intTemplateId"));
+				hmpPar.put("intTemId" , hmpAllInp.get("^intTemplateId^"));
 				hmpPar.put("^ansid^", hmpAllInp.get("^ansid^"));
 				hmpPar.put("^anscmmd^", hmpAllInp.get("^anscmmd^"));
 				hmpPar.put("^req_type^", hmpAllInp.get("^req_type^"));
@@ -330,6 +330,7 @@ login_name=wode,
 				hmpPar.put("^devname^", "dev-"+objUuid.toString().replaceAll("-", ""));
 				hmpPar.put("^devids^", null);
 				hmpPar.put("^vmids^", hmpAllInp.get("^vmids^"));
+//				hmpPar.put("^intTemId^", hmpAllInp.get("intTemplateId"));
 				
 				hmpPar.put(ProcessAttrs.strInfoKey_Cpuuid, objUuid.toString().replaceAll("-", ""));
 				hmpPar.put(ProcessAttrs.strParmapKey_Ppa_ShFilecflg, "f");
