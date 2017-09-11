@@ -9,6 +9,7 @@ import orgs.cm.pMqp.pQz.QuartzManager;
 import orgs.cm.pMqp.pRuncmd.pQzGetflv.QuartzJob_Getflv;
 import orgs.cm.pMqp.pRuncmd.pQzGetimg.QuartzJob_Getimg;
 import orgs.cm.pMqp.pRuncmd.pQzGetnetw.QuartzJob_Getnetw;
+import orgs.cm.pMqp.pRuncmd.pQzGetvmste.QuartzJob_Getvmste;
 /**
  * Qz定时任务设置
  * */
@@ -82,6 +83,9 @@ public class QuartzSett {
 			}
 			if(strJobname.indexOf("netwJob")>-1){
 				objRe = new QuartzJob_Getnetw();
+			}
+			if(strJobname.indexOf("vmstate")>-1){
+				objRe = new QuartzJob_Getvmste();
 			}
 		} catch(Exception ex) {
 			objRe = null;

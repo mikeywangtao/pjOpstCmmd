@@ -30,8 +30,8 @@ public class QuartzJob_Getvmste implements Job {//extends QuartzBaseJob {
 //			LogSer02 objLogSer02 = new LogSer02();
 //			objLogSer02.disCreateFile(Attrs.strLogFlg_CF);
 //		}
-		Runcmdpro_Getvmste objRcGetnetw = new Runcmdpro_Getvmste();
-		objRcGetnetw.disRuncmdPro();
-		ThrdRunManage.chmthdrMang_RuncmdPro.get("IFN").putThread2Mlt((Runnable)objRcGetnetw);
+		Runcmdpro_Getvmste objRcGetvmste = new Runcmdpro_Getvmste();
+		objRcGetvmste.disRuncmdPro();
+		ThrdRunManage.chmthdrMang_RuncmdPro.get("IFN").putThread2Mlt((Runnable)objRcGetvmste);
 	}
 }
