@@ -115,9 +115,10 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 							ProcessAttrs.strParmapKey_Ppa_NowRunflg + ":" + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg) +
 							" run cmmd 2 " + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg);
 					objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PRx+" run cmmd 2 ");
-					
+					int intLoop = 0;
 					String strRunlopp = null;
 					do {
+						intLoop = intLoop + 1;
 						objBefore = new RunBefore_C00_2();
 						objBefore.disSetHmpall(hmpPar);
 						objBefore.disSetClsBaseAttrs(objBa);
@@ -141,8 +142,13 @@ public class Runcmdpro_Create00 extends AbsRuncmdPro implements Runnable {
 								ProcessAttrs.strParmapKey_Ppa_NowRunflg + ":" + hmpPar.get(ProcessAttrs.strParmapKey_Ppa_NowRunflg) +
 								" loop (do while) : strRunlopp ----" + strRunlopp;
 						objBa.altRunc = objBa.objSetInfoPro.disSetInfo_000(strInfo, objBa.lhpInfobase, objBa.altRunc, ProcessAttrs.strInfoFlg_PLx+" loop (do while) ");
-					} while("t".equals(strRunlopp));
-
+					} while("t".equals(strRunlopp) && intLoop<=10);
+					
+					hmpPar.put(ProcessAttrs.strParmapKey_Ppa_RunLoopFlg, null);
+					if("t".equals(strRunlopp) && intLoop>=10){
+						hmpPar.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, null);
+						hmpPar.put(ProcessAttrs.strParmapKey_Ppa_NowRunflg, "999");
+					}
 				}
 
 				if(hmpPar.containsKey(ProcessAttrs.strParmapKey_Ppa_NowRunflg) 
